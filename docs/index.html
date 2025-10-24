@@ -16951,14 +16951,25 @@ python libraries for these algorithms such as scikit-learn and pytorch.</p>
         }
     }
 
+    function getTopicRowColors() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'gruvbox') {
+            return ['#3a3432', '#2e2a28'];
+        }
+        return ['#f9f9f9', '#ffffff'];
+    }
+
     function fixAlternatingRows() {
         let topicRows = document.querySelectorAll(".topic-row");
-        topicRows.forEach((row, index) => {
-            if (index % 2 === 0) {
-                row.style.backgroundColor = "#f9f9f9";
-            } else {
-                row.style.backgroundColor = "#ffffff";
+        const [evenColor, oddColor] = getTopicRowColors();
+        let altIndex = 0;
+        topicRows.forEach(row => {
+            if (row.querySelector('td[colspan="4"]')) {
+                row.style.backgroundColor = '';
+                return;
             }
+            row.style.backgroundColor = altIndex % 2 === 0 ? evenColor : oddColor;
+            altIndex += 1;
         });
     }
 
@@ -16968,6 +16979,7 @@ python libraries for these algorithms such as scikit-learn and pytorch.</p>
         });
     });
 
+    document.addEventListener("themechange", fixAlternatingRows);
     document.addEventListener("DOMContentLoaded", fixAlternatingRows);
 
     function toggleResourceSection(id) {
@@ -17051,6 +17063,7 @@ python libraries for these algorithms such as scikit-learn and pytorch.</p>
 	    toggleBtn.addEventListener('click', function() {
 	        var nextTheme = currentTheme === 'gruvbox' ? 'blugold' : 'gruvbox';
 	        currentTheme = applyTheme(nextTheme);
+	        document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
 	        try {
 	            localStorage.setItem(STORAGE_KEY, currentTheme);
 	        } catch (err) {

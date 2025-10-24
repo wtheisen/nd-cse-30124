@@ -846,6 +846,7 @@ find it easier to download the raw notebook file given above.</p>
 	    toggleBtn.addEventListener('click', function() {
 	        var nextTheme = currentTheme === 'gruvbox' ? 'blugold' : 'gruvbox';
 	        currentTheme = applyTheme(nextTheme);
+	        document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
 	        try {
 	            localStorage.setItem(STORAGE_KEY, currentTheme);
 	        } catch (err) {

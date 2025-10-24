@@ -317,6 +317,7 @@ everyone will get 1 bonus point.</p>
 	    toggleBtn.addEventListener('click', function() {
 	        var nextTheme = currentTheme === 'gruvbox' ? 'blugold' : 'gruvbox';
 	        currentTheme = applyTheme(nextTheme);
+	        document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
 	        try {
 	            localStorage.setItem(STORAGE_KEY, currentTheme);
 	        } catch (err) {
