@@ -219,121 +219,121 @@ footer p {
 }
 
 /* Schedule table overrides */
-[data-theme="gruvbox"] table.schedule {
+[data-theme="gruvbox-dark"] table.schedule {
   background-color: #282828 !important;
   color: #ebdbb2 !important;
   border-color: #504945 !important;
 }
 
-[data-theme="gruvbox"] table.schedule thead tr {
+[data-theme="gruvbox-dark"] table.schedule thead tr {
   background-color: #3c3836 !important;
 }
 
-[data-theme="gruvbox"] table.schedule th {
+[data-theme="gruvbox-dark"] table.schedule th {
   border-color: #665c54 !important;
   color: #fabd2f !important;
 }
 
-[data-theme="gruvbox"] table.schedule td {
+[data-theme="gruvbox-dark"] table.schedule td {
   border-color: #504945 !important;
 }
 
-[data-theme="gruvbox"] table.schedule td.unit {
+[data-theme="gruvbox-dark"] table.schedule td.unit {
   background-color: #32302f !important;
   border-right: 2px solid #665c54 !important;
   color: #d5c4a1 !important;
 }
 
-[data-theme="gruvbox"] table.schedule tbody tr.topic-row:nth-of-type(even) {
+[data-theme="gruvbox-dark"] table.schedule tbody tr.topic-row:nth-of-type(even) {
   background-color: #3a3432 !important;
 }
 
-[data-theme="gruvbox"] table.schedule tbody tr.topic-row:nth-of-type(odd) {
+[data-theme="gruvbox-dark"] table.schedule tbody tr.topic-row:nth-of-type(odd) {
   background-color: #2e2a28 !important;
 }
 
-[data-theme="gruvbox"] table.schedule tbody tr.resource-row {
+[data-theme="gruvbox-dark"] table.schedule tbody tr.resource-row {
   background-color: rgba(29, 32, 33, 0.85) !important;
 }
 
-[data-theme="gruvbox"] table.schedule tbody tr.resource-row td {
+[data-theme="gruvbox-dark"] table.schedule tbody tr.resource-row td {
   border-top-color: #665c54 !important;
 }
 
-[data-theme="gruvbox"] table.schedule tr.topic-row td[colspan="4"] {
+[data-theme="gruvbox-dark"] table.schedule tr.topic-row td[colspan="4"] {
   background-color: #3c3836 !important;
   border-top: 2px solid #665c54 !important;
   border-bottom: 2px solid #665c54 !important;
   color: #fabd2f !important;
 }
 
-[data-theme="gruvbox"] table.schedule .caret-icon {
+[data-theme="gruvbox-dark"] table.schedule .caret-icon {
   color: #fabd2f !important;
 }
 
-[data-theme="gruvbox"] table.schedule .fa-circle-info {
+[data-theme="gruvbox-dark"] table.schedule .fa-circle-info {
   color: #83a598 !important;
 }
 
-[data-theme="gruvbox"] table.schedule h4 {
+[data-theme="gruvbox-dark"] table.schedule h4 {
   color: #fabd2f !important;
 }
 
-[data-theme="gruvbox"] table.schedule ul,
-[data-theme="gruvbox"] table.schedule li {
+[data-theme="gruvbox-dark"] table.schedule ul,
+[data-theme="gruvbox-dark"] table.schedule li {
   color: #ebdbb2 !important;
 }
 
-[data-theme="gruvbox"] table.schedule a.label {
+[data-theme="gruvbox-dark"] table.schedule a.label {
   color: #1d2021 !important;
 }
 
-[data-theme="gruvbox"] table.schedule a.label:hover,
-[data-theme="gruvbox"] table.schedule a.label:focus {
+[data-theme="gruvbox-dark"] table.schedule a.label:hover,
+[data-theme="gruvbox-dark"] table.schedule a.label:focus {
   filter: brightness(1.05);
 }
 
-[data-theme="gruvbox"] .table > thead > tr > th {
+[data-theme="gruvbox-dark"] .table > thead > tr > th {
   background-color: #3c3836 !important;
   color: #fabd2f !important;
   border-color: #665c54 !important;
 }
 
-[data-theme="gruvbox"] .table-striped > tbody > tr:nth-of-type(odd) {
+[data-theme="gruvbox-dark"] .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: rgba(60, 56, 54, 0.65) !important;
 }
 
-[data-theme="gruvbox"] .table-striped > tbody > tr:nth-of-type(even) {
+[data-theme="gruvbox-dark"] .table-striped > tbody > tr:nth-of-type(even) {
   background-color: rgba(40, 40, 40, 0.55) !important;
 }
 
-[data-theme="gruvbox"] .table-striped > tbody > tr:hover {
+[data-theme="gruvbox-dark"] .table-striped > tbody > tr:hover {
   background-color: rgba(214, 93, 14, 0.25) !important;
 }
 
-[data-theme="gruvbox"] table tr.success > td,
-[data-theme="gruvbox"] table tr.success > th {
+[data-theme="gruvbox-dark"] table tr.success > td,
+[data-theme="gruvbox-dark"] table tr.success > th {
   background-color: rgba(184, 187, 38, 0.25) !important;
   color: #ebdbb2 !important;
   border-color: #b8bb26 !important;
 }
 
-[data-theme="gruvbox"] table tr.info > td,
-[data-theme="gruvbox"] table tr.info > th {
+[data-theme="gruvbox-dark"] table tr.info > td,
+[data-theme="gruvbox-dark"] table tr.info > th {
   background-color: rgba(131, 165, 152, 0.25) !important;
   color: #ebdbb2 !important;
   border-color: #83a598 !important;
 }
 
-[data-theme="gruvbox"] table tr.warning > td,
-[data-theme="gruvbox"] table tr.warning > th {
+[data-theme="gruvbox-dark"] table tr.warning > td,
+[data-theme="gruvbox-dark"] table tr.warning > th {
   background-color: rgba(250, 189, 47, 0.2) !important;
   color: #1d2021 !important;
   border-color: #d79921 !important;
 }
 
-[data-theme="gruvbox"] table tr.danger > td,
-[data-theme="gruvbox"] table tr.danger > th {
+[data-theme="gruvbox-dark"] table tr.danger > td,
+[data-theme="gruvbox-dark"] table tr.danger > th {
   background-color: rgba(251, 73, 52, 0.25) !important;
   color: #1d2021 !important;
   border-color: #fb4934 !important;
@@ -379,40 +379,40 @@ footer p {
   background-color: #d73c2b !important;
 }
 
-[data-theme="gruvbox"] .alert {
+[data-theme="gruvbox-dark"] .alert {
   background-color: rgba(40, 40, 40, 0.85);
   border-color: #665c54;
   color: #ebdbb2;
 }
 
-[data-theme="gruvbox"] .alert h4 {
+[data-theme="gruvbox-dark"] .alert h4 {
   color: #fabd2f;
 }
 
-[data-theme="gruvbox"] .alert.alert-info {
+[data-theme="gruvbox-dark"] .alert.alert-info {
   border-color: #83a598;
   background-color: rgba(131, 165, 152, 0.2);
 }
 
-[data-theme="gruvbox"] .alert.alert-danger {
+[data-theme="gruvbox-dark"] .alert.alert-danger {
   border-color: #fb4934;
   background-color: rgba(251, 73, 52, 0.2);
 }
 
-[data-theme="gruvbox"] .alert.alert-success {
+[data-theme="gruvbox-dark"] .alert.alert-success {
   border-color: #b8bb26;
   background-color: rgba(184, 187, 38, 0.2);
 }
 
-[data-theme="gruvbox"] .alert.alert-warning {
+[data-theme="gruvbox-dark"] .alert.alert-warning {
   border-color: #fe8019;
   background-color: rgba(254, 128, 25, 0.2);
 }
 
-[data-theme="gruvbox"] .text-primary {
+[data-theme="gruvbox-dark"] .text-primary {
   color: #fabd2f !important;
 }
 
-[data-theme="gruvbox"] .text-muted {
+[data-theme="gruvbox-dark"] .text-muted {
   color: #a89984 !important;
 }
