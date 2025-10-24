@@ -245,11 +245,11 @@ footer p {
 }
 
 [data-theme="gruvbox"] table.schedule tbody tr.topic-row:nth-of-type(even) {
-  background-color: rgba(80, 73, 69, 0.35) !important;
+  background-color: #3a3432 !important;
 }
 
 [data-theme="gruvbox"] table.schedule tbody tr.topic-row:nth-of-type(odd) {
-  background-color: rgba(60, 56, 54, 0.55) !important;
+  background-color: #2e2a28 !important;
 }
 
 [data-theme="gruvbox"] table.schedule tbody tr.resource-row {
