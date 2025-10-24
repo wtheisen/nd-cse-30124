@@ -794,8 +794,11 @@ body:       |
 
         function getTopicRowColors() {
             const theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'gruvbox') {
+            if (theme === 'gruvbox-dark') {
                 return ['#3a3432', '#2e2a28'];
+            }
+            if (theme === 'gruvbox-light') {
+                return ['#f2e5bc', '#fbf7db'];
             }
             return ['#f9f9f9', '#ffffff'];
         }
