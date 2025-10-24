@@ -249,8 +249,14 @@
 </div>
 <p>For your convenience the notebook is displayed below as HTML but you will likely
 find it easier to download the notebook file from the homework repo linked above.</p>
-<iframe src="https://ai.williamtheisen.com/cse-30124-homeworks/homework01/homework01.html" width="100%" height="800"></iframe>
-
+<p><iframe
+    class="theme-notebook-frame"
+    data-src-dark="https://ai.williamtheisen.com/cse-30124-homeworks/homework01/homework01-dark.html"
+    data-src-light="https://ai.williamtheisen.com/cse-30124-homeworks/homework01/homework01-light.html"
+    src="https://ai.williamtheisen.com/cse-30124-homeworks/homework01/homework01-dark.html"
+    width="100%"
+    height="800"></iframe>
+</p>
 <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
 
 <p>To submit your answers, you will need add your <code>homework01.ipynb</code> file
@@ -383,38 +389,52 @@ more difficult for the graders to keep track of what needs to be graded.</p>
 	    if (!linkEl || !toggleBtn) {
 	        return;
 	    }
-	    function updateButton(theme) {
-	        var isDark = theme === 'gruvbox-dark';
-	        var label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
-	        toggleBtn.setAttribute('aria-label', label);
-	        toggleBtn.setAttribute('title', label);
-	        toggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
-	    }
-	    function applyTheme(theme) {
-	        var name = themes[theme] ? theme : 'gruvbox-dark';
-	        linkEl.setAttribute('href', themes[name]);
-	        document.documentElement.setAttribute('data-theme', name);
-	        updateButton(name);
-	        return name;
-	    }
+        function updateButton(theme) {
+            var isDark = theme === 'gruvbox-dark';
+            var label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+            toggleBtn.setAttribute('aria-label', label);
+            toggleBtn.setAttribute('title', label);
+            toggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
+        }
+        function updateNotebookFrames(theme) {
+            var frames = document.querySelectorAll('iframe[data-src-dark][data-src-light]');
+            var attr = theme === 'gruvbox-light' ? 'data-src-light' : 'data-src-dark';
+            Array.prototype.forEach.call(frames, function(frame) {
+                var nextSrc = frame.getAttribute(attr);
+                if (nextSrc && frame.getAttribute('src') !== nextSrc) {
+                    frame.setAttribute('src', nextSrc);
+                }
+            });
+        }
+        function applyTheme(theme) {
+            var name = themes[theme] ? theme : 'gruvbox-dark';
+            linkEl.setAttribute('href', themes[name]);
+            document.documentElement.setAttribute('data-theme', name);
+            updateButton(name);
+            updateNotebookFrames(name);
+            return name;
+        }
 	    var savedTheme = (function() {
 	        try {
 	            return localStorage.getItem(STORAGE_KEY);
 	        } catch (err) {
 	            return null;
 	        }
-	    })();
-	    var currentTheme = applyTheme(savedTheme);
-	    toggleBtn.addEventListener('click', function() {
-	        var nextTheme = currentTheme === 'gruvbox-dark' ? 'gruvbox-light' : 'gruvbox-dark';
-	        currentTheme = applyTheme(nextTheme);
-	        document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
-	        try {
-	            localStorage.setItem(STORAGE_KEY, currentTheme);
-	        } catch (err) {
-	            /* ignore write errors */
-	        }
-	    });
+    })();
+        var currentTheme = applyTheme(savedTheme);
+        document.addEventListener('themechange', function(event) {
+            updateNotebookFrames(event.detail || currentTheme);
+        });
+        toggleBtn.addEventListener('click', function() {
+            var nextTheme = currentTheme === 'gruvbox-dark' ? 'gruvbox-light' : 'gruvbox-dark';
+            currentTheme = applyTheme(nextTheme);
+            document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
+            try {
+                localStorage.setItem(STORAGE_KEY, currentTheme);
+            } catch (err) {
+                /* ignore write errors */
+            }
+        });
 	})();
 	</script>
     </body>

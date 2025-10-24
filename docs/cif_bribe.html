@@ -292,38 +292,52 @@ everyone will get 1 bonus point.</p>
 	    if (!linkEl || !toggleBtn) {
 	        return;
 	    }
-	    function updateButton(theme) {
-	        var isDark = theme === 'gruvbox-dark';
-	        var label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
-	        toggleBtn.setAttribute('aria-label', label);
-	        toggleBtn.setAttribute('title', label);
-	        toggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
-	    }
-	    function applyTheme(theme) {
-	        var name = themes[theme] ? theme : 'gruvbox-dark';
-	        linkEl.setAttribute('href', themes[name]);
-	        document.documentElement.setAttribute('data-theme', name);
-	        updateButton(name);
-	        return name;
-	    }
+        function updateButton(theme) {
+            var isDark = theme === 'gruvbox-dark';
+            var label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+            toggleBtn.setAttribute('aria-label', label);
+            toggleBtn.setAttribute('title', label);
+            toggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
+        }
+        function updateNotebookFrames(theme) {
+            var frames = document.querySelectorAll('iframe[data-src-dark][data-src-light]');
+            var attr = theme === 'gruvbox-light' ? 'data-src-light' : 'data-src-dark';
+            Array.prototype.forEach.call(frames, function(frame) {
+                var nextSrc = frame.getAttribute(attr);
+                if (nextSrc && frame.getAttribute('src') !== nextSrc) {
+                    frame.setAttribute('src', nextSrc);
+                }
+            });
+        }
+        function applyTheme(theme) {
+            var name = themes[theme] ? theme : 'gruvbox-dark';
+            linkEl.setAttribute('href', themes[name]);
+            document.documentElement.setAttribute('data-theme', name);
+            updateButton(name);
+            updateNotebookFrames(name);
+            return name;
+        }
 	    var savedTheme = (function() {
 	        try {
 	            return localStorage.getItem(STORAGE_KEY);
 	        } catch (err) {
 	            return null;
 	        }
-	    })();
-	    var currentTheme = applyTheme(savedTheme);
-	    toggleBtn.addEventListener('click', function() {
-	        var nextTheme = currentTheme === 'gruvbox-dark' ? 'gruvbox-light' : 'gruvbox-dark';
-	        currentTheme = applyTheme(nextTheme);
-	        document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
-	        try {
-	            localStorage.setItem(STORAGE_KEY, currentTheme);
-	        } catch (err) {
-	            /* ignore write errors */
-	        }
-	    });
+    })();
+        var currentTheme = applyTheme(savedTheme);
+        document.addEventListener('themechange', function(event) {
+            updateNotebookFrames(event.detail || currentTheme);
+        });
+        toggleBtn.addEventListener('click', function() {
+            var nextTheme = currentTheme === 'gruvbox-dark' ? 'gruvbox-light' : 'gruvbox-dark';
+            currentTheme = applyTheme(nextTheme);
+            document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
+            try {
+                localStorage.setItem(STORAGE_KEY, currentTheme);
+            } catch (err) {
+                /* ignore write errors */
+            }
+        });
 	})();
 	</script>
     </body>
