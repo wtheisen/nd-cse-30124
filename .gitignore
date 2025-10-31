@@ -10,3 +10,4 @@ static/solutions
 scripts/yasb.py
 Makefile
 static/csv/*
+.vscode/settings.json
