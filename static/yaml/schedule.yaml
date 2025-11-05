@@ -52,6 +52,7 @@
     - Practice Packet 01
     - Practice Packet 01 Solutions
     - Exam 01
+    - Exam 01 Solutions
 - name: Supervised Learning II
   days:
   - date: Wed 10/08
@@ -99,34 +100,36 @@
   days:
   - date: Wed 11/12
     topics: Review
-    assignments:
-    - Reading 11
   - date: Mon 11/17
     topics: Exam 02
     assignments:
     - Exam 02 Practice Packet
+    - Exam 02 Practice Packet Solutions
     - Exam 02
+    - Exam 02 Solutions
 - name: Natural Language Processing
   days:
   - date: Wed 11/19
     topics: Recurrent Neural Networks
     assignments:
-    - Reading 12
+    - Reading 11
 - name: Modern Deep Learning
   days:
   - date: Mon 11/24
     topics: Self-Attention and Transformers
     assignments:
     - Homework 04
-    - Reading 13
+    - Reading 12
   - date: Wed 11/26
     topics: Cancelled (Thanksgiving Break)
   - date: Mon 12/01
     topics: Reinforcement Learning
     assignments:
-    - Reading 14
+    - Reading 13
   - date: Wed 12/03
     topics: LLMs and Agents
+    assignments:
+    - Reading 14
   - date: Mon 12/08
     topics: Diffusion Models
     assignments:
