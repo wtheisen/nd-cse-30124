@@ -123,15 +123,14 @@
   - date: Wed 11/26
     topics: Cancelled (Thanksgiving Break)
   - date: Mon 12/01
+    topics: Diffusion Models
+  - date: Wed 12/03
     topics: Reinforcement Learning
     assignments:
     - Reading 13
-  - date: Wed 12/03
-    topics: LLMs and Agents
-    assignments:
     - Reading 14
   - date: Mon 12/08
-    topics: Diffusion Models
+    topics: LLMs and Agents
     assignments:
     - Reading 15
   - date: Wed 12/10
