@@ -1,4 +1,4 @@
-title:      "Reading 14: LLMs and Agentic LLMs"
+title:      "Reading 14: Reinforcement Learning"
 icon:       fa-book
 navigation:
   - name: "Home"
@@ -20,15 +20,6 @@ body:       |
         </tr>
     </table>
 
-    ## LLMs and Agents (Guest Lecture)
-
-    <table>
-        <tr>
-            <td colspan="3">
-                {% set resources =  page.external.get('resources', {}).get(lecture_id_for('LLMs and Agents (Guest Lecture)'), [])%}
-                {% include "resource_sections.tmpl" %}
-            </td>
-        </tr>
-    </table>
-
     ## Quiz
+
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdOtaOeacJnXO8DOdkel6AdTAuF3t3tw4c02aYPdGzh-KMLVw/viewform?embedded=true" width="640" height="3578" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>

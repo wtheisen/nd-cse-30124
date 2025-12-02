@@ -1,4 +1,4 @@
-title:      "Reading 15: Diffusion Models"
+title:      "Reading 15: LLMs and Agents"
 icon:       fa-book
 navigation:
   - name: "Home"
@@ -9,15 +9,18 @@ external:
     resources:  'csv:static/csv/resources.csv'
 body:       |
 
-    ## Diffusion Models
+    ## LLMs and Agents
 
     <table>
         <tr>
             <td colspan="3">
-                {% set resources =  page.external.get('resources', {}).get(lecture_id_for('Diffusion Models'), [])%}
+                {% set resources =  page.external.get('resources', {}).get(lecture_id_for('LLMs and Agents'), [])%}
                 {% include "resource_sections.tmpl" %}
             </td>
         </tr>
     </table>
+    
 
     ## Quiz
+
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeS6yoHFzDv7O3Z3ynpOMQPBdXu8lfY5N8bjH4W4iTz2CWLNg/viewform?embedded=true" width="640" height="3746" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
