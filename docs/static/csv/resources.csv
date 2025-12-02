@@ -404,7 +404,7 @@ deep-dive-into-llms-like-chatgpt,Deep Dive into LLMs like ChatGPT,video,https://
 what-is-agentic-ai,What is Agentic AI?,video,https://www.youtube.com/watch?v=qu2guVRr2LM,TRUE,,lec-llms-and-agents
 the-big-llm-architecture-comparison-optional-but-highly-recommended,The Big LLM Architecture Comparison (Optional but highly recommended),video,https://www.youtube.com/watch?v=rNlULI-zGcw,TRUE,,lec-llms-and-agents
 reasoning-models-and-deepseek-r1-from-scratch,Reasoning Models and DeepSeek R1 from scratch,video,https://www.youtube.com/watch?v=9knUUdoiVMQ,TRUE,,lec-llms-and-agents
-reinforcement-learning-with-human-feedback-rlhf-clearly-explained-statquest,"Reinforcement Learning with Human Feedback (RLHF), Clearly Explained!!! (Statquest)",video,https://youtu.be/qPN_XZcJf_s?si=RyAXbzOyi_DONTYA,FALSE,,lec-llms-and-agents
+reinforcement-learning-with-human-feedback-rlhf-clearly-explained-statquest,"Reinforcement Learning with Human Feedback (RLHF), Clearly Explained!!! (Statquest)",video,https://youtu.be/qPN_XZcJf_s?si=RyAXbzOyi_DONTYA,TRUE,,lec-llms-and-agents
 slides,Slides,reading,https://docs.google.com/presentation/d/1PHeOsiFTy_MLVWMToJ40wAiT7FpFwh8q/edit?usp=sharing&ouid=111601855049772661603&rtpof=true&sd=true,FALSE,,lec-diffusion-models
 fca-section-863,FCA - Section 8.6.3,reading,https://artint.info/3e/html/ArtInt3e.Ch8.S6.html,FALSE,,lec-diffusion-models
 diffusion-models,Diffusion Models,video,https://www.youtube.com/watch?v=1pgiu--4W3I,FALSE,,lec-diffusion-models
