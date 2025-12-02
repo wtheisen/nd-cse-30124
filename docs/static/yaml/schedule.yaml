@@ -127,7 +127,6 @@
   - date: Wed 12/03
     topics: Reinforcement Learning
     assignments:
-    - Reading 13
     - Reading 14
   - date: Mon 12/08
     topics: LLMs and Agents
@@ -136,6 +135,7 @@
   - date: Wed 12/10
     topics: Review
     assignments:
+    - Reading 13
     - Final Practice Packet
     - Homework 05
     - Bonus Homework
