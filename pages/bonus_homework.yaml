@@ -21,7 +21,7 @@ body:       |
     Then either bring in your working model to demonstrate to me or a TA, or send a video of
     it working on your machine, and submit your own version of the code.
 
-    To submit your answers, you will need add your `bonus_homework.ipynb` file
+    To submit your answers, you will need add your `bonus_homework.py` file
     in the `bonus_homework` folder of your **assignments** repository:
 
     Answer the questions in your notebook file using the method of your choice and
@@ -58,7 +58,7 @@ body:       |
     push your commits to [GitHub]:
 
             :::bash
-            $ git add bonus_homework.ipynb                # Add answers.json to staging area
+            $ git add bonus_homework.py                # Add answers.json to staging area
             $ git commit -m "Bonus Homework: Done"    # Commit work
 
             $ git push -u origin bonus_homework        # Push branch to GitHub
@@ -96,8 +96,8 @@ body:       |
     <div class="alert alert-info" markdown="1">
     #### <i class="fa fa-gavel"></i> Graders
 
-    Please refer to the [Homework 09 TA List](reading09_tas.html) to determine
-    who your grader is for this week.
+    Please refer to the [Homework 05 TA List](homework05_tas.html) to determine
+    who your grader is for the assignment is.
 
     </div>
 
