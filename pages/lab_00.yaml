@@ -5,9 +5,10 @@ navigation:
     link: "index.html"
     icon: "fa-gavel"
 internal:
-  assignment_name: "lab00"
 external:
 body:       |
+
+    {% set assignment_name = "lab00" %}
 
     ## Task 1: Notebook
 
