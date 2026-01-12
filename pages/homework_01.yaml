@@ -1,4 +1,4 @@
-title:      "Homework 01: Detective Work (20 pts.)"
+title:      "Homework 01: Detective Work (10 pts.)"
 icon:       fa-book
 navigation:
   - name: "Home"
@@ -7,6 +7,8 @@ navigation:
 internal:
 external:
 body:       |
+
+    {% set assignment_name = "homework01" %}
 
     ## Task 1: Notebook
 
