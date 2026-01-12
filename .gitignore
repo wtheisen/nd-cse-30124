@@ -11,3 +11,5 @@ scripts/yasb.py
 Makefile
 static/csv/*
 .vscode/settings.json
+students.csv
+static/csv/students.csv
