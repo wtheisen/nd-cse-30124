@@ -173,7 +173,7 @@ body:       |
 
     You are responsible for ensuring that your [GitHub] assignments repository
     is in proper order, which means you have the correct settings and
-    permissions set.  Failure to properly configure your repository will
+    permissions set. Failure to properly configure your repository will
     adversely impact your grade.
 
     </div>
@@ -194,26 +194,13 @@ body:       |
     recommend and use. If you have other methods, please feel free to reach out to 
     your me to discuss them.
 
-    Once you have read the above, run the following notebook using
-    the method of your choosing:
-
-    
-    <div class="alert alert-success" markdown="1">
-    [DOWNLOAD NOTEBOOK](static/homeworks/course_primer.ipynb)
-    </div>
-
-    For your convenience the notebook is displayed below as HTML but you will likely
-    find it easier to download the raw notebook file given above.
-
-    <iframe src="static/homework_htmls/course_primer.html" width="100%" height="800px"></iframe>
-
     ## Task 4: Reading
 
     <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
 
     ### Syllabus: [CSE 30124 Introduction to Artificial Intelligence](index.html)
 
-    Most weeks you will have a reading assignment followed by a brief quiz that will cover the two upcoming lectures. Each of the two will have a primary reading and then a link to a number of additional resources that I encourage you to explore if you're interested. Once completing the readings, use the google form to submit your answers to the quiz. Quizzes are due at 3:00 PM on the day of the first lecture for the topic.
+    Most weeks you will have a reading assignment followed by a brief quiz that will cover the two upcoming lectures. Each of the two will have a primary reading and then a link to a number of additional resources that I encourage you to explore if you're interested. Once completing the readings, use the link below to access the canvas quiz. Quizzes are due at 3:00 PM on the day of the first lecture for the topic.
 
     <div class="alert alert-info" markdown="1">
     **Note**: We will be a little lenient on this first reading quiz.
@@ -249,4 +236,4 @@ body:       |
 
     Please respond to the quiz below, you will need to be signed into your ND email in order to respond. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!
 
-    <iframe src="https://canvas.nd.edu/courses/133089/quizzes/76172" width="640" height="2933" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <a href="https://canvas.nd.edu/courses/133089/quizzes/76172">Reading Quiz 01</a>
