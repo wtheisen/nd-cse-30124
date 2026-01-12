@@ -17,6 +17,8 @@
     - Reading 02
   - date: Wed 01/28
     topics: Adversarial Search
+    assignments:
+    - Lab 00
   - date: Mon 02/02
     topics: Intro to ML and KNNs
     assignments:
