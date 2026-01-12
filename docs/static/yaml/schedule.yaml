@@ -18,7 +18,7 @@
   - date: Wed 01/28
     topics: Adversarial Search
   - date: Mon 02/02
-    topics: Knowledge Representation and Feature Engineering
+    topics: Intro to ML and KNNs
     assignments:
     - Reading 03
 - name: 'Unit 02: Machine Learning'
@@ -38,40 +38,36 @@
     topics: Linear Regression
     assignments:
     - Reading 05
-- name: Supervised Learning I
-  days:
-  - date: Wed 02/18
-    topics: Perceptrons
 - name: Exam 01
   days:
-  - date: Mon 02/23
+  - date: Wed 02/18
     topics: Review 01
-  - date: Wed 02/25
+  - date: Mon 02/23
     topics: Exam 01
     assignments:
     - Practice Packet 01
     - Practice Packet 01 Solutions
     - Exam 01
     - Exam 01 Solutions
-- name: Supervised Learning II
+- name: Supervised Learning I
   days:
+  - date: Wed 02/25
+    topics: Perceptrons
   - date: Mon 03/02
     topics: Logistic Regression and Gradient Descent
     assignments:
     - Reading 06
   - date: Wed 03/04
-    topics: SVMs and KNNs
+    topics: Support Vector Machines
     assignments:
     - Reading 07
-- name: Unsupervised Learning I
+- name: Spring Break
+- name: Unsupervised Learning
   days:
   - date: Mon 03/16
     topics: Clustering
     assignments:
     - Homework 02
-- name: Fall Break
-- name: Unsupervised Learning II
-  days:
   - date: Wed 03/18
     topics: Dimensionality Reduction
     assignments:
