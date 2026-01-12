@@ -49,12 +49,12 @@ body:       |
     For communication outside of our meeting time, we will be using [Slack],
     specifically the `#cse-30124-{{ term_code }}` channel:
 
-    > [https://nd-cse.slack.com/messages/cse-30124-{{ term_code }}](https://nd-cse.slack.com/messages/cse-30124-{{ term_code }})
+    > [https://nd-cse.slack.com/messages/{{ term_code }}-cse-30124](https://nd-cse.slack.com/messages/{{ term_code }}-cse-30124)
 
     There is a [class mailing list], but most day-to-day communication
     (including office hours and homework help) should take place on [Slack].
 
-    [class mailing list]: mailto:sp25-cse-30124-01-group@nd.edu
+    [class mailing list]: mailto:sp26-cse-30124-01-group@nd.edu
 
     <div class="alert alert-warning" markdown="1">
     <p>Be aware of the following:</p><br>
@@ -97,7 +97,7 @@ body:       |
     machine (or the **student** machines):
 
             :::bash
-            $ git clone git@github.com:nd-cse-30124-fa25/homeworks-repository-$TEAMNAME
+            $ git clone git@github.com:nd-cse-30124-sp26/homeworks-repository-$TEAMNAME
 
         <div class="alert alert-danger" markdown="1">
         **Note**, that [GitHub] has recently shutdown [password authentication].
@@ -249,4 +249,4 @@ body:       |
 
     Please respond to the quiz below, you will need to be signed into your ND email in order to respond. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!
 
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdPlfelDAEdQp6iYnU7pE0S4SuEd-xW2WBRvpLl9XNRmIsIzA/viewform?embedded=true" width="640" height="2933" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <iframe src="https://canvas.nd.edu/courses/133089/quizzes/76172" width="640" height="2933" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
