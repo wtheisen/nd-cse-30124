@@ -12,14 +12,14 @@ body:       |
 
     ## Task 1: Notebook
 
-    Run the following notebook and answer the included questions using the method of your choosing:
+    Copy the following notebook and answer the included questions using the method of your choosing:
 
     <div class="alert alert-success" markdown="1">
-    [DOWNLOAD NOTEBOOK](https://github.com/wtheisen/nd-cse-30124-homeworks/blob/main/labs/{{ assignment_name }}/{{ assignment_name }}.ipynb)
+    [OPEN NOTEBOOK IN GOOGLE COLAB]()
     </div>
 
     For your convenience the notebook is displayed below as HTML but you will likely
-    find it easier to download the notebook file from the homework repo linked above.
+    find it easier to copy the notebook from the google drive link above.
 
     <iframe
         class="theme-notebook-frame"
