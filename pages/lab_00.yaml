@@ -35,3 +35,9 @@ body:       |
 
     The final cell of the notebook will export and download a .html file of your
     notebook. Upload this to canvas for the assignment.
+
+    <div class="thumbnail">
+    <img src="static/img/export_code.png" class="img-responsive"/>
+    </div>
+
+    This is the code snippet that will generate the html file, make sure your save and run it!
