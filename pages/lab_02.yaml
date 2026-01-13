@@ -1,4 +1,4 @@
-title:      "Homework 03: Detective Work (10 pts.)"
+title:      "Lab 02: Accessing Case Files and Evidence (5 pts.)"
 icon:       fa-book
 navigation:
   - name: "Home"
@@ -8,7 +8,7 @@ internal:
 external:
 body:       |
 
-    {% set assignment_name = "homework03" %}
+    {% set assignment_name = "lab_02.yaml" %}
 
     ## Task 1: Notebook
 
@@ -33,5 +33,5 @@ body:       |
 
     ## Task 2: Assignment Submission Instructions
 
-    The final cell of the notebook will export and download an html file of your
+    The final cell of the notebook will export and download a .html file of your
     notebook. Upload this to canvas for the assignment.
