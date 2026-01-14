@@ -29,9 +29,8 @@ TAs:
     name: Olivia Zino
     netid: ozino
     office_hours:
-      Sunday: 2:00 PM - 4:00 PM | Inno Lounge
-      Monday: 2:00 PM - 3:00 PM | Inno Lounge 
-      Wednesday: 2:00 PM - 3:00 PM | Inno Lounge
+      Monday: 12:30 PM - 2:00 PM | Inno Lounge 
+      Wednesday: 12:30 PM - 2:00 PM | Inno Lounge
   snoonan2:
     github: snoonan2
     level: Undergraduate
@@ -48,6 +47,14 @@ TAs:
     office_hours:
       Monday: 5:00 PM - 7:00 PM | CSE Commons
       Wednesday: 5:00 PM - 7:00 PM | CSE Commons
+  cgreen:
+    github: cgreen2048
+    level: Undergraduate
+    name: Clair Green
+    netid: cgreen
+    office_hours:
+      Tuesday: 5:00 PM - 7:00 PM | Hagerty Cafe
+      Thursday: 5:00 PM - 7:00 PM | Hagerty Cafe
 Term: Spring
 Year: '2026'
 class_location: 101 Debart
