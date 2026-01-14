@@ -2,13 +2,16 @@ id,name,type,link,is_primary,student,lecture_id
 filled-slides,Filled Slides,reading,https://drive.google.com/file/d/1yUot9T3myty2Tsx1KpXLxhyd77KbFlUl/view?usp=sharing,,,lec-introduction
 fa25-panopto,fa25 Panopto,video,https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a449561f-8558-4c15-9d9f-b34401576fc6,,,lec-introduction
 blank-slides,Blank Slides,reading,https://docs.google.com/presentation/d/1veX9IuAt6xwRQ1I9n270Jit-2Zkc4zp9/edit?usp=sharing&ouid=111601855049772661603&rtpof=true&sd=true,FALSE,,lec-introduction
-panopto,Panopto,video,,FALSE,,lec-introduction
-slides,Slides,reading,https://drive.google.com/file/d/1Rc5V0QSkbObr1hWjcuLyDZ0dnPDhd538/view?usp=sharing,,,lec-search
+panopto,Panopto,video,https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=da852c2e-9ae8-473b-9227-b3d0016a0d53,FALSE,,lec-introduction
+ai2ai-chapter-01,AI2AI Chapter 01,reading,https://docs.google.com/presentation/d/1hOrvqWUZxAWMgVzftQmYLxEjyjLVAyLDJJE7IJHfXOY/edit?usp=sharing,FALSE,,lec-introduction
+filled-slides,Filled Slides,reading,https://drive.google.com/file/d/1Rc5V0QSkbObr1hWjcuLyDZ0dnPDhd538/view?usp=sharing,,,lec-search
 fca-section-35,FCA - Section 3.5,reading,https://artint.info/3e/html/ArtInt3e.Ch3.S5.html,,,lec-search
-panopto,Panopto,video,https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=61ec6c47-5064-4cf2-aab5-b34601597a14,,,lec-search
+fa25-panopto,fa25 Panopto,video,https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=61ec6c47-5064-4cf2-aab5-b34601597a14,,,lec-search
 harvard-cs50,Harvard CS50,video,https://www.youtube.com/watch?v=WbzNRTTrX0g,,,lec-search
 mit-6034,MIT 6.034,video,https://www.youtube.com/watch?v=j1H3jAAGlEA,,,lec-search
 search-algorithms-in-ai-uninformed-search-section,Search Algorithms in AI (Uninformed Search Section),reading,https://www.appliedaicourse.com/blog/search-algorithms-in-ai/,TRUE,,lec-search
+blank-slides,Blank Slides,reading,https://docs.google.com/presentation/d/1l7s0LK8dC2_NRGBvOn64YJXc1Bgedfse/edit?usp=sharing&ouid=111601855049772661603&rtpof=true&sd=true,FALSE,,lec-search
+ai2ai-chapter-02,AI2AI Chapter 02,reading,https://docs.google.com/presentation/d/1Jes7NoCIbGAXb1dxU2B1R02Tss2e44e-ao2tneMZ2Dw/edit?usp=sharing,FALSE,,lec-search
 introduction-to-the-a-algorithm,Introduction to the A* Algorithm,reading,https://www.redblobgames.com/pathfinding/a-star/introduction.html,TRUE,,lec-a-search
 foundations-of-computation-agents-section-36,Foundations of Computation Agents - Section 3.6,reading,https://artint.info/3e/html/ArtInt3e.Ch3.S6.html,,,lec-a-search
 harvard-cs50,Harvard CS50,video,https://youtu.be/WbzNRTTrX0g?si=mqYHjM8hTRsed8h4&t=3269,,,lec-a-search
@@ -19,8 +22,10 @@ introduction-to-a-,Introduction to A* ,blogpost,https://theory.stanford.edu/~ami
 heuristics,Heuristics,blogpost,https://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html,,,lec-a-search
 1968-a-formal-basis-for-the-heuristic-determination-of-minimum-cost-paths,(1968) A Formal Basis for the Heuristic Determination of Minimum Cost Paths,paper,https://ieeexplore.ieee.org/document/4082128,,,lec-a-search
 a-in-minecraft,A* in Minecraft,video,https://www.youtube.com/watch?v=Zg0Cxn8AVZA,,Grant Flesher '26,lec-a-search
-panopto,Panopto,video,https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=17f3a92c-9d44-41a4-9027-b34b015993fd,FALSE,,lec-a-search
-slides,Slides,reading,https://drive.google.com/file/d/1Ir-99SJIcfGAtTDAZOF_werU4EbsA9Fh/view?usp=sharing,FALSE,,lec-a-search
+fa25-panopto,fa25 Panopto,video,https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=17f3a92c-9d44-41a4-9027-b34b015993fd,FALSE,,lec-a-search
+filled-slides,Filled Slides,reading,https://drive.google.com/file/d/1Ir-99SJIcfGAtTDAZOF_werU4EbsA9Fh/view?usp=sharing,FALSE,,lec-a-search
+blank-slides,Blank Slides,reading,,FALSE,,lec-a-search
+ai2ai-chapter-03,AI2AI Chapter 03,reading,https://docs.google.com/presentation/d/1L_ONCCVZtr7cgTWywuZ_UPABbI9NUPJTbk7gKVP_hxY/edit?usp=sharing,FALSE,,lec-a-search
 constraint-satisfaction-introduction,Constraint Satisfaction: introduction,video,https://www.youtube.com/watch?v=_e64FiDWvqs,TRUE,Jack Mangione '26,lec-constraint-satisfaction-problems
 constraint-satisfaction-the-ac3-algorithm,Constraint Satisfaction: the AC-3 algorithm,video,https://www.youtube.com/watch?v=4cCS8rrYT14,FALSE,,lec-constraint-satisfaction-problems
 foundations-of-computational-agents-sections-41-through-46,Foundations of Computational Agents - Sections 4.1 through 4.6,reading,https://artint.info/3e/html/ArtInt3e.Ch4.html,,,lec-constraint-satisfaction-problems
