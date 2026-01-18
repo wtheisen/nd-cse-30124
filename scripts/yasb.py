@@ -97,47 +97,16 @@ def render_page(page):
     footnotes = markdown.extensions.footnotes.FootnoteExtension()
     loader = tornado.template.Loader('templates')
     markdown_output = markdown.markdown(page.body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
-    # Escape any { and } in markdown output that are NOT part of Tornado template syntax
-    # We need to escape standalone { and } but preserve {% %}, {{ }}, and {# #} patterns
-    import re
-    # First, temporarily replace Tornado template patterns with placeholders
-    tornado_patterns = []
-    pattern_index = 0
-    
-    def replace_tornado_pattern(match):
-        nonlocal pattern_index
-        placeholder = f'__TORNADO_PATTERN_{pattern_index}__'
-        tornado_patterns.append((placeholder, match.group(0)))
-        pattern_index += 1
-        return placeholder
-    
-    # Match Tornado template patterns:
-    # {% ... %} - control structures
-    # {{ ... }} - expressions (content may contain }, so we match until }})
-    # {# ... #} - comments
-    # Process in reverse order of complexity to avoid conflicts
-    protected_output = markdown_output
-    # Match {{ ... }} first (most specific - must end with }})
-    protected_output = re.sub(r'\{\{[^}]*?\}\}', replace_tornado_pattern, protected_output)
-    # Then match {% ... %}
-    protected_output = re.sub(r'\{%[^%]*?%\}', replace_tornado_pattern, protected_output)
-    # Finally match {# ... #}
-    protected_output = re.sub(r'\{#[^#]*?#\}', replace_tornado_pattern, protected_output)
-    
-    # Now escape remaining braces
-    escaped_output = protected_output.replace('{', '{{').replace('}', '}}')
-    
-    # Restore Tornado patterns (in reverse order)
-    for placeholder, original in reversed(tornado_patterns):
-        escaped_output = escaped_output.replace(placeholder, original)
-    
+    # Escape all braces in markdown output so .format() treats them as literals
+    # When .format() processes {{, it becomes a single {, so {{% becomes {% correctly
+    escaped_markdown = markdown_output.replace('{', '{{').replace('}', '}}')
     layout = u'''
 {{% extends "base.tmpl" %}}
 
 {{% block body %}}
 {}
 {{% end %}}
-'''.format(escaped_output)
+'''.format(escaped_markdown)
 
     template = tornado.template.Template(layout, loader=loader)
     def slugify(s: str) -> str:
