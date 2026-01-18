@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Reading 01: Course Introduction, Search, and A*</title>
+	<title>Reading 01: Uninformed Search, MLK Day, and Informed Search</title>
 
 	<!-- Theme CSS (toggleable) -->
 	<link id="theme-style" href="static/css/gruvbox-dark.css" rel="stylesheet">
@@ -237,13 +237,17 @@
 			<li><a href="index.html"><i class="fa fa-gavel"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
 			
 		    </ul>
-		    <h1><i class="fa fa-book"></i> Reading 01: Course Introduction, Search, and A*</h1>
+		    <h1><i class="fa fa-book"></i> Reading 01: Uninformed Search, MLK Day, and Informed Search</h1>
 		</div>
 	    </div>
 
 		
-<p></p>
-<p></p>
+<p _="%" gh_homework_link set>
+
+
+
+
+</p>
 <p><strong>Welcome</strong> to <a href="index.html">CSE 30124 Introduction to Artifical Intelligence</a>, which (as the syllabus
 states) is a broad introduction to the field of artificial intelligence. We
 will begin the semester with a brief history of the field and review of relevant
@@ -356,7 +360,169 @@ your me to discuss them.</p>
 <div class="alert alert-info">
 <p><strong>Note</strong>: Most of the readings are significantly more in depth than what you will need to answer the quizzes. It's completely fine if you skim portions (especially the ones full of equations (yuck)), these are merely meant to prepare you for the lectures so you at least have some familiarity with the material (and they allow me to shift some of the exam points to the quizzes, which are hopefully less stressful).</p>
 </div>
-<h3 id="search">Search:<a class="headerlink" href="#search" title="Permanent link">&para;</a></h3>
+<p></p>
+<h2 id="uninformed-search">Uninformed Search<a class="headerlink" href="#uninformed-search" title="Permanent link">&para;</a></h2>
+<table>
+    <tr>
+        <td colspan="3">
+            
+            <div class="row">
+    <div class="col-md-4">
+        <h4><i class="fa-solid fa-book"></i> Readings</h4>
+        <ul class="resource-list">
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://drive.google.com/file/d/1Rc5V0QSkbObr1hWjcuLyDZ0dnPDhd538/view?usp=sharing">Filled Slides</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://artint.info/3e/html/ArtInt3e.Ch3.S5.html">FCA - Section 3.5</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <i class="fa-solid fa-star" style="color: #f0ad4e;"></i>
+                    
+                    <a href="https://www.appliedaicourse.com/blog/search-algorithms-in-ai/">Search Algorithms in AI (Uninformed Search Section)</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://docs.google.com/presentation/d/1l7s0LK8dC2_NRGBvOn64YJXc1Bgedfse/edit?usp=sharing&amp;ouid=111601855049772661603&amp;rtpof=true&amp;sd=true">Blank Slides</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://docs.google.com/presentation/d/1Jes7NoCIbGAXb1dxU2B1R02Tss2e44e-ao2tneMZ2Dw/edit?usp=sharing">AI2AI Chapter 02</a>
+                    
+                </li>
+            
+        
+            
+        
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4><i class="fa-solid fa-video-camera"></i> Videos</h4>
+        <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=61ec6c47-5064-4cf2-aab5-b34601597a14">fa25 Panopto</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=WbzNRTTrX0g">Harvard CS50</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=j1H3jAAGlEA">MIT 6.034</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=603ebe9f-d08a-4423-824f-b3d201694ca2">Panopto</a>
+                    
+                </li>
+            
+        
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4><i class="fa-brands fa-python"></i> Notebooks</h4>
+        <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        </ul>
+    </div>
+</div>
+
+
+<div class="row">
+    
+</div>
+
+        </td>
+    </tr>
+</table>
+
+<h2 id="mlk-day">MLK Day<a class="headerlink" href="#mlk-day" title="Permanent link">&para;</a></h2>
 <table>
     <tr>
         <td colspan="3">
@@ -391,7 +557,7 @@ your me to discuss them.</p>
     </tr>
 </table>
 
-<h3 id="a-search">A* Search:<a class="headerlink" href="#a-search" title="Permanent link">&para;</a></h3>
+<h2 id="informed-search">Informed Search<a class="headerlink" href="#informed-search" title="Permanent link">&para;</a></h2>
 <table>
     <tr>
         <td colspan="3">
@@ -401,17 +567,169 @@ your me to discuss them.</p>
         <h4><i class="fa-solid fa-book"></i> Readings</h4>
         <ul class="resource-list">
         
+            
+                <li>
+                    
+                        <i class="fa-solid fa-star" style="color: #f0ad4e;"></i>
+                    
+                    <a href="https://www.redblobgames.com/pathfinding/a-star/introduction.html">Introduction to the A* Algorithm</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://artint.info/3e/html/ArtInt3e.Ch3.S6.html">Foundations of Computation Agents - Section 3.6</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://drive.google.com/file/d/1Ir-99SJIcfGAtTDAZOF_werU4EbsA9Fh/view?usp=sharing">Filled Slides</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://docs.google.com/presentation/d/1L_ONCCVZtr7cgTWywuZ_UPABbI9NUPJTbk7gKVP_hxY/edit?usp=sharing">AI2AI Chapter 03</a>
+                    
+                </li>
+            
+        
         </ul>
     </div>
     <div class="col-md-4">
         <h4><i class="fa-solid fa-video-camera"></i> Videos</h4>
         <ul class="resource-list">
         
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://youtu.be/WbzNRTTrX0g?si=mqYHjM8hTRsed8h4&amp;t=3269">Harvard CS50</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=HEs1ZCvLH2s&amp;list=PLoROMvodv4rOca_Ovz1DvdtWuz8BfSWL2&amp;index=18">Stanford CS221</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=gGQ-vAmdAOI">MIT 6.034</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=Zg0Cxn8AVZA">A* in Minecraft</a>
+                    
+                        <span class="resource-credit">Grant Flesher &#x27;26</span>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=17f3a92c-9d44-41a4-9027-b34b015993fd">fa25 Panopto</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
         </ul>
     </div>
     <div class="col-md-4">
         <h4><i class="fa-brands fa-python"></i> Notebooks</h4>
         <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
         
         </ul>
     </div>
@@ -420,15 +738,61 @@ your me to discuss them.</p>
 
 <div class="row">
     
+        <div class="col-md-4">
+            <h4><i class="fa-solid fa-share-alt"></i> Blogposts</h4>
+            <ul class="resource-list">
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://courses.grainger.illinois.edu/cs440/fa2024/lectures/astar.html">A* Search</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html">Introduction to A*</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html">Heuristics</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <h4><i class="fa-solid fa-file-pdf"></i> Papers</h4>
+            <ul class="resource-list">
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://ieeexplore.ieee.org/document/4082128">(1968) A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
 </div>
 
         </td>
     </tr>
 </table>
 
+<p></p>
 <h2 id="task-5-quiz">Task 5: Quiz<a class="headerlink" href="#task-5-quiz" title="Permanent link">&para;</a></h2>
+<p></p>
 <p>Please respond to the quiz below. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!</p>
-<p><a href="https://canvas.nd.edu/courses/133089/quizzes/76172">Reading Quiz 01</a></p>
 
 
 	    <div class="row">
