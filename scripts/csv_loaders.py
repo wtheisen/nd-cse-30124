@@ -362,28 +362,54 @@ def load_csv_to_schedule(src: str):
 
 # Semester info CSV loader
 
-def parse_office_hours(oh_str: str) -> dict:
-    """Parse office hours string like 'Monday: 9:00 AM - 11:00 AM | Location' into dict."""
+def parse_office_hours(oh_str: str, location: str = '') -> dict:
+    """Parse office hours string like 'Monday: 9:00 AM - 11:00 AM | Location' or 'Monday 9:00 AM - 11:00 AM, Tuesday 2:00 PM - 4:00 PM' into dict.
+    
+    Args:
+        oh_str: Office hours string (comma or semicolon separated)
+        location: Optional location to append to all entries
+    """
     if not oh_str:
         return {}
     result = {}
-    # Split by newlines or semicolons for multiple days
-    entries = oh_str.replace('\n', ';').split(';')
+    # Split by commas first (most common), then by semicolons, then by newlines
+    if ',' in oh_str:
+        entries = oh_str.split(',')
+    else:
+        entries = oh_str.replace('\n', ';').split(';')
+    
     for entry in entries:
         entry = entry.strip()
         if not entry:
             continue
-        # Format: "Day: Time | Location" or "Day: Time"
+        
+        # Format: "Day: Time | Location" or "Day Time"
         if ':' in entry:
+            # Has colon: "Monday: 9:00 AM - 11:00 AM | Location" or "Monday: 9:00 AM - 11:00 AM"
             parts = entry.split(':', 1)
             day = parts[0].strip()
             rest = parts[1].strip()
             # Split time and location if there's a pipe
             if '|' in rest:
-                time, location = rest.split('|', 1)
-                result[day] = f"{time.strip()} | {location.strip()}"
+                time, loc = rest.split('|', 1)
+                result[day] = f"{time.strip()} | {loc.strip()}"
             else:
-                result[day] = rest
+                # Use provided location or just the time
+                if location:
+                    result[day] = f"{rest} | {location}"
+                else:
+                    result[day] = rest
+        else:
+            # No colon: "Monday 9:00 AM - 11:00 AM" - split on first space
+            parts = entry.split(' ', 1)
+            if len(parts) == 2:
+                day = parts[0].strip()
+                time = parts[1].strip()
+                # Use provided location or just the time
+                if location:
+                    result[day] = f"{time} | {location}"
+                else:
+                    result[day] = time
     return result
 
 
@@ -457,8 +483,8 @@ def load_csv_to_semester_info(info_src: str):
             
             # Parse office hours - if Times column exists, use it; otherwise empty
             if times:
-                # Times column has office hours
-                person_data['office_hours'] = parse_office_hours(times)
+                # Times column has office hours - pass location to include it
+                person_data['office_hours'] = parse_office_hours(times, location)
             else:
                 # No times provided - empty office hours
                 person_data['office_hours'] = {}
@@ -493,7 +519,7 @@ def load_csv_to_semester_info(info_src: str):
                 person_data['github'] = github
             
             if times:
-                person_data['office_hours'] = parse_office_hours(times)
+                person_data['office_hours'] = parse_office_hours(times, location)
             else:
                 person_data['office_hours'] = {}
             
