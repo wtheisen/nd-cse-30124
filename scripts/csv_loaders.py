@@ -547,12 +547,18 @@ def load_csv_to_semester_info(info_src: str):
             # Comma-separated format
             for entry in class_times_str.split(','):
                 entry = entry.strip()
-                if ':' in entry:
-                    # Has colon: "Monday: 3:30 PM - 4:45 PM"
+                if not entry:
+                    continue
+                # Check if colon is used as day:time separator (must come before first space)
+                first_space_idx = entry.find(' ')
+                first_colon_idx = entry.find(':')
+                
+                if first_colon_idx != -1 and (first_space_idx == -1 or first_colon_idx < first_space_idx):
+                    # Has colon before space: "Monday: 3:30 PM - 4:45 PM" format
                     day, time = entry.split(':', 1)
                     class_times[day.strip()] = time.strip()
                 else:
-                    # No colon: "Monday 3:30 - 4:45 PM" - split on first space
+                    # Space-separated: "Monday 3:30 PM - 4:45 PM" - split on first space
                     parts = entry.split(' ', 1)
                     if len(parts) == 2:
                         day = parts[0].strip()
@@ -564,11 +570,16 @@ def load_csv_to_semester_info(info_src: str):
                 line = line.strip()
                 if not line:
                     continue
-                if ':' in line:
+                # Check if colon is used as day:time separator
+                first_space_idx = line.find(' ')
+                first_colon_idx = line.find(':')
+                
+                if first_colon_idx != -1 and (first_space_idx == -1 or first_colon_idx < first_space_idx):
+                    # Has colon before space: "Monday: 3:30 PM - 4:45 PM" format
                     day, time = line.split(':', 1)
                     class_times[day.strip()] = time.strip()
                 else:
-                    # No colon, try to split on first space
+                    # Space-separated: "Monday 3:30 PM - 4:45 PM" - split on first space
                     parts = line.split(' ', 1)
                     if len(parts) == 2:
                         class_times[parts[0].strip()] = parts[1].strip()
