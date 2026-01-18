@@ -73,6 +73,9 @@ def load_page_from_yaml(path):
                             'schedule': csv_urls.get('schedule', ''),
                             'info': info_url
                         }
+                        # Also include cancelled_days if present in YAML
+                        if 'cancelled_days' in semester_info_data:
+                            loaded_info['cancelled_days'] = semester_info_data['cancelled_days']
                         data['external'][k] = loaded_info
                     else:
                         # Fall back to YAML structure

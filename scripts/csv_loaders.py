@@ -595,6 +595,9 @@ def load_semester_info_from_yaml_or_csv(yaml_path: str = 'static/yaml/semester_i
             'schedule': csv_urls.get('schedule', ''),
             'info': info_url
         }
+        # Also include cancelled_days if present in YAML
+        if 'cancelled_days' in semester_info_data:
+            loaded_info['cancelled_days'] = semester_info_data['cancelled_days']
         return loaded_info
     else:
         # Fall back to YAML structure (backward compatibility)

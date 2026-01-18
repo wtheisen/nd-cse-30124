@@ -44,7 +44,8 @@
                 {% for day_chk in ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] %}
                     {% if not hour_has_content %}
                         {# Check class times #}
-                        {% set class_hours = page.external['semester_info']['class_times'].get(day_chk, '') %}
+                        {% set class_times = page.external.get('semester_info', {}).get('class_times', {}) %}
+                        {% set class_hours = class_times.get(day_chk, '') if class_times else '' %}
                         {% if class_hours %}
                             {% set c_start = dateutil.parser.parse(class_hours.split(' - ')[0]) %}
                             {% set c_end   = dateutil.parser.parse(class_hours.split(' - ')[1]) %}
@@ -98,7 +99,8 @@
                     {% set cell_type = "" %}
 
                                         <!-- Check for class times -->
-                    {% set class_hours = page.external['semester_info']['class_times'].get(day, '') %}
+                    {% set class_times = page.external.get('semester_info', {}).get('class_times', {}) %}
+                    {% set class_hours = class_times.get(day, '') if class_times else '' %}
                     {% if class_hours %}
                         {% set start_time = class_hours.split(' - ')[0] %}
                         {% set end_time = class_hours.split(' - ')[1] %}
@@ -114,7 +116,7 @@
                             {% set _ = cell_content.append({
                                 'name': 'Lecture',
                                 'time': class_hours,
-                                'loc' : page.external['semester_info']['class_location'],
+                                'loc' : page.external.get('semester_info', {}).get('class_location', ''),
                                 'type': 'lecture'
                             }) %}
                             {% set cell_type = cell_type if cell_type != "" else "lecture" %}
@@ -268,7 +270,8 @@
                             {% set needs_split = False %}
 
                             {# Class times for this day #}
-                            {% set class_hours = page.external['semester_info']['class_times'].get(day, '') %}
+                            {% set class_times = page.external.get('semester_info', {}).get('class_times', {}) %}
+                            {% set class_hours = class_times.get(day, '') if class_times else '' %}
                             {% if class_hours %}
                                 {% set c_start = dateutil.parser.parse(class_hours.split(' - ')[0]) %}
                                 {% set c_end   = dateutil.parser.parse(class_hours.split(' - ')[1]) %}

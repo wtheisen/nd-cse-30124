@@ -79,8 +79,20 @@
                             {% set day_resources = page.external.get('resources', {}).get(lecture_id, []) %}
 
                             {% if 'topics' in day %}
-                                {% if day['topics'] == 'Office Hours' or day['topics'].startswith('Cancelled') %}
-                                    <i class="text-muted">{{ day.get('topics', '') }}</i>
+                                {% set cancelled_days = page.external.get('semester_info', {}).get('cancelled_days', []) %}
+                                {% set topic = day.get('topics', '') %}
+                                {% set is_cancelled = False %}
+                                {% if topic == 'Office Hours' or topic.startswith('Cancelled') %}
+                                    {% set is_cancelled = True %}
+                                {% else %}
+                                    {% for cancelled in cancelled_days %}
+                                        {% if cancelled.lower() in topic.lower() or topic.lower() in cancelled.lower() %}
+                                            {% set is_cancelled = True %}
+                                        {% end %}
+                                    {% end %}
+                                {% end %}
+                                {% if is_cancelled %}
+                                    <i class="text-muted">{{ topic }}</i>
                                 {% elif 'exam' in day['topics'].lower() %}
                                     <i class="text-danger">{{ day.get('topics', '') }}</i>
                                 {% else %}

@@ -126,15 +126,22 @@ def generate_assignment_page(number, template_file, output_dir, assignment_type)
     return output_file
 
 
-def flatten_schedule(schedule):
+def flatten_schedule(schedule, cancelled_days=None):
     """Flatten schedule structure to ordered list of days with topics and assignments.
     
     Args:
         schedule: Schedule YAML structure
+        cancelled_days: List of topic names/patterns to skip (from semester_info)
     
     Returns:
         List of dicts with keys: date, topics, assignments, unit
     """
+    if cancelled_days is None:
+        cancelled_days = []
+    
+    # Normalize cancelled_days to lowercase for comparison
+    cancelled_patterns = [pattern.lower() for pattern in cancelled_days]
+    
     flattened = []
     
     for section in schedule:
@@ -158,6 +165,11 @@ def flatten_schedule(schedule):
             if any(skip in topics_lower for skip in ['exam', 'review', 'cancelled', 'break', 'final']):
                 continue
             
+            # Skip days that match cancelled_days patterns
+            if cancelled_patterns:
+                if any(pattern in topics_lower or topics_lower in pattern for pattern in cancelled_patterns):
+                    continue
+            
             flattened.append({
                 'date': day.get('date', ''),
                 'topics': topics,
@@ -168,16 +180,17 @@ def flatten_schedule(schedule):
     return flattened
 
 
-def extract_reading_assignments(schedule):
+def extract_reading_assignments(schedule, cancelled_days=None):
     """Extract reading assignments and their positions from schedule.
     
     Args:
         schedule: Schedule data structure (from CSV or YAML)
+        cancelled_days: List of topic names/patterns to skip (from semester_info)
     
     Returns:
         Dict mapping reading number to index in flattened schedule
     """
-    flattened = flatten_schedule(schedule)
+    flattened = flatten_schedule(schedule, cancelled_days)
     reading_positions = {}
     
     for idx, day in enumerate(flattened):
@@ -329,6 +342,18 @@ def main():
         print(f"Error: Could not load schedule: {e}", file=sys.stderr)
         sys.exit(1)
     
+    # Load semester_info to get cancelled_days
+    cancelled_days = []
+    try:
+        scripts_dir = Path(__file__).parent
+        if str(scripts_dir) not in sys.path:
+            sys.path.insert(0, str(scripts_dir))
+        from csv_loaders import load_semester_info_from_yaml_or_csv
+        semester_info = load_semester_info_from_yaml_or_csv(str(SEMESTER_INFO_FILE))
+        cancelled_days = semester_info.get('cancelled_days', [])
+    except Exception as e:
+        print(f"Warning: Could not load cancelled_days from semester_info: {e}", file=sys.stderr)
+    
     # Ensure pages directory exists
     PAGES_DIR.mkdir(parents=True, exist_ok=True)
     
@@ -374,7 +399,7 @@ def main():
     if not READING_TEMPLATE_FILE.exists():
         print(f"Warning: Reading template file not found: {READING_TEMPLATE_FILE}", file=sys.stderr)
     else:
-        reading_positions, flattened_schedule = extract_reading_assignments(schedule)
+        reading_positions, flattened_schedule = extract_reading_assignments(schedule, cancelled_days)
         
         if reading_positions:
             # Include all readings (Reading 01 is now auto-generated with special content)
