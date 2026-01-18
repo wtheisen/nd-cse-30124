@@ -6,6 +6,9 @@
         'snoonan2': 'rgba(255, 204, 255, 0.5)',
         'fseptien': 'rgba(204, 255, 255, 0.5)'
     } %}
+    
+    {# Get semester_info once at the top for efficiency #}
+    {% set semester_info = page.external.get('semester_info', {}) %}
 
     <div class="row">
         <table cellpadding="5" cellspacing="0" style="table-layout: fixed; width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
@@ -44,7 +47,7 @@
                 {% for day_chk in ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] %}
                     {% if not hour_has_content %}
                         {# Check class times #}
-                        {% set class_times = page.external.get('semester_info', {}).get('class_times', {}) %}
+                        {% set class_times = semester_info.get('class_times', {}) %}
                         {% set class_hours = class_times.get(day_chk, '') if class_times else '' %}
                         {% if class_hours %}
                             {% set c_start = dateutil.parser.parse(class_hours.split(' - ')[0]) %}
@@ -56,7 +59,7 @@
 
                         {# Check instructor hours #}
                         {% if not hour_has_content %}
-                            {% set instructor = page.external['semester_info'].get('Instructor') %}
+                            {% set instructor = semester_info.get('Instructor') %}
                             {% if instructor and instructor.get('office_hours') %}
                                 {% set instr_oh = instructor['office_hours'].get(day_chk, '') %}
                                 {% if instr_oh %}
@@ -72,7 +75,7 @@
 
                         {# Check TA hours #}
                         {% if not hour_has_content %}
-                            {% for _tid, _ta in page.external['semester_info'].get('TAs', {}).items() %}
+                            {% for _tid, _ta in semester_info.get('TAs', {}).items() %}
                                 {% if 'office_hours' in _ta and day_chk in _ta['office_hours'] %}
                                     {% set oh_time = _ta['office_hours'][day_chk].split('|')[0] %}
                                     {% set t_start = dateutil.parser.parse(oh_time.split(' - ')[0]) %}
@@ -99,7 +102,7 @@
                     {% set cell_type = "" %}
 
                                         <!-- Check for class times -->
-                    {% set class_times = page.external.get('semester_info', {}).get('class_times', {}) %}
+                    {% set class_times = semester_info.get('class_times', {}) %}
                     {% set class_hours = class_times.get(day, '') if class_times else '' %}
                     {% if class_hours %}
                         {% set start_time = class_hours.split(' - ')[0] %}
@@ -116,7 +119,7 @@
                             {% set _ = cell_content.append({
                                 'name': 'Lecture',
                                 'time': class_hours,
-                                'loc' : page.external.get('semester_info', {}).get('class_location', ''),
+                                'loc' : semester_info.get('class_location', ''),
                                 'type': 'lecture'
                             }) %}
                             {% set cell_type = cell_type if cell_type != "" else "lecture" %}
@@ -124,60 +127,75 @@
                     {% end %}
 
                     <!-- Check for instructor office hours -->
-                    {% set instructor = page.external['semester_info'].get('Instructor') %}
+                    {% set instructor = semester_info.get('Instructor') %}
                     {% if instructor and instructor.get('office_hours') %}
                         {% set instructor_hours = instructor['office_hours'].get(day, '') %}
                         {% if instructor_hours %}
-                            {% set instructor_hours_time = instructor_hours.split('|')[0] %}
-                            {% set instructor_loc = instructor_hours.split('|')[1] %}
-                            {% set start_time = instructor_hours_time.split(' - ')[0] %}
-                            {% set end_time = instructor_hours_time.split(' - ')[1] %}
-                            {% set start_slot = dateutil.parser.parse(start_time) %}
-                            {% set end_slot = dateutil.parser.parse(end_time) %}
-                            {% set time_slot_start = dateutil.parser.parse(time_slot.split(' - ')[0]) %}
-                            {% set time_slot_end = dateutil.parser.parse(time_slot.split(' - ')[1]) %}
+                            {% set instructor_hours_parts = instructor_hours.split('|') %}
+                            {% set instructor_hours_time = instructor_hours_parts[0].strip() %}
+                            {% set instructor_loc = instructor_hours_parts[1].strip() if len(instructor_hours_parts) > 1 else '' %}
+                            {% set time_parts = instructor_hours_time.split(' - ') %}
+                            {% if len(time_parts) == 2 %}
+                                {% set start_time = time_parts[0].strip() %}
+                                {% set end_time = time_parts[1].strip() %}
+                                {% set start_slot = dateutil.parser.parse(start_time) %}
+                                {% set end_slot = dateutil.parser.parse(end_time) %}
+                                {% set time_slot_parts = time_slot.split(' - ') %}
+                                {% if len(time_slot_parts) == 2 %}
+                                    {% set time_slot_start = dateutil.parser.parse(time_slot_parts[0].strip()) %}
+                                    {% set time_slot_end = dateutil.parser.parse(time_slot_parts[1].strip()) %}
 
-                            <!-- Check if this time slot overlaps with the instructor's office hours -->
-                            {% if (start_slot < time_slot_end and end_slot > time_slot_start) %}
-                                {% set instructor_rowspan = int(((end_slot - time_slot_start).seconds + 1799) / 1800) %}
-                                {% set _ = cell_rowspans.append(instructor_rowspan) %}
-                                {% set _ = cell_content.append({
-                                    'name': instructor.get('name', 'Instructor'),
-                                    'time': instructor_hours_time,
-                                    'loc' : instructor_loc,
-                                    'type': 'instructor'
-                                }) %}
-                                {% set cell_type = cell_type if cell_type != "" else "instructor" %}
+                                    <!-- Check if this time slot overlaps with the instructor's office hours -->
+                                    {% if (start_slot < time_slot_end and end_slot > time_slot_start) %}
+                                        {% set instructor_rowspan = int(((end_slot - time_slot_start).seconds + 1799) / 1800) %}
+                                        {% set _ = cell_rowspans.append(instructor_rowspan) %}
+                                        {% set _ = cell_content.append({
+                                            'name': instructor.get('name', 'Instructor'),
+                                            'time': instructor_hours_time,
+                                            'loc' : instructor_loc,
+                                            'type': 'instructor'
+                                        }) %}
+                                        {% set cell_type = cell_type if cell_type != "" else "instructor" %}
+                                    {% end %}
+                                {% end %}
                             {% end %}
                         {% end %}
                     {% end %}
 
                     <!-- Check for TA office hours -->
-                    {% for ta_id, ta in page.external['semester_info'].get('TAs', {}).items() %}
+                    {% for ta_id, ta in semester_info.get('TAs', {}).items() %}
                         {% if 'office_hours' in ta and day in ta['office_hours'] %}
-                            {% set ta_hours = ta['office_hours'][day].split('|')[0] %}
-                            {% set ta_loc = ta['office_hours'][day].split('|')[1] %}
-                            {% set start_time = ta_hours.split(' - ')[0] %}
-                            {% set end_time = ta_hours.split(' - ')[1] %}
-                            {% set start_slot = dateutil.parser.parse(start_time) %}
-                            {% set end_slot = dateutil.parser.parse(end_time) %}
-                            {% set time_slot_start = dateutil.parser.parse(time_slot.split(' - ')[0]) %}
-                            {% set time_slot_end = dateutil.parser.parse(time_slot.split(' - ')[1]) %}
+                            {% set ta_oh_str = ta['office_hours'][day] %}
+                            {% set ta_oh_parts = ta_oh_str.split('|') %}
+                            {% set ta_hours = ta_oh_parts[0].strip() %}
+                            {% set ta_loc = ta_oh_parts[1].strip() if len(ta_oh_parts) > 1 else '' %}
+                            {% set ta_time_parts = ta_hours.split(' - ') %}
+                            {% if len(ta_time_parts) == 2 %}
+                                {% set start_time = ta_time_parts[0].strip() %}
+                                {% set end_time = ta_time_parts[1].strip() %}
+                                {% set start_slot = dateutil.parser.parse(start_time) %}
+                                {% set end_slot = dateutil.parser.parse(end_time) %}
+                                {% set time_slot_parts = time_slot.split(' - ') %}
+                                {% if len(time_slot_parts) == 2 %}
+                                    {% set time_slot_start = dateutil.parser.parse(time_slot_parts[0].strip()) %}
+                                    {% set time_slot_end = dateutil.parser.parse(time_slot_parts[1].strip()) %}
 
-                            <!-- Check if this time slot overlaps with the TA's office hours -->
-                            {% if (start_slot < time_slot_end and end_slot > time_slot_start) %}
-                                {% set ta_rowspan = int(((end_slot - time_slot_start).seconds + 1799) / 1800) %}
-                                {% set _ = cell_rowspans.append(ta_rowspan) %}
-                                {% set _ = cell_content.append({
-                                    'name': ta['name'],
-                                    'time': ta_hours,
-                                    'loc' : ta_loc,
-                                    'type': 'ta',
-                                    'ta_id': ta_id
-                                }) %}
-                                {% set cell_type = cell_type if cell_type != "" else "ta" %}
-                                {% if cell_type == "ta" and not cell_bg_color %}
-                                    {% set cell_bg_color = ta_colors.get(ta_id, "rgba(240,240,240,0.5)") %}
+                                    <!-- Check if this time slot overlaps with the TA's office hours -->
+                                    {% if (start_slot < time_slot_end and end_slot > time_slot_start) %}
+                                        {% set ta_rowspan = int(((end_slot - time_slot_start).seconds + 1799) / 1800) %}
+                                        {% set _ = cell_rowspans.append(ta_rowspan) %}
+                                        {% set _ = cell_content.append({
+                                            'name': ta.get('name', 'TA'),
+                                            'time': ta_hours,
+                                            'loc' : ta_loc,
+                                            'type': 'ta',
+                                            'ta_id': ta_id
+                                        }) %}
+                                        {% set cell_type = cell_type if cell_type != "" else "ta" %}
+                                        {% if cell_type == "ta" and not cell_bg_color %}
+                                            {% set cell_bg_color = ta_colors.get(ta_id, "rgba(240,240,240,0.5)") %}
+                                        {% end %}
+                                    {% end %}
                                 {% end %}
                             {% end %}
                         {% end %}
@@ -270,7 +288,7 @@
                             {% set needs_split = False %}
 
                             {# Class times for this day #}
-                            {% set class_times = page.external.get('semester_info', {}).get('class_times', {}) %}
+                            {% set class_times = semester_info.get('class_times', {}) %}
                             {% set class_hours = class_times.get(day, '') if class_times else '' %}
                             {% if class_hours %}
                                 {% set c_start = dateutil.parser.parse(class_hours.split(' - ')[0]) %}
@@ -283,7 +301,7 @@
                             {% end %}
 
                             {# Instructor OH for this day #}
-                            {% set instructor = page.external['semester_info'].get('Instructor') %}
+                            {% set instructor = semester_info.get('Instructor') %}
                             {% if instructor and instructor.get('office_hours') %}
                                 {% set instr_oh = instructor['office_hours'].get(day, '') %}
                                 {% if instr_oh %}
@@ -299,7 +317,7 @@
                             {% end %}
 
                            {# TA OH for this day #}
-                            {% for _tid, _ta in page.external['semester_info'].get('TAs', {}).items() %}
+                            {% for _tid, _ta in semester_info.get('TAs', {}).items() %}
                                 {% if 'office_hours' in _ta and day in _ta['office_hours'] %}
                                     {% set oh_time = _ta['office_hours'][day].split('|')[0] %}
                                     {% set t_start = dateutil.parser.parse(oh_time.split(' - ')[0]) %}
