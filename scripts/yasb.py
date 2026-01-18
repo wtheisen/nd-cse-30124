@@ -197,6 +197,13 @@ def render_page(page):
 
         return _search_resources(resources_map, all_keys, target_name)
 
+    # Extract reading number from page title if it's a reading page
+    reading_number = None
+    if page.title and 'Reading' in page.title:
+        match = re.search(r'Reading\s+(\d+)', page.title)
+        if match:
+            reading_number = match.group(1).zfill(2)  # Pad with zero: "01", "02", etc.
+
     settings = {
         'page'      : page,
         'dateutil'  : dateutil,
@@ -205,6 +212,7 @@ def render_page(page):
         'lecture_id_for': lecture_id_for,
         'resources_for': resources_for,
         'find_assignment_resource': find_assignment_resource,
+        'reading_number': reading_number,  # Add reading_number to template context
     }
     print(template.generate(**settings).decode())
 

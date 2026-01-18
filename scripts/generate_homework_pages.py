@@ -306,9 +306,10 @@ def generate_reading_page(reading_num, topics, template_file, output_dir):
     reading_number = str(reading_num).zfill(2)
     
     # Replace template placeholders
+    # Note: We don't replace {{ reading_number }} - it will be handled by Tornado template in yasb.py
+    # The template uses {% if reading_number == "01" %} which needs reading_number as a variable
     content = template_content
     content = content.replace('{{ title }}', title)
-    content = content.replace('{{ reading_number }}', reading_number)
     content = content.replace('{{ topic_sections }}', topic_sections)
     
     # Write the output file

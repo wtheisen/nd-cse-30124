@@ -10,7 +10,7 @@ external:
     semester_info: 'static/yaml/semester_info.yaml'
 body:       |
 
-    {% if reading_number == "01" %}
+    {% if reading_number and reading_number == "01" %}
     {% set term_code = page.external['semester_info']['Term'][:2].lower() + page.external['semester_info']['Year'][-2:] %}
 
     {% set gh_homework_link = page.external['semester_info'].get('gh_homework_link', '') %}
@@ -132,10 +132,10 @@ body:       |
 
 {{ topic_sections }}
 
-    {% if reading_number == "01" %}
+    {% if reading_number and reading_number == "01" %}
     ## Task 5: Quiz
     {% else %}
     ## Reading Quiz {{ reading_number }}
     {% end %}
 
-    Please respond to the quiz below{% if reading_number != "01" %}, you will need to be signed into your ND email in order to respond{% end %}. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!
+    Please respond to the quiz below{% if not reading_number or reading_number != "01" %}, you will need to be signed into your ND email in order to respond{% end %}. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!
