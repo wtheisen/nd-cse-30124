@@ -384,8 +384,14 @@ def parse_office_hours(oh_str: str, location: str = '') -> dict:
             continue
         
         # Format: "Day: Time | Location" or "Day Time"
-        if ':' in entry:
-            # Has colon: "Monday: 9:00 AM - 11:00 AM | Location" or "Monday: 9:00 AM - 11:00 AM"
+        # Check if colon is used as day:time separator (must be followed by space and not be part of time)
+        # Pattern: "Day: Time" has colon after day name, "Day Time" has space after day name
+        # We check if first space comes before first colon (space-separated) or after (colon-separated)
+        first_space_idx = entry.find(' ')
+        first_colon_idx = entry.find(':')
+        
+        if first_colon_idx != -1 and (first_space_idx == -1 or first_colon_idx < first_space_idx):
+            # Has colon before space: "Monday: 9:00 AM - 11:00 AM | Location" format
             parts = entry.split(':', 1)
             day = parts[0].strip()
             rest = parts[1].strip()
@@ -400,7 +406,7 @@ def parse_office_hours(oh_str: str, location: str = '') -> dict:
                 else:
                     result[day] = rest
         else:
-            # No colon: "Monday 9:00 AM - 11:00 AM" - split on first space
+            # Space-separated: "Monday 9:00 AM - 11:00 AM" - split on first space
             parts = entry.split(' ', 1)
             if len(parts) == 2:
                 day = parts[0].strip()
