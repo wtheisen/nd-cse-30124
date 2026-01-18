@@ -22,6 +22,7 @@ import itertools
 import sys
 
 import dateutil.parser
+import dateutil.relativedelta
 import tornado.template
 import markdown
 import markdown.extensions.codehilite
@@ -209,48 +210,37 @@ def render_page(page):
         'reading_number': reading_number,  # Add reading_number to template context
     }
     
-    # Protect {% include %} statements from markdown processing
-    import re
-    include_patterns = []
-    include_index = 0
-    
-    def protect_include(match):
-        nonlocal include_index
-        placeholder = f'__INCLUDE_{include_index}__'
-        include_patterns.append((placeholder, match.group(0)))
-        include_index += 1
-        return placeholder
-    
-    # Protect {% include %} statements before any processing
-    body_protected = re.sub(r'\{%\s*include\s+[^%]+%\}', protect_include, page.body)
-    
-    # Check if body has template logic ({% set %}, {% if %}) that needs evaluation
-    has_template_logic = '{% set' in body_protected or '{% if' in body_protected
-    
-    if has_template_logic:
-        # Process body as template first to evaluate {% set %}, {% if %}, {{ variables }}
-        body_template = tornado.template.Template(body_protected, loader=loader)
-        processed_body = body_template.generate(**settings).decode()
-    else:
-        # No template logic, use body as-is
-        processed_body = body_protected
-    
-    # Process through markdown (with {% include %} still protected)
-    markdown_output = markdown.markdown(processed_body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
-    
-    # Restore {% include %} statements after markdown processing
-    for placeholder, original in include_patterns:
-        markdown_output = markdown_output.replace(placeholder, original)
-    
-    # Escape braces for .format() insertion into layout template
-    escaped_markdown = markdown_output.replace('{', '{{').replace('}', '}}')
-    layout = u'''
-{{% extends "base.tmpl" %}}
+    # Protect ALL tornado template syntax from markdown processing
+    # Use HTML comments as placeholders so markdown doesn't wrap them in <p> tags
+    template_patterns = []
+    template_index = 0
 
-{{% block body %}}
-{}
-{{% end %}}
-'''.format(escaped_markdown)
+    def protect_template(match):
+        nonlocal template_index
+        # Use HTML comment as placeholder - markdown won't wrap these
+        placeholder = f'<!--__TEMPLATE_{template_index}__-->'
+        template_patterns.append((placeholder, match.group(0)))
+        template_index += 1
+        return placeholder
+
+    # Protect {% ... %} and {{ ... }} blocks
+    body_protected = re.sub(r'\{%.*?%\}', protect_template, page.body, flags=re.DOTALL)
+    body_protected = re.sub(r'\{\{.*?\}\}', protect_template, body_protected, flags=re.DOTALL)
+
+    # Process through markdown (with template syntax protected)
+    markdown_output = markdown.markdown(body_protected, extensions=['extra', toc, hilite, footnotes], output_format='html5')
+
+    # Restore template syntax after markdown processing
+    for placeholder, original in template_patterns:
+        markdown_output = markdown_output.replace(placeholder, original)
+
+    # Build layout that extends base template
+    layout = '''{% extends "base.tmpl" %}
+
+{% block body %}
+''' + markdown_output + '''
+{% end %}
+'''
 
     template = tornado.template.Template(layout, loader=loader)
     print(template.generate(**settings).decode())

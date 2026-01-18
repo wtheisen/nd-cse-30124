@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="gruvbox-dark">
     <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +7,10 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Reading 01: Course Introduction, Search, and A*</title>
+	<title>Reading 01: Uninformed Search and Informed Search</title>
 
-	<!-- Bootstrap core CSS -->
-	<link href="static/css/bluegold.css" rel="stylesheet">
+	<!-- Theme CSS (toggleable) -->
+	<link id="theme-style" href="static/css/gruvbox-dark.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/9d2722956c.js" crossorigin="anonymous"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -23,6 +23,203 @@
 	body {
 	    padding: 10px;
 	}
+	.resource-list {
+	    list-style: none;
+	    padding-left: 0;
+	    margin-bottom: 1.25em;
+	}
+	.resource-credit {
+	    margin-left: 0.5em;
+	    font-size: 0.85em;
+	    color: #777;
+	    font-style: italic;
+	}
+	.resource-credit::before {
+	    content: "\2014";
+	    margin-right: 0.35em;
+	}
+#library-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 10px;
+    max-height: 540px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+.library-card-wrapper {
+    flex: 1 1 calc(20% - 16px);
+    max-width: calc(20% - 16px);
+    min-width: 180px;
+    display: flex;
+    max-height: 100%;
+}
+    .theme-toggle-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 54px;
+        height: 28px;
+        margin-top: 8px;
+        margin-left: 12px;
+        padding: 0 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(15, 23, 42, 0.18);
+        background-color: #f2f6ff;
+        cursor: pointer;
+        transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+    .theme-toggle-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+    }
+    .theme-toggle-btn .theme-icon,
+    .theme-toggle-btn .theme-toggle-handle {
+        pointer-events: none;
+    }
+    .theme-toggle-btn .theme-icon {
+        font-size: 0.85em;
+        opacity: 0.5;
+        transition: opacity 0.25s ease;
+        position: relative;
+        z-index: 2;
+    }
+    .theme-toggle-btn .theme-icon--sun {
+        color: #f59e0b;
+        opacity: 1;
+    }
+    .theme-toggle-btn .theme-icon--moon {
+        color: #c084fc;
+    }
+    .theme-toggle-btn .theme-toggle-handle {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        transition: transform 0.25s ease, background-color 0.25s ease;
+        z-index: 1;
+    }
+    [data-theme="gruvbox-light"] .theme-toggle-btn {
+        background-color: #f2f6ff;
+        border-color: rgba(15, 23, 42, 0.18);
+    }
+    [data-theme="gruvbox-light"] .theme-toggle-btn .theme-toggle-handle {
+        transform: translateX(0);
+        background-color: #ffffff;
+    }
+    [data-theme="gruvbox-light"] .theme-toggle-btn .theme-icon--sun {
+        opacity: 1;
+    }
+    [data-theme="gruvbox-light"] .theme-toggle-btn .theme-icon--moon {
+        opacity: 0.35;
+    }
+    [data-theme="gruvbox-dark"] .theme-toggle-btn {
+        background-color: #3c3836;
+        border-color: #665c54;
+        color: #ebdbb2;
+    }
+    [data-theme="gruvbox-dark"] .theme-toggle-btn .theme-toggle-handle {
+        transform: translateX(26px);
+        background-color: #1d2021;
+    }
+    [data-theme="gruvbox-dark"] .theme-toggle-btn .theme-icon--sun {
+        opacity: 0.35;
+    }
+    [data-theme="gruvbox-dark"] .theme-toggle-btn .theme-icon--moon {
+        opacity: 1;
+    }
+	.library-card {
+	    display: flex;
+	    flex-direction: column;
+	    width: 100%;
+	    border-radius: 6px;
+	    border: 1px solid #ddd;
+	    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	    overflow: hidden;
+	    background-color: #fff;
+	    color: #333;
+	}
+	.library-card-cover {
+	    aspect-ratio: 2 / 3;
+	    width: 100%;
+	    min-height: 220px;
+	    max-height: 320px;
+	    background-color: #f7f7f7;
+	    display: grid;
+	    place-items: center;
+	    overflow: hidden;
+	    padding: 6px;
+	}
+	.library-card-cover img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: contain;
+	    background-color: transparent;
+	}
+	.library-card-body {
+	    flex: 1 1 auto;
+	    display: flex;
+	    flex-direction: column;
+	}
+	.library-card-title {
+	    margin-top: 0;
+	    font-size: 0.95em;
+	    line-height: 1.35;
+	    min-height: 2.7em;
+	}
+	.library-card-meta {
+	    font-size: 0.82em;
+	    color: #555;
+	    margin-bottom: 6px;
+	}
+	.library-card-footer {
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    font-size: 0.78em;
+	}
+	[data-theme="gruvbox-dark"] .library-card {
+	    border-color: #504945;
+	    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+	    background-color: #282828;
+	    color: #ebdbb2;
+	}
+	[data-theme="gruvbox-dark"] .library-card-cover {
+	    background-color: #32302f;
+	}
+	[data-theme="gruvbox-dark"] .library-card-body {
+	    color: #ebdbb2;
+	}
+	[data-theme="gruvbox-dark"] .library-card-footer {
+	    color: #d5c4a1;
+	}
+	[data-theme="gruvbox-dark"] .library-card-title,
+	[data-theme="gruvbox-dark"] .library-card-meta {
+	    color: #d5c4a1;
+	}
+	.embed-responsive {
+ 	    border-radius: 8px;
+ 	    border: 1px solid rgba(30, 41, 59, 0.18);
+ 	    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+ 	    overflow: hidden;
+ 	    margin-bottom: 18px;
+	}
+	.course-embed {
+	    background-color: #ffffff;
+	}
+	[data-theme="gruvbox-dark"] .embed-responsive {
+	    border-color: #665c54;
+	    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+	    background-color: rgba(40, 40, 40, 0.9);
+	}
+	[data-theme="gruvbox-dark"] .course-embed {
+	    background-color: rgba(40, 40, 40, 0.9);
+	}
 	</style>
     </head>
     <body>
@@ -30,18 +227,36 @@
 
 	    <div class="row">
 		<div class="page-header">
+		    <button type="button" class="theme-toggle-btn pull-right" id="theme-toggle" role="switch" aria-checked="true" aria-label="Switch to light theme">
+			<span class="theme-icon theme-icon--sun"><i class="fa-solid fa-sun"></i></span>
+			<span class="theme-icon theme-icon--moon"><i class="fa-solid fa-moon"></i></span>
+			<span class="theme-toggle-handle"></span>
+		    </button>
 		    <ul class="nav nav-pills pull-right">
 			
 			<li><a href="index.html"><i class="fa fa-gavel"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
 			
 		    </ul>
-		    <h1><i class="fa fa-book"></i> Reading 01: Course Introduction, Search, and A*</h1>
+		    <h1><i class="fa fa-book"></i> Reading 01: Uninformed Search and Informed Search</h1>
 		</div>
 	    </div>
 
 		
-<p></p>
-<p></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p><strong>Welcome</strong> to <a href="index.html">CSE 30124 Introduction to Artifical Intelligence</a>, which (as the syllabus
 states) is a broad introduction to the field of artificial intelligence. We
 will begin the semester with a brief history of the field and review of relevant
@@ -67,11 +282,11 @@ However at the end of the semester and the bottom of the circles we will
 find that we start to wrap back around again to the top.</p>
 <h2 id="task-1-slack">Task 1: Slack<a class="headerlink" href="#task-1-slack" title="Permanent link">&para;</a></h2>
 <p>For communication outside of our meeting time, we will be using [Slack],
-specifically the <code>#cse-30124-fa25</code> channel:</p>
+specifically the <code>#cse-30124-&lt;!--__TEMPLATE_25__--&gt;</code> channel:</p>
 <blockquote>
-<p><a href="https://nd-cse.slack.com/messages/cse-30124-fa25">https://nd-cse.slack.com/messages/cse-30124-fa25</a></p>
+<p><a href="https://nd-cse.slack.com/messages/&lt;!--__TEMPLATE_27__--&gt;-cse-30124">https://nd-cse.slack.com/messages/sp26-cse-30124</a></p>
 </blockquote>
-<p>There is a <a href="mailto:sp25-cse-30124-01-group@nd.edu">class mailing list</a>, but most day-to-day communication
+<p>There is a <a href="mailto:sp26-cse-30124-01-group@nd.edu">class mailing list</a>, but most day-to-day communication
 (including office hours and homework help) should take place on [Slack].</p>
 <div class="alert alert-warning">
 <p>Be aware of the following:</p>
@@ -91,115 +306,43 @@ specifically the <code>#cse-30124-fa25</code> channel:</p>
 </li>
 </ul>
 </div>
-<h2 id="task-2-github">Task 2: GitHub<a class="headerlink" href="#task-2-github" title="Permanent link">&para;</a></h2>
-<p>All of your homeworks will be submitted to [GitHub] using <a href="https://git-scm.com/">git</a> and may be done either with a partner or individually.
-Your third task is to setup your [GitHub] repository by doing the following:</p>
+<h2 id="task-2-canvas-homework-group">Task 2: Canvas Homework Group<a class="headerlink" href="#task-2-canvas-homework-group" title="Permanent link">&para;</a></h2>
+<p>All of your assignments (labs and homeworks) will be submitted via Canvas as an html file.</p>
 <ol>
 <li>
 <p>(Optional) Find a partner to work with.</p>
 </li>
 <li>
-<p><strong>Sign-in</strong> or <strong>create</strong> a [GitHub] account if you do not already have one.</p>
+<p><strong>Sign-in</strong> to Canvas and navigate to the course page.</p>
 </li>
-<li>
-<p><strong>Either:</strong></p>
-<ul>
-<li>
-<p><strong>Fork</strong> the class homework repository from the following template:</p>
-<blockquote>
-<p><a href="https://classroom.github.com/a/4JvWlt8h">https://classroom.github.com/a/4JvWlt8h</a></p>
-</blockquote>
-<p>This will create a <strong>private</strong> <code>homeworks-repository-$TEAMNAME</code>
-repository under your own account and linked to the [nd-cse-30124-fa25]
-organization.</p>
-<p>Then invite your partner to join your repository by adding them as a collaborator.</p>
-</li>
-<li>
-<p><strong>Join</strong> your partner's repository.</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Once this is done, you can <a href="https://git-scm.com/docs/git-clone">clone</a> your <a href="https://git-scm.com/">git</a> repository to your local
-machine (or the <strong>student</strong> machines):</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$<span style="color: #BBB"> </span>git<span style="color: #BBB"> </span>clone<span style="color: #BBB"> </span>git@github.com:nd-cse-30124-fa25/homeworks-repository-<span style="color: #19177C">$TEAMNAME</span>
-</code></pre></div>
+</ol>
+<div class="thumbnail">
+<img src="static/img/group_join_1.png" class="img-responsive"/>
+</div>
 
-<p><div class="alert alert-danger" markdown="1">
-<strong>Note</strong>, that [GitHub] has recently shutdown <a href="https://github.blog/changelog/2022-08-12-git-password-authentication-is-shutting-down/">password authentication</a>.
-</div></p>
-<p>To remotely access your repository from the command-line, you have two options:</p>
+<ol>
+<li><strong>Navigate</strong> to the People tab, and then the Intro to AI Groups tab.</li>
+</ol>
+<div class="thumbnail">
+<img src="static/img/group_join_2.png" class="img-responsive"/>
+</div>
+
 <ol>
 <li>
-<p><a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">Setup a Personal Access Token</a>: With this method, [GitHub] will
-  generate an application specific password that you can use with
-  <strong>HTTPS</strong>.  As the <strong>PAT</strong> is a long string of characters, it is
-  recommended that you use it in conjunction with a <strong>password
-  manager</strong> or <strong>keyring</strong>.</p>
+<p><strong>Join</strong> one of the avaible teams with your partner.</p>
 </li>
 <li>
-<p><a href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/about-ssh">Setup SSH Keys</a>: With this method, you generate a local public and
-  private key pair on your computer and then upload the <strong>public key</strong>
-  to [GitHub].  When accessing [GitHub] from the command-line, you will
-  use the <strong>private key</strong> to authenticate to the server.  This is the
-  <strong>recommended</strong> way to setup your repository as it will allow for
-  <strong>passwordless</strong> access.</p>
+<p>Now when you or your partner submit a homework assignment, it will be submitted for both of you!</p>
+</li>
+<li>
+<p><strong>Optionally:</strong> Message the professor or one of your TAs to update your team name!</p>
 </li>
 </ol>
-<div class="alert alert-success" markdown="1">
-<h4 id="setup-ssh-keys"><i class="fa fa-lock"></i> Setup SSH Keys<a class="headerlink" href="#setup-ssh-keys" title="Permanent link">&para;</a></h4>
-<p><p>Here is a quick tutorial on how to <a href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/about-ssh">Setup SSH Keys</a> on the student
-machines (if you have not already):</p></p>
-<ol>
-<li>
-<p>Generate SSH keys if you don't have them yet:</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Accept the defaults, don&#39;t make a password if you want to go passwordless</span>
-$<span style="color: #BBB"> </span>ssh-keygen
-</code></pre></div>
-
-</li>
-<li>
-<p>Copy the contents of <code>~/.ssh/id_rsa.pub</code> to the SSH Keys section of
-your [GitHub] settings page:</p>
-<blockquote>
-<p><a href="https://github.com/settings/keys">https://github.com/settings/keys</a></p>
-</blockquote>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Copy and paste the contents of this file into GitHub</span>
-$<span style="color: #BBB"> </span>cat<span style="color: #BBB"> </span>~/.ssh/id_rsa.pub
-</code></pre></div>
-
-</li>
-<li>
-<p>Edit/create <code>~/.ssh/config</code> to use this key with [GitHub]:</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Add the following to your config (replace $NETID with your netid)</span>
-$<span style="color: #BBB"> </span><span style="color: #19177C">$EDITOR</span><span style="color: #BBB"> </span>~/.ssh/config
-Host<span style="color: #BBB"> </span>github.com
-<span style="color: #BBB">        </span>User<span style="color: #BBB"> </span>git
-<span style="color: #BBB">        </span>Hostname<span style="color: #BBB"> </span>github.com
-<span style="color: #BBB">        </span>PreferredAuthentications<span style="color: #BBB"> </span>publickey
-<span style="color: #BBB">        </span>IdentityFile<span style="color: #BBB"> </span>/escnfs/home/<span style="color: #19177C">$NETID</span>/.ssh/id_rsa
-</code></pre></div>
-
-</li>
-</ol>
-<p>Once this is done, you should be able to do <a href="https://git-scm.com/">git</a> operations without a password.
-You will need to accept the host key the first time by typing in "yes".
-</div></p>
-<div class="alert alert-warning" markdown="1">
-<p><strong>Note</strong>: Please update the <code>README.md</code> file to include your <strong>name</strong>
-and <strong>NetID</strong> so it is straightforward to identify your account.</p>
-</div>
-</li>
-</ol>
-<div class="alert alert-danger">
-<h4 id="github-repository"><i class="fa fa-github"></i> GitHub Repository<a class="headerlink" href="#github-repository" title="Permanent link">&para;</a></h4>
-<p>You are responsible for ensuring that your [GitHub] assignments repository
-is in proper order, which means you have the correct settings and
-permissions set.  Failure to properly configure your repository will
-adversely impact your grade.</p>
-</div>
 <h2 id="task-3-notebooks">Task 3: Notebooks<a class="headerlink" href="#task-3-notebooks" title="Permanent link">&para;</a></h2>
 <ul>
+<li>
+<p><a href="https://colab.research.google.com/notebooks/basic_features_overview.ipynb">Google Colab</a></p>
+</li>
 <li>
 <p><a href="https://realpython.com/jupyter-notebook-introduction/">Jupyter Notebooks</a></p>
 </li>
@@ -209,58 +352,428 @@ adversely impact your grade.</p>
 <li>
 <p><a href="https://www.kaggle.com/code/alexisbcook/creating-your-own-notebooks">Kaggle Notebooks</a></p>
 </li>
-<li>
-<p><a href="https://colab.research.google.com/notebooks/basic_features_overview.ipynb">Google Colab</a></p>
-</li>
 </ul>
 <p>Please at least skim all four, but for the purposes of this course you just
 need to get one of the methods working to run your notebooks. Notebooks
 can be run locally through something like VSCode, and this is what I
 recommend and use. If you have other methods, please feel free to reach out to 
 your me to discuss them.</p>
-<p>Once you have read the above, run the following notebook using
-the method of your choosing:</p>
-<div class="alert alert-success">
-<p><a href="static/homeworks/course_primer.ipynb">DOWNLOAD NOTEBOOK</a></p>
-</div>
-<p>For your convenience the notebook is displayed below as HTML but you will likely
-find it easier to download the raw notebook file given above.</p>
-<iframe src="static/homework_htmls/course_primer.html" width="100%" height="800px"></iframe>
-
 <h2 id="task-4-reading">Task 4: Reading<a class="headerlink" href="#task-4-reading" title="Permanent link">&para;</a></h2>
 <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
 
 <h3 id="syllabus-cse-30124-introduction-to-artificial-intelligence">Syllabus: <a href="index.html">CSE 30124 Introduction to Artificial Intelligence</a><a class="headerlink" href="#syllabus-cse-30124-introduction-to-artificial-intelligence" title="Permanent link">&para;</a></h3>
-<p>Most weeks you will have a reading assignment followed by a brief quiz that will cover the two upcoming lectures. Each of the two will have a primary reading and then a link to a number of additional resources that I encourage you to explore if you're interested. Once completing the readings, use the google form to submit your answers to the quiz. Quizzes are due at 3:00 PM on the day of the first lecture for the topic.</p>
+<p>Most weeks you will have a reading assignment followed by a brief quiz that will cover the two upcoming lectures. Each of the two will have a primary reading and then a link to a number of additional resources that I encourage you to explore if you're interested. Once completing the readings, use the link below to access the canvas quiz. Quizzes are due at 3:00 PM on the day of the first lecture for the topic.</p>
 <div class="alert alert-info">
 <p><strong>Note</strong>: We will be a little lenient on this first reading quiz.</p>
 </div>
 <div class="alert alert-info">
 <p><strong>Note</strong>: Most of the readings are significantly more in depth than what you will need to answer the quizzes. It's completely fine if you skim portions (especially the ones full of equations (yuck)), these are merely meant to prepare you for the lectures so you at least have some familiarity with the material (and they allow me to shift some of the exam points to the quizzes, which are hopefully less stressful).</p>
 </div>
-<h3 id="search-search-algorithms-in-ai-uninformed-search-section-reading">Search: <a href="https://www.appliedaicourse.com/blog/search-algorithms-in-ai/">Search Algorithms in AI (Uninformed Search Section) (Reading)</a><a class="headerlink" href="#search-search-algorithms-in-ai-uninformed-search-section-reading" title="Permanent link">&para;</a></h3>
-<p>Additional Resources:</p>
-<ul>
-<li><a href="https://artint.info/3e/html/ArtInt3e.Ch3.S5.html">Foundations of Computational Agents - Section 3.5</a></li>
-<li><a href="https://www.youtube.com/watch?v=WbzNRTTrX0g">Harvard CS50 (Video)</a></li>
-<li><a href="https://www.youtube.com/watch?v=j1H3jAAGlEA">MIT 6.034 (Video)</a></li>
-</ul>
-<h3 id="a-search-introduction-to-the-a-algorithm">A* Search: <a href="https://www.redblobgames.com/pathfinding/a-star/introduction.html">Introduction to the A* Algorithm</a><a class="headerlink" href="#a-search-introduction-to-the-a-algorithm" title="Permanent link">&para;</a></h3>
-<p>Additional Resources:</p>
-<ul>
-<li><a href="https://artint.info/3e/html/ArtInt3e.Ch3.S6.html">Foundations of Computation Agents - Section 3.6 (Reading)</a></li>
-<li><a href="https://youtu.be/WbzNRTTrX0g?si=mqYHjM8hTRsed8h4&amp;t=3269">Harvard CS50 (Video)</a></li>
-<li><a href="https://www.youtube.com/watch?v=HEs1ZCvLH2s&amp;list=PLoROMvodv4rOca_Ovz1DvdtWuz8BfSWL2&amp;index=18">Stanford CS221 (Video)</a></li>
-<li><a href="https://www.youtube.com/watch?v=gGQ-vAmdAOI">MIT 6.034 (Video)</a></li>
-<li><a href="https://courses.grainger.illinois.edu/cs440/fa2024/lectures/astar.html">A* Search (Blog Post)</a></li>
-<li><a href="https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html">Introduction to A* (Blog Post)</a></li>
-<li><a href="https://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html">Heuristics (Blog Post)</a></li>
-<li><a href="https://ieeexplore.ieee.org/document/4082128">(1968) A Formal Basis for the Heuristic Determination of Minimum Cost
-    Paths (Hart et al.) (Paper)</a></li>
-</ul>
+
+
+<h2 id="uninformed-search">Uninformed Search<a class="headerlink" href="#uninformed-search" title="Permanent link">&para;</a></h2>
+<table>
+    <tr>
+        <td colspan="3">
+            
+            <div class="row">
+    <div class="col-md-4">
+        <h4><i class="fa-solid fa-book"></i> Readings</h4>
+        <ul class="resource-list">
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://drive.google.com/file/d/1Rc5V0QSkbObr1hWjcuLyDZ0dnPDhd538/view?usp=sharing">Filled Slides</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://artint.info/3e/html/ArtInt3e.Ch3.S5.html">FCA - Section 3.5</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <i class="fa-solid fa-star" style="color: #f0ad4e;"></i>
+                    
+                    <a href="https://www.appliedaicourse.com/blog/search-algorithms-in-ai/">Search Algorithms in AI (Uninformed Search Section)</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://docs.google.com/presentation/d/1l7s0LK8dC2_NRGBvOn64YJXc1Bgedfse/edit?usp=sharing&amp;ouid=111601855049772661603&amp;rtpof=true&amp;sd=true">Blank Slides</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://docs.google.com/presentation/d/1Jes7NoCIbGAXb1dxU2B1R02Tss2e44e-ao2tneMZ2Dw/edit?usp=sharing">AI2AI Chapter 02</a>
+                    
+                </li>
+            
+        
+            
+        
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4><i class="fa-solid fa-video-camera"></i> Videos</h4>
+        <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=61ec6c47-5064-4cf2-aab5-b34601597a14">fa25 Panopto</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=WbzNRTTrX0g">Harvard CS50</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=j1H3jAAGlEA">MIT 6.034</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=603ebe9f-d08a-4423-824f-b3d201694ca2">Panopto</a>
+                    
+                </li>
+            
+        
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4><i class="fa-brands fa-python"></i> Notebooks</h4>
+        <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        </ul>
+    </div>
+</div>
+
+
+<div class="row">
+    
+</div>
+
+        </td>
+    </tr>
+</table>
+
+<h2 id="informed-search">Informed Search<a class="headerlink" href="#informed-search" title="Permanent link">&para;</a></h2>
+<table>
+    <tr>
+        <td colspan="3">
+            
+            <div class="row">
+    <div class="col-md-4">
+        <h4><i class="fa-solid fa-book"></i> Readings</h4>
+        <ul class="resource-list">
+        
+            
+                <li>
+                    
+                        <i class="fa-solid fa-star" style="color: #f0ad4e;"></i>
+                    
+                    <a href="https://www.redblobgames.com/pathfinding/a-star/introduction.html">Introduction to the A* Algorithm</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://artint.info/3e/html/ArtInt3e.Ch3.S6.html">Foundations of Computation Agents - Section 3.6</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://drive.google.com/file/d/1Ir-99SJIcfGAtTDAZOF_werU4EbsA9Fh/view?usp=sharing">Filled Slides</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://docs.google.com/presentation/d/1L_ONCCVZtr7cgTWywuZ_UPABbI9NUPJTbk7gKVP_hxY/edit?usp=sharing">AI2AI Chapter 03</a>
+                    
+                </li>
+            
+        
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4><i class="fa-solid fa-video-camera"></i> Videos</h4>
+        <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://youtu.be/WbzNRTTrX0g?si=mqYHjM8hTRsed8h4&amp;t=3269">Harvard CS50</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=HEs1ZCvLH2s&amp;list=PLoROMvodv4rOca_Ovz1DvdtWuz8BfSWL2&amp;index=18">Stanford CS221</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=gGQ-vAmdAOI">MIT 6.034</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://www.youtube.com/watch?v=Zg0Cxn8AVZA">A* in Minecraft</a>
+                    
+                        <span class="resource-credit">Grant Flesher &#x27;26</span>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=17f3a92c-9d44-41a4-9027-b34b015993fd">fa25 Panopto</a>
+                    
+                </li>
+            
+        
+            
+        
+            
+        
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4><i class="fa-brands fa-python"></i> Notebooks</h4>
+        <ul class="resource-list">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        </ul>
+    </div>
+</div>
+
+
+<div class="row">
+    
+        <div class="col-md-4">
+            <h4><i class="fa-solid fa-share-alt"></i> Blogposts</h4>
+            <ul class="resource-list">
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://courses.grainger.illinois.edu/cs440/fa2024/lectures/astar.html">A* Search</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html">Introduction to A*</a>
+                    
+                </li>
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html">Heuristics</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <h4><i class="fa-solid fa-file-pdf"></i> Papers</h4>
+            <ul class="resource-list">
+            
+                <li>
+                    
+                        <span style="display:inline-block; width: 1em;">&bull;</span>
+                    
+                    <a href="https://ieeexplore.ieee.org/document/4082128">(1968) A Formal Basis for the Heuristic Determination of Minimum Cost Paths</a>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+</div>
+
+        </td>
+    </tr>
+</table>
+
+
 <h2 id="task-5-quiz">Task 5: Quiz<a class="headerlink" href="#task-5-quiz" title="Permanent link">&para;</a></h2>
-<p>Please respond to the quiz below, you will need to be signed into your ND email in order to respond. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!</p>
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdPlfelDAEdQp6iYnU7pE0S4SuEd-xW2WBRvpLl9XNRmIsIzA/viewform?embedded=true" width="640" height="2933" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+
+<p>Please respond to the quiz below. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!</p>
+
+<div class="alert alert-success">
+<p><a href="!--__TEMPLATE_29__--">Access the quiz here</a></p>
+</div>
+
 
 
 	    <div class="row">
@@ -289,6 +802,67 @@ find it easier to download the raw notebook file given above.</p>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 	
+	<script>
+	(function() {
+	    var STORAGE_KEY = 'ai-landing-theme';
+	    var prefix = '';
+	    var themes = {
+	        'gruvbox-dark': prefix + 'static/css/gruvbox-dark.css',
+	        'gruvbox-light': prefix + 'static/css/bluegold.css'
+	    };
+	    var linkEl = document.getElementById('theme-style');
+	    var toggleBtn = document.getElementById('theme-toggle');
+	    if (!linkEl || !toggleBtn) {
+	        return;
+	    }
+        function updateButton(theme) {
+            var isDark = theme === 'gruvbox-dark';
+            var label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+            toggleBtn.setAttribute('aria-label', label);
+            toggleBtn.setAttribute('title', label);
+            toggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
+        }
+        function updateNotebookFrames(theme) {
+            var frames = document.querySelectorAll('iframe[data-src-dark][data-src-light]');
+            var attr = theme === 'gruvbox-light' ? 'data-src-light' : 'data-src-dark';
+            Array.prototype.forEach.call(frames, function(frame) {
+                var nextSrc = frame.getAttribute(attr);
+                if (nextSrc && frame.getAttribute('src') !== nextSrc) {
+                    frame.setAttribute('src', nextSrc);
+                }
+            });
+        }
+        function applyTheme(theme) {
+            var name = themes[theme] ? theme : 'gruvbox-dark';
+            linkEl.setAttribute('href', themes[name]);
+            document.documentElement.setAttribute('data-theme', name);
+            updateButton(name);
+            updateNotebookFrames(name);
+            return name;
+        }
+	    var savedTheme = (function() {
+	        try {
+	            return localStorage.getItem(STORAGE_KEY);
+	        } catch (err) {
+	            return null;
+	        }
+    })();
+        var currentTheme = applyTheme(savedTheme);
+        document.addEventListener('themechange', function(event) {
+            updateNotebookFrames(event.detail || currentTheme);
+        });
+        toggleBtn.addEventListener('click', function() {
+            var nextTheme = currentTheme === 'gruvbox-dark' ? 'gruvbox-light' : 'gruvbox-dark';
+            currentTheme = applyTheme(nextTheme);
+            document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
+            try {
+                localStorage.setItem(STORAGE_KEY, currentTheme);
+            } catch (err) {
+                /* ignore write errors */
+            }
+        });
+	})();
+	</script>
     </body>
 </html>
 
