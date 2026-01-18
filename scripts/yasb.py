@@ -209,20 +209,38 @@ def render_page(page):
         'reading_number': reading_number,  # Add reading_number to template context
     }
     
-    # Check if body contains template syntax that needs evaluation ({% set %}, {% if %})
-    # but NOT {% include %} which should be processed by the final layout template
-    has_template_logic = ('{% set' in page.body or '{% if' in page.body) and '{% include' not in page.body
+    # Protect {% include %} statements from markdown processing
+    import re
+    include_patterns = []
+    include_index = 0
+    
+    def protect_include(match):
+        nonlocal include_index
+        placeholder = f'__INCLUDE_{include_index}__'
+        include_patterns.append((placeholder, match.group(0)))
+        include_index += 1
+        return placeholder
+    
+    # Protect {% include %} statements before any processing
+    body_protected = re.sub(r'\{%\s*include\s+[^%]+%\}', protect_include, page.body)
+    
+    # Check if body has template logic ({% set %}, {% if %}) that needs evaluation
+    has_template_logic = '{% set' in body_protected or '{% if' in body_protected
     
     if has_template_logic:
         # Process body as template first to evaluate {% set %}, {% if %}, {{ variables }}
-        body_template = tornado.template.Template(page.body, loader=loader)
+        body_template = tornado.template.Template(body_protected, loader=loader)
         processed_body = body_template.generate(**settings).decode()
     else:
-        # For pages with {% include %} or no template logic, process body directly through markdown
-        processed_body = page.body
+        # No template logic, use body as-is
+        processed_body = body_protected
     
-    # Process through markdown
+    # Process through markdown (with {% include %} still protected)
     markdown_output = markdown.markdown(processed_body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
+    
+    # Restore {% include %} statements after markdown processing
+    for placeholder, original in include_patterns:
+        markdown_output = markdown_output.replace(placeholder, original)
     
     # Escape braces for .format() insertion into layout template
     escaped_markdown = markdown_output.replace('{', '{{').replace('}', '}}')
