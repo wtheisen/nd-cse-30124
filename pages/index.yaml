@@ -16,7 +16,7 @@ navigation:
 internal:
 external:
     tas:        'static/yaml/semester_info.yaml'
-    schedule:   'static/yaml/schedule.yaml'
+    schedule:   'csv:static/csv/schedule.csv'
     semester_info: 'static/yaml/semester_info.yaml'
     resources:  'csv:static/csv/resources.csv'
 body:       |

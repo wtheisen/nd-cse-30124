@@ -42,6 +42,22 @@ except Exception:
 PageFields = 'title prefix icon navigation internal external body'.split()
 Page       = collections.namedtuple('Page', PageFields)
 
+def _get_csv_url_from_semester_info(csv_type: str) -> str:
+    """
+    Get CSV URL from semester_info.yaml as a fallback.
+    csv_type should be 'resources' or 'schedule'.
+    """
+    try:
+        semester_info_path = 'static/yaml/semester_info.yaml'
+        if os.path.exists(semester_info_path):
+            with open(semester_info_path, 'r', encoding='utf-8') as f:
+                semester_info = yaml.safe_load(f)
+            csv_urls = semester_info.get('csv_urls', {})
+            return csv_urls.get(csv_type, '')
+    except Exception:
+        pass
+    return ''
+
 def _load_csv_to_resources_map(src: str):
     """
     Load CSV from a URL or file path and return a mapping:
@@ -79,7 +95,10 @@ def _load_csv_to_resources_map(src: str):
             with open(src, 'r', encoding='utf-8') as f:
                 text = f.read()
         except FileNotFoundError:
+            # Try environment variable first, then semester_info.yaml
             fallback = os.environ.get('COURSE_RESOURCES_CSV_URL', '')
+            if not fallback:
+                fallback = _get_csv_url_from_semester_info('resources')
             if fallback:
                 if not requests:
                     raise RuntimeError("requests module not available to fetch CSV")
@@ -169,6 +188,146 @@ def _load_csv_to_resources_map(src: str):
     return out
 
 
+def _load_csv_to_schedule(src: str):
+    """
+    Load CSV from a URL or file path and return a schedule list matching YAML structure:
+        [ {name: "Unit", days: [...]}, ... ]
+
+    The CSV should contain columns: id, Date, Unit, Topic, Assignments.
+    - id: Topic slug/identifier
+    - Date: MM/DD/YY format (will be converted to "Mon MM/DD")
+    - Unit: Unit name (empty cells continue previous unit)
+    - Topic: Topic name
+    - Assignments: Comma-separated list of assignments
+    """
+    def normalize_headers(headers):
+        return [h.strip().lower().replace(' ', '_') for h in headers]
+
+    def best_of(row, *cands):
+        for c in cands:
+            if c in row and row[c]:
+                return str(row[c]).strip()
+        return ''
+
+    # Fetch content (same logic as _load_csv_to_resources_map)
+    text = ''
+    if src.startswith('http://') or src.startswith('https://'):
+        if not requests:
+            raise RuntimeError("requests module not available to fetch CSV")
+        r = requests.get(src, timeout=30, headers={
+            'User-Agent': 'nd-cse-site-bot/1.0 (+github actions)'
+        })
+        r.raise_for_status()
+        try:
+            text = r.content.decode('utf-8-sig')
+        except Exception:
+            text = r.text
+    else:
+        # Local file path; if missing, try env fallback URL
+        try:
+            with open(src, 'r', encoding='utf-8') as f:
+                text = f.read()
+        except FileNotFoundError:
+            # Try environment variable first, then semester_info.yaml
+            fallback = os.environ.get('COURSE_SCHEDULE_CSV_URL', '')
+            if not fallback:
+                fallback = _get_csv_url_from_semester_info('schedule')
+            if fallback:
+                if not requests:
+                    raise RuntimeError("requests module not available to fetch CSV")
+                r = requests.get(fallback, timeout=30, headers={'User-Agent': 'nd-cse-site-bot/1.0'})
+                r.raise_for_status()
+                try:
+                    text = r.content.decode('utf-8-sig')
+                except Exception:
+                    text = r.text
+            else:
+                raise
+
+    reader = csv.DictReader(io.StringIO(text))
+    reader.fieldnames = normalize_headers(reader.fieldnames or [])
+
+    # Process rows in order, maintaining structure
+    result = []
+    current_unit = None  # Track current unit (empty cells continue previous)
+    current_section = None
+    seen_units = set()  # Track which units we've created header sections for
+    
+    for raw in reader:
+        row = {k: (v or '').strip() for k, v in raw.items()}
+        
+        date_raw = best_of(row, 'date')
+        unit = best_of(row, 'unit')
+        topic = best_of(row, 'topic')
+        assignments_str = best_of(row, 'assignments', 'assignment')
+        topic_id = best_of(row, 'id')
+        
+        # If unit is empty, use the previous unit
+        if not unit and current_unit:
+            unit = current_unit
+        
+        # Update current_unit if we have a new one
+        if unit:
+            current_unit = unit
+        
+        # Skip rows without date and topic (invalid entries)
+        if not date_raw or not topic:
+            continue
+        
+        # Convert date format from MM/DD/YY to "Mon MM/DD"
+        date = parse_date(date_raw)
+        
+        # Parse assignments (comma-separated)
+        assignments = parse_assignments(assignments_str)
+        
+        # Handle unit changes - start new section if unit changed
+        if unit and unit != (current_section['name'] if current_section else None):
+            # Close previous section
+            if current_section:
+                result.append(current_section)
+            
+            # Start new section
+            current_section = {
+                'name': unit,
+                'days': []
+            }
+            seen_units.add(unit)
+        
+        # If we don't have a current section yet, create one
+        if not current_section and unit:
+            current_section = {
+                'name': unit,
+                'days': []
+            }
+            seen_units.add(unit)
+        
+        # Add day entry to current section
+        if current_section:
+            day_entry = {
+                'date': date,
+                'topics': topic
+            }
+            if assignments:
+                day_entry['assignments'] = assignments
+            if topic_id:
+                day_entry['topic_slug'] = topic_id
+            
+            current_section['days'].append(day_entry)
+    
+    # Add final section
+    if current_section:
+        result.append(current_section)
+    
+    # Basic debug to stderr
+    try:
+        import sys
+        sys.stderr.write(f"[yasb] CSV schedule: sections={len(result)}, days={sum(len(s.get('days', [])) for s in result)}\n")
+    except Exception:
+        pass
+
+    return result
+
+
 def load_page_from_yaml(path):
     data     = yaml.safe_load(open(path))
     external = data.get('external', {}) or {}
@@ -176,7 +335,11 @@ def load_page_from_yaml(path):
     for k, v in external.items():
         if isinstance(v, str) and v.startswith('csv:'):
             src = v[len('csv:'):]
-            data['external'][k] = _load_csv_to_resources_map(src)
+            # Use schedule loader for schedule, resources loader for resources
+            if k == 'schedule':
+                data['external'][k] = _load_csv_to_schedule(src)
+            else:
+                data['external'][k] = _load_csv_to_resources_map(src)
         else:
             data['external'][k] = yaml.safe_load(open(v))
 

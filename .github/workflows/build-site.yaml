@@ -18,12 +18,31 @@ jobs:
         sudo apt-get -y update && \
         sudo apt-get -y install python3-tornado python3-yaml python3-markdown python3-dateutil python3-nbconvert pandoc
 
+    - name: Extract CSV URLs from semester_info.yaml
+      id: csv_urls
+      run: |
+        python3 << 'EOF'
+        import yaml
+        import os
+        
+        with open('static/yaml/semester_info.yaml', 'r') as f:
+            semester_info = yaml.safe_load(f)
+        
+        csv_urls = semester_info.get('csv_urls', {})
+        resources_url = csv_urls.get('resources', '')
+        schedule_url = csv_urls.get('schedule', '')
+        
+        # Output to GitHub Actions environment
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"resources_url={resources_url}\n")
+            f.write(f"schedule_url={schedule_url}\n")
+        EOF
+
     - name: Build site
-      env:
-        COURSE_RESOURCES_CSV_URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRcrLDHvgcPt1pwnPWyf3glaEr7rrdHh6RWyX7sTlD1oBMNhYCk2e0tjbYp3bc8w18pdQp7tvp2tczt/pub?gid=1486073670&single=true&output=csv
       run: |
         mkdir -p static/csv
-        curl -L -s "$COURSE_RESOURCES_CSV_URL" -o static/csv/resources.csv
+        curl -L -s "${{ steps.csv_urls.outputs.resources_url }}" -o static/csv/resources.csv
+        curl -L -s "${{ steps.csv_urls.outputs.schedule_url }}" -o static/csv/schedule.csv
         make clean && make build
 
     # No deploy in PR validation workflow
