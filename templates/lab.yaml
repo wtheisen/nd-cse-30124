@@ -18,13 +18,15 @@ body:       |
 
     Copy the following notebook and answer the included questions using the method of your choosing:
 
-    <div class="alert alert-success" markdown="1">
     {% if notebook_link %}
+    <div class="alert alert-success" markdown="1">
     [OPEN NOTEBOOK IN GOOGLE COLAB]({{ notebook_link }})
-    {% else %}
-    [OPEN NOTEBOOK IN GOOGLE COLAB]()
-    {% end %}
     </div>
+    {% else %}
+    <div class="alert alert-success" markdown="1">
+    [OPEN NOTEBOOK IN GOOGLE COLAB]()
+    </div>
+    {% end %}
 
     For your convenience the notebook is displayed below as HTML but you will likely
     find it easier to copy the notebook from the google drive link above.
