@@ -63,6 +63,8 @@ jobs:
           mkdir -p static/csv
           curl -L -s "${{ steps.csv_urls.outputs.resources_url }}" -o static/csv/resources.csv
           curl -L -s "${{ steps.csv_urls.outputs.schedule_url }}" -o static/csv/schedule.csv
+          # Generate pages from schedule before building
+          python3 scripts/generate_homework_pages.py
           make clean && make build
 
       - name: Checkout gh-pages (publish)

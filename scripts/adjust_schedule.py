@@ -259,9 +259,18 @@ def main():
     output_file = "static/yaml/adjusted_schedule.yaml"
     class_days = ['Monday', 'Wednesday']
 
-    # Load semester info from YAML
-    with open(semester_info_file, 'r') as f:
-        semester_info = yaml.safe_load(f)
+    # Load semester info from YAML (which may contain CSV URLs)
+    try:
+        # Try to import the helper function from yasb
+        import sys
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from yasb import load_semester_info_from_yaml_or_csv
+        semester_info = load_semester_info_from_yaml_or_csv(semester_info_file)
+    except ImportError:
+        # Fallback: load directly from YAML
+        with open(semester_info_file, 'r') as f:
+            semester_info = yaml.safe_load(f)
     term = semester_info.get("Term")
     year = int(semester_info.get("Year"))
 

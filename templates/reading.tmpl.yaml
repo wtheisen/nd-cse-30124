@@ -1,4 +1,4 @@
-title:      "Reading 01: Course Introduction, Search, and A*"
+title:      "{{ title }}"
 icon:       fa-book
 navigation:
   - name: "Home"
@@ -9,9 +9,11 @@ external:
     resources:  'csv:static/csv/resources.csv'
     semester_info: 'static/yaml/semester_info.yaml'
 body:       |
+
+    {% if reading_number == "01" %}
     {% set term_code = page.external['semester_info']['Term'][:2].lower() + page.external['semester_info']['Year'][-2:] %}
 
-    {% set gh_homework_link = page.external['semester_info']['gh_homework_link'] %}
+    {% set gh_homework_link = page.external['semester_info'].get('gh_homework_link', '') %}
 
     **Welcome** to [CSE 30124 Introduction to Artifical Intelligence](index.html), which (as the syllabus
     states) is a broad introduction to the field of artificial intelligence. We
@@ -126,30 +128,14 @@ body:       |
     **Note**: Most of the readings are significantly more in depth than what you will need to answer the quizzes. It's completely fine if you skim portions (especially the ones full of equations (yuck)), these are merely meant to prepare you for the lectures so you at least have some familiarity with the material (and they allow me to shift some of the exam points to the quizzes, which are hopefully less stressful).
     </div>
     
-    ### Search:
+    {% end %}
 
-    <table>
-        <tr>
-            <td colspan="3">
-                {% set resources =  page.external.get('resources', {}).get(lecture_id_for('Search'), [])%}
-                {% include "resource_sections.tmpl" %}
-            </td>
-        </tr>
-    </table>
+{{ topic_sections }}
 
-    ### A* Search:
-
-    <table>
-        <tr>
-            <td colspan="3">
-                {% set resources =  page.external.get('resources', {}).get(lecture_id_for('A* Search'), [])%}
-                {% include "resource_sections.tmpl" %}
-            </td>
-        </tr>
-    </table>
-
+    {% if reading_number == "01" %}
     ## Task 5: Quiz
+    {% else %}
+    ## Reading Quiz {{ reading_number }}
+    {% end %}
 
-    Please respond to the quiz below. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!
-
-    <a href="https://canvas.nd.edu/courses/133089/quizzes/76172">Reading Quiz 01</a>
+    Please respond to the quiz below{% if reading_number != "01" %}, you will need to be signed into your ND email in order to respond{% end %}. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!

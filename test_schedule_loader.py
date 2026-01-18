@@ -47,9 +47,18 @@ def parse_assignments(assignments_str):
         return []
     return [a.strip() for a in assignments_str.split(',') if a.strip()]
 
-# Get URL from semester_info.yaml
-with open('static/yaml/semester_info.yaml', 'r') as f:
-    semester_info = yaml.safe_load(f)
+# Get URL from semester_info.yaml (which may contain CSV URLs)
+try:
+    # Try to import the helper function from yasb
+    import sys
+    import os
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
+    from yasb import load_semester_info_from_yaml_or_csv
+    semester_info = load_semester_info_from_yaml_or_csv('static/yaml/semester_info.yaml')
+except ImportError:
+    # Fallback: load directly from YAML
+    with open('static/yaml/semester_info.yaml', 'r') as f:
+        semester_info = yaml.safe_load(f)
 
 schedule_url = semester_info.get('csv_urls', {}).get('schedule', '')
 print(f"Loading schedule from: {schedule_url}\n")

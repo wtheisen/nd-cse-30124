@@ -1,4 +1,4 @@
-title:      "Homework 01: Detective Work (10 pts.)"
+title:      "Lab {{ number_str }}: Accessing Case Files and Evidence (5 pts.)"
 icon:       fa-book
 navigation:
   - name: "Home"
@@ -8,7 +8,7 @@ internal:
 external:
 body:       |
 
-    {% set assignment_name = "homework01" %}
+    {% set assignment_name = "{{ assignment_name }}" %}
 
     ## Task 1: Notebook
 
@@ -23,9 +23,9 @@ body:       |
 
     <iframe
         class="theme-notebook-frame"
-        data-src-dark="https://wtheisen/nd-cse-30124-homeworks/homework01/homework01-dark.html"
-        data-src-light="https://wtheisen/nd-cse-30124-homeworks/homework01/homework01-light.html"
-        src="https://wtheisen/nd-cse-30124-homeworks/homework01/homework01-dark.html"
+        data-src-dark="https://williamtheisen.com/nd-cse-30124-homeworks/labs/{{ assignment_name }}/{{ assignment_name }}-dark.html"
+        data-src-light="https://williamtheisen.com/nd-cse-30124-homeworks/labs/{{ assignment_name }}/{{ assignment_name }}-light.html"
+        src="https://williamtheisen.com/nd-cse-30124-homeworks/labs/{{ assignment_name }}/{{ assignment_name }}-dark.html"
         width="100%"
         height="800"></iframe>
 
@@ -33,5 +33,5 @@ body:       |
 
     ## Task 2: Assignment Submission Instructions
 
-    The final cell of the notebook will export and download an html file of your
+    The final cell of the notebook will export and download a .html file of your
     notebook. Upload this to canvas for the assignment.
