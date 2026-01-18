@@ -97,13 +97,15 @@ def render_page(page):
     footnotes = markdown.extensions.footnotes.FootnoteExtension()
     loader = tornado.template.Loader('templates')
     markdown_output = markdown.markdown(page.body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
+    # Escape any { and } in markdown output so .format() doesn't interpret them as placeholders
+    escaped_markdown = markdown_output.replace('{', '{{').replace('}', '}}')
     layout = u'''
 {{% extends "base.tmpl" %}}
 
 {{% block body %}}
-__MARKDOWN_BODY_PLACEHOLDER__
+{}
 {{% end %}}
-'''.replace('__MARKDOWN_BODY_PLACEHOLDER__', markdown_output)
+'''.format(escaped_markdown)
 
     template = tornado.template.Template(layout, loader=loader)
     def slugify(s: str) -> str:
