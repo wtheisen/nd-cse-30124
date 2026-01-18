@@ -96,19 +96,6 @@ def render_page(page):
     toc    = markdown.extensions.toc.TocExtension(permalink=True)
     footnotes = markdown.extensions.footnotes.FootnoteExtension()
     loader = tornado.template.Loader('templates')
-    markdown_output = markdown.markdown(page.body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
-    # Escape all braces in markdown output so .format() treats them as literals
-    # When .format() processes {{, it becomes a single {, so {{% becomes {% correctly
-    escaped_markdown = markdown_output.replace('{', '{{').replace('}', '}}')
-    layout = u'''
-{{% extends "base.tmpl" %}}
-
-{{% block body %}}
-{}
-{{% end %}}
-'''.format(escaped_markdown)
-
-    template = tornado.template.Template(layout, loader=loader)
     def slugify(s: str) -> str:
         s = (s or '').lower()
         s = re.sub(r"[^a-z0-9]+", "-", s)
@@ -221,6 +208,26 @@ def render_page(page):
         'find_assignment_resource': find_assignment_resource,
         'reading_number': reading_number,  # Add reading_number to template context
     }
+    
+    # First, process the body as a Tornado template to evaluate template syntax
+    # This allows {% set %}, {% if %}, {{ variables }} to be evaluated BEFORE markdown
+    body_template = tornado.template.Template(page.body, loader=loader)
+    processed_body = body_template.generate(**settings).decode()
+    
+    # Now process the evaluated body through markdown
+    markdown_output = markdown.markdown(processed_body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
+    
+    # Escape braces for .format() insertion into layout template
+    escaped_markdown = markdown_output.replace('{', '{{').replace('}', '}}')
+    layout = u'''
+{{% extends "base.tmpl" %}}
+
+{{% block body %}}
+{}
+{{% end %}}
+'''.format(escaped_markdown)
+
+    template = tornado.template.Template(layout, loader=loader)
     print(template.generate(**settings).decode())
 
 # Main Execution
