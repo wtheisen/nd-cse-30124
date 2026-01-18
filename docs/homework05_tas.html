@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="gruvbox-dark">
+<html lang="en">
     <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +9,8 @@
 
 	<title>Homework 05 - TA Assignment</title>
 
-	<!-- Theme CSS (toggleable) -->
-	<link id="theme-style" href="static/css/gruvbox-dark.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	<link href="static/css/bluegold.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/9d2722956c.js" crossorigin="anonymous"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -23,203 +23,6 @@
 	body {
 	    padding: 10px;
 	}
-	.resource-list {
-	    list-style: none;
-	    padding-left: 0;
-	    margin-bottom: 1.25em;
-	}
-	.resource-credit {
-	    margin-left: 0.5em;
-	    font-size: 0.85em;
-	    color: #777;
-	    font-style: italic;
-	}
-	.resource-credit::before {
-	    content: "\2014";
-	    margin-right: 0.35em;
-	}
-#library-card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 10px;
-    max-height: 540px;
-    overflow-y: auto;
-    padding-right: 8px;
-}
-.library-card-wrapper {
-    flex: 1 1 calc(20% - 16px);
-    max-width: calc(20% - 16px);
-    min-width: 180px;
-    display: flex;
-    max-height: 100%;
-}
-    .theme-toggle-btn {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 54px;
-        height: 28px;
-        margin-top: 8px;
-        margin-left: 12px;
-        padding: 0 8px;
-        border-radius: 999px;
-        border: 1px solid rgba(15, 23, 42, 0.18);
-        background-color: #f2f6ff;
-        cursor: pointer;
-        transition: background-color 0.25s ease, border-color 0.25s ease;
-    }
-    .theme-toggle-btn:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
-    }
-    .theme-toggle-btn .theme-icon,
-    .theme-toggle-btn .theme-toggle-handle {
-        pointer-events: none;
-    }
-    .theme-toggle-btn .theme-icon {
-        font-size: 0.85em;
-        opacity: 0.5;
-        transition: opacity 0.25s ease;
-        position: relative;
-        z-index: 2;
-    }
-    .theme-toggle-btn .theme-icon--sun {
-        color: #f59e0b;
-        opacity: 1;
-    }
-    .theme-toggle-btn .theme-icon--moon {
-        color: #c084fc;
-    }
-    .theme-toggle-btn .theme-toggle-handle {
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background-color: #ffffff;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-        transition: transform 0.25s ease, background-color 0.25s ease;
-        z-index: 1;
-    }
-    [data-theme="gruvbox-light"] .theme-toggle-btn {
-        background-color: #f2f6ff;
-        border-color: rgba(15, 23, 42, 0.18);
-    }
-    [data-theme="gruvbox-light"] .theme-toggle-btn .theme-toggle-handle {
-        transform: translateX(0);
-        background-color: #ffffff;
-    }
-    [data-theme="gruvbox-light"] .theme-toggle-btn .theme-icon--sun {
-        opacity: 1;
-    }
-    [data-theme="gruvbox-light"] .theme-toggle-btn .theme-icon--moon {
-        opacity: 0.35;
-    }
-    [data-theme="gruvbox-dark"] .theme-toggle-btn {
-        background-color: #3c3836;
-        border-color: #665c54;
-        color: #ebdbb2;
-    }
-    [data-theme="gruvbox-dark"] .theme-toggle-btn .theme-toggle-handle {
-        transform: translateX(26px);
-        background-color: #1d2021;
-    }
-    [data-theme="gruvbox-dark"] .theme-toggle-btn .theme-icon--sun {
-        opacity: 0.35;
-    }
-    [data-theme="gruvbox-dark"] .theme-toggle-btn .theme-icon--moon {
-        opacity: 1;
-    }
-	.library-card {
-	    display: flex;
-	    flex-direction: column;
-	    width: 100%;
-	    border-radius: 6px;
-	    border: 1px solid #ddd;
-	    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-	    overflow: hidden;
-	    background-color: #fff;
-	    color: #333;
-	}
-	.library-card-cover {
-	    aspect-ratio: 2 / 3;
-	    width: 100%;
-	    min-height: 220px;
-	    max-height: 320px;
-	    background-color: #f7f7f7;
-	    display: grid;
-	    place-items: center;
-	    overflow: hidden;
-	    padding: 6px;
-	}
-	.library-card-cover img {
-	    width: 100%;
-	    height: 100%;
-	    object-fit: contain;
-	    background-color: transparent;
-	}
-	.library-card-body {
-	    flex: 1 1 auto;
-	    display: flex;
-	    flex-direction: column;
-	}
-	.library-card-title {
-	    margin-top: 0;
-	    font-size: 0.95em;
-	    line-height: 1.35;
-	    min-height: 2.7em;
-	}
-	.library-card-meta {
-	    font-size: 0.82em;
-	    color: #555;
-	    margin-bottom: 6px;
-	}
-	.library-card-footer {
-	    display: flex;
-	    align-items: center;
-	    justify-content: space-between;
-	    font-size: 0.78em;
-	}
-	[data-theme="gruvbox-dark"] .library-card {
-	    border-color: #504945;
-	    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
-	    background-color: #282828;
-	    color: #ebdbb2;
-	}
-	[data-theme="gruvbox-dark"] .library-card-cover {
-	    background-color: #32302f;
-	}
-	[data-theme="gruvbox-dark"] .library-card-body {
-	    color: #ebdbb2;
-	}
-	[data-theme="gruvbox-dark"] .library-card-footer {
-	    color: #d5c4a1;
-	}
-	[data-theme="gruvbox-dark"] .library-card-title,
-	[data-theme="gruvbox-dark"] .library-card-meta {
-	    color: #d5c4a1;
-	}
-	.embed-responsive {
- 	    border-radius: 8px;
- 	    border: 1px solid rgba(30, 41, 59, 0.18);
- 	    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
- 	    overflow: hidden;
- 	    margin-bottom: 18px;
-	}
-	.course-embed {
-	    background-color: #ffffff;
-	}
-	[data-theme="gruvbox-dark"] .embed-responsive {
-	    border-color: #665c54;
-	    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-	    background-color: rgba(40, 40, 40, 0.9);
-	}
-	[data-theme="gruvbox-dark"] .course-embed {
-	    background-color: rgba(40, 40, 40, 0.9);
-	}
 	</style>
     </head>
     <body>
@@ -227,11 +30,6 @@
 
 	    <div class="row">
 		<div class="page-header">
-		    <button type="button" class="theme-toggle-btn pull-right" id="theme-toggle" role="switch" aria-checked="true" aria-label="Switch to light theme">
-			<span class="theme-icon theme-icon--sun"><i class="fa-solid fa-sun"></i></span>
-			<span class="theme-icon theme-icon--moon"><i class="fa-solid fa-moon"></i></span>
-			<span class="theme-toggle-handle"></span>
-		    </button>
 		    <ul class="nav nav-pills pull-right">
 			
 			<li><a href="index.html"><i class="fa fa-gavel"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
@@ -253,47 +51,47 @@
   
     <tr>
       <td>Andoni</td>
-      <td>ccervera8</td>
+      <td>oliviazino</td>
     </tr>
   
     <tr>
       <td>Andre-Clint</td>
-      <td>jmangion</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Andrew</td>
-      <td>jmangion</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
       <td>Aynaz Paola Amaya</td>
-      <td>jmangion</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
       <td>Brandon</td>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Bryan-Al</td>
-      <td>snoonan2</td>
+      <td>oliviazino</td>
     </tr>
   
     <tr>
       <td>Brynn-Victoria</td>
-      <td>oliviazino</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
       <td>Caio-Xavier</td>
-      <td>oliviazino</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
       <td>Cayden</td>
-      <td>snoonan2</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
@@ -303,7 +101,7 @@
   
     <tr>
       <td>Clair</td>
-      <td>Thomas-Lohman</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
@@ -313,67 +111,67 @@
   
     <tr>
       <td>Collin</td>
-      <td>jmangion</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Crimmins-Melotik</td>
-      <td>snoonan2</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
       <td>DM/AJ</td>
-      <td>oliviazino</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Eleanor</td>
-      <td>Thomas-Lohman</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Elliot-DerickS</td>
-      <td>Thomas-Lohman</td>
-    </tr>
-  
-    <tr>
-      <td>Emmalyn/Candice</td>
-      <td>snoonan2</td>
-    </tr>
-  
-    <tr>
-      <td>Ethan</td>
       <td>oliviazino</td>
     </tr>
   
     <tr>
-      <td>Farah</td>
+      <td>Emmalyn/Candice</td>
       <td>ccervera8</td>
+    </tr>
+  
+    <tr>
+      <td>Ethan</td>
+      <td>snoonan2</td>
+    </tr>
+  
+    <tr>
+      <td>Farah</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Faraj-Paddies</td>
-      <td>Thomas-Lohman</td>
+      <td>oliviazino</td>
     </tr>
   
     <tr>
       <td>Giancarlos-Reyes</td>
-      <td>ccervera8</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Hayden</td>
-      <td>Thomas-Lohman</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
       <td>Henry</td>
-      <td>ccervera8</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Henry-Michael</td>
-      <td>ccervera8</td>
+      <td>oliviazino</td>
     </tr>
   
     <tr>
@@ -383,42 +181,42 @@
   
     <tr>
       <td>Izzy-Emily</td>
-      <td>snoonan2</td>
+      <td>oliviazino</td>
     </tr>
   
     <tr>
       <td>Jack</td>
-      <td>oliviazino</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Jackson-Daylon</td>
-      <td>Thomas-Lohman</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Jaxon</td>
-      <td>oliviazino</td>
-    </tr>
-  
-    <tr>
-      <td>Josh-Jack</td>
-      <td>snoonan2</td>
-    </tr>
-  
-    <tr>
-      <td>Josh-Trey</td>
-      <td>jmangion</td>
-    </tr>
-  
-    <tr>
-      <td>Kaitlyn</td>
       <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
+      <td>Josh-Jack</td>
+      <td>j-mango-19</td>
+    </tr>
+  
+    <tr>
+      <td>Josh-Trey</td>
+      <td>j-mango-19</td>
+    </tr>
+  
+    <tr>
+      <td>Kaitlyn</td>
+      <td>j-mango-19</td>
+    </tr>
+  
+    <tr>
       <td>Kathryn</td>
-      <td>snoonan2</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
@@ -428,22 +226,22 @@
   
     <tr>
       <td>Luke</td>
-      <td>oliviazino</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Luke-Jack</td>
-      <td>Thomas-Lohman</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
       <td>Maeve</td>
-      <td>jmangion</td>
+      <td>oliviazino</td>
     </tr>
   
     <tr>
       <td>Martin-Jacobo</td>
-      <td>jmangion</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
@@ -453,32 +251,27 @@
   
     <tr>
       <td>Noah</td>
-      <td>oliviazino</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
       <td>Odmark</td>
-      <td>oliviazino</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
       <td>Ojeda-Rubero</td>
-      <td>ccervera8</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Patrick/Matt</td>
-      <td>jmangion</td>
-    </tr>
-  
-    <tr>
-      <td>Pedro Lopez</td>
-      <td>ccervera8</td>
+      <td>snoonan2</td>
     </tr>
   
     <tr>
       <td>Quinn-Arda</td>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
@@ -488,42 +281,42 @@
   
     <tr>
       <td>Rene-Juan</td>
-      <td>ccervera8</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Sarah</td>
-      <td>Thomas-Lohman</td>
-    </tr>
-  
-    <tr>
-      <td>Stefan</td>
-      <td>ccervera8</td>
-    </tr>
-  
-    <tr>
-      <td>Thomas+Ethan</td>
-      <td>snoonan2</td>
-    </tr>
-  
-    <tr>
-      <td>Tim-Dan</td>
       <td>oliviazino</td>
     </tr>
   
     <tr>
+      <td>Stefan</td>
+      <td>Thomas-Lohman</td>
+    </tr>
+  
+    <tr>
+      <td>Thomas+Ethan</td>
+      <td>Thomas-Lohman</td>
+    </tr>
+  
+    <tr>
+      <td>Tim-Dan</td>
+      <td>snoonan2</td>
+    </tr>
+  
+    <tr>
       <td>Vera-Sofia</td>
-      <td>jmangion</td>
+      <td>ccervera8</td>
     </tr>
   
     <tr>
       <td>Wesley </td>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
     </tr>
   
     <tr>
       <td>Yitong-Dao Wei</td>
-      <td>ccervera8</td>
+      <td>Thomas-Lohman</td>
     </tr>
   
     <tr>
@@ -552,27 +345,27 @@
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Clair</td>
+      <td>Andrew</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Eleanor</td>
+      <td>Aynaz Paola Amaya</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Elliot-DerickS</td>
+      <td>Brynn-Victoria</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Faraj-Paddies</td>
+      <td>Caio-Xavier</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Hayden</td>
+      <td>Crimmins-Melotik</td>
     </tr>
   
     <tr>
@@ -582,27 +375,32 @@
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Jackson-Daylon</td>
+      <td>Jaxon</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Kaitlyn</td>
+      <td>Noah</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Luke-Jack</td>
+      <td>Stefan</td>
     </tr>
   
     <tr>
       <td>Thomas-Lohman</td>
-      <td>Sarah</td>
+      <td>Thomas+Ethan</td>
+    </tr>
+  
+    <tr>
+      <td>Thomas-Lohman</td>
+      <td>Yitong-Dao Wei</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Andoni</td>
+      <td>Cayden</td>
     </tr>
   
     <tr>
@@ -612,47 +410,42 @@
   
     <tr>
       <td>ccervera8</td>
-      <td>Farah</td>
+      <td>Clair</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Giancarlos-Reyes</td>
+      <td>Emmalyn/Candice</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Henry</td>
+      <td>Hayden</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Henry-Michael</td>
+      <td>Kathryn</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Ojeda-Rubero</td>
+      <td>Luke-Jack</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Pedro Lopez</td>
+      <td>Martin-Jacobo</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Rene-Juan</td>
+      <td>Odmark</td>
     </tr>
   
     <tr>
       <td>ccervera8</td>
-      <td>Stefan</td>
-    </tr>
-  
-    <tr>
-      <td>ccervera8</td>
-      <td>Yitong-Dao Wei</td>
+      <td>Vera-Sofia</td>
     </tr>
   
     <tr>
@@ -661,108 +454,98 @@
     </tr>
   
     <tr>
-      <td>jmangion</td>
-      <td>Andre-Clint</td>
-    </tr>
-  
-    <tr>
-      <td>jmangion</td>
-      <td>Andrew</td>
-    </tr>
-  
-    <tr>
-      <td>jmangion</td>
-      <td>Aynaz Paola Amaya</td>
-    </tr>
-  
-    <tr>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
       <td>Brandon</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
-      <td>Collin</td>
+      <td>j-mango-19</td>
+      <td>DM/AJ</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
+      <td>Eleanor</td>
+    </tr>
+  
+    <tr>
+      <td>j-mango-19</td>
+      <td>Farah</td>
+    </tr>
+  
+    <tr>
+      <td>j-mango-19</td>
+      <td>Henry</td>
+    </tr>
+  
+    <tr>
+      <td>j-mango-19</td>
+      <td>Josh-Jack</td>
+    </tr>
+  
+    <tr>
+      <td>j-mango-19</td>
       <td>Josh-Trey</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
-      <td>Maeve</td>
+      <td>j-mango-19</td>
+      <td>Kaitlyn</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
-      <td>Martin-Jacobo</td>
+      <td>j-mango-19</td>
+      <td>Ojeda-Rubero</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
-      <td>Patrick/Matt</td>
-    </tr>
-  
-    <tr>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
       <td>Quinn-Arda</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
-      <td>Vera-Sofia</td>
+      <td>j-mango-19</td>
+      <td>Rene-Juan</td>
     </tr>
   
     <tr>
-      <td>jmangion</td>
+      <td>j-mango-19</td>
       <td>Wesley </td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>Brynn-Victoria</td>
+      <td>Andoni</td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>Caio-Xavier</td>
+      <td>Bryan-Al</td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>DM/AJ</td>
+      <td>Elliot-DerickS</td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>Ethan</td>
+      <td>Faraj-Paddies</td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>Jack</td>
+      <td>Henry-Michael</td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>Jaxon</td>
+      <td>Izzy-Emily</td>
     </tr>
   
     <tr>
       <td>oliviazino</td>
-      <td>Luke</td>
-    </tr>
-  
-    <tr>
-      <td>oliviazino</td>
-      <td>Noah</td>
-    </tr>
-  
-    <tr>
-      <td>oliviazino</td>
-      <td>Odmark</td>
+      <td>Maeve</td>
     </tr>
   
     <tr>
@@ -772,7 +555,7 @@
   
     <tr>
       <td>oliviazino</td>
-      <td>Tim-Dan</td>
+      <td>Sarah</td>
     </tr>
   
     <tr>
@@ -782,12 +565,7 @@
   
     <tr>
       <td>snoonan2</td>
-      <td>Bryan-Al</td>
-    </tr>
-  
-    <tr>
-      <td>snoonan2</td>
-      <td>Cayden</td>
+      <td>Andre-Clint</td>
     </tr>
   
     <tr>
@@ -797,27 +575,27 @@
   
     <tr>
       <td>snoonan2</td>
-      <td>Crimmins-Melotik</td>
+      <td>Collin</td>
     </tr>
   
     <tr>
       <td>snoonan2</td>
-      <td>Emmalyn/Candice</td>
+      <td>Ethan</td>
     </tr>
   
     <tr>
       <td>snoonan2</td>
-      <td>Izzy-Emily</td>
+      <td>Giancarlos-Reyes</td>
     </tr>
   
     <tr>
       <td>snoonan2</td>
-      <td>Josh-Jack</td>
+      <td>Jack</td>
     </tr>
   
     <tr>
       <td>snoonan2</td>
-      <td>Kathryn</td>
+      <td>Jackson-Daylon</td>
     </tr>
   
     <tr>
@@ -827,12 +605,22 @@
   
     <tr>
       <td>snoonan2</td>
+      <td>Luke</td>
+    </tr>
+  
+    <tr>
+      <td>snoonan2</td>
       <td>Michael-Ron</td>
     </tr>
   
     <tr>
       <td>snoonan2</td>
-      <td>Thomas+Ethan</td>
+      <td>Patrick/Matt</td>
+    </tr>
+  
+    <tr>
+      <td>snoonan2</td>
+      <td>Tim-Dan</td>
     </tr>
   
   </tbody>
@@ -865,67 +653,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 	
-	<script>
-	(function() {
-	    var STORAGE_KEY = 'ai-landing-theme';
-	    var prefix = '';
-	    var themes = {
-	        'gruvbox-dark': prefix + 'static/css/gruvbox-dark.css',
-	        'gruvbox-light': prefix + 'static/css/bluegold.css'
-	    };
-	    var linkEl = document.getElementById('theme-style');
-	    var toggleBtn = document.getElementById('theme-toggle');
-	    if (!linkEl || !toggleBtn) {
-	        return;
-	    }
-        function updateButton(theme) {
-            var isDark = theme === 'gruvbox-dark';
-            var label = isDark ? 'Switch to light theme' : 'Switch to dark theme';
-            toggleBtn.setAttribute('aria-label', label);
-            toggleBtn.setAttribute('title', label);
-            toggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
-        }
-        function updateNotebookFrames(theme) {
-            var frames = document.querySelectorAll('iframe[data-src-dark][data-src-light]');
-            var attr = theme === 'gruvbox-light' ? 'data-src-light' : 'data-src-dark';
-            Array.prototype.forEach.call(frames, function(frame) {
-                var nextSrc = frame.getAttribute(attr);
-                if (nextSrc && frame.getAttribute('src') !== nextSrc) {
-                    frame.setAttribute('src', nextSrc);
-                }
-            });
-        }
-        function applyTheme(theme) {
-            var name = themes[theme] ? theme : 'gruvbox-dark';
-            linkEl.setAttribute('href', themes[name]);
-            document.documentElement.setAttribute('data-theme', name);
-            updateButton(name);
-            updateNotebookFrames(name);
-            return name;
-        }
-	    var savedTheme = (function() {
-	        try {
-	            return localStorage.getItem(STORAGE_KEY);
-	        } catch (err) {
-	            return null;
-	        }
-    })();
-        var currentTheme = applyTheme(savedTheme);
-        document.addEventListener('themechange', function(event) {
-            updateNotebookFrames(event.detail || currentTheme);
-        });
-        toggleBtn.addEventListener('click', function() {
-            var nextTheme = currentTheme === 'gruvbox-dark' ? 'gruvbox-light' : 'gruvbox-dark';
-            currentTheme = applyTheme(nextTheme);
-            document.dispatchEvent(new CustomEvent('themechange', { detail: currentTheme }));
-            try {
-                localStorage.setItem(STORAGE_KEY, currentTheme);
-            } catch (err) {
-                /* ignore write errors */
-            }
-        });
-	})();
-	</script>
     </body>
 </html>
 
