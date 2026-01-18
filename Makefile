@@ -9,7 +9,11 @@ HTML= 		$(YAML:.yaml=.html)
 HOMEWORK_IPYNB := $(wildcard static/homeworks/*.ipynb)
 HOMEWORK_HTML  := $(patsubst static/homeworks/%.ipynb, static/homework_htmls/%.html, $(HOMEWORK_IPYNB))
 
-all:		$(HTML) $(HOMEWORK_HTML)
+# Generate homework pages from schedule
+generate-homework-pages:
+	python3 scripts/generate_homework_pages.py
+
+all:		generate-homework-pages $(HTML) $(HOMEWORK_HTML)
 
 
 %.html:		%.yaml $(COMMON)
@@ -20,7 +24,7 @@ static/homework_htmls/%.html: static/homeworks/%.ipynb
 	mkdir -p $(dir $@)
 	python3 -m nbconvert --to html --output-dir=$(dir $@) $<
 
-build:		$(HTML) $(HOMEWORK_HTML)
+build:		generate-homework-pages $(HTML) $(HOMEWORK_HTML)
 	mkdir -p $(WWWROOT)/static
 	cp -frv pages/*.html		$(WWWROOT)/.
 	cp -frv static/*		$(WWWROOT)/static/.

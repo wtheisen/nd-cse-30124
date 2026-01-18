@@ -209,6 +209,41 @@ def _load_csv_to_schedule(src: str):
                 return str(row[c]).strip()
         return ''
 
+    def parse_date(date_str):
+        """
+        Convert MM/DD/YY format to "Mon MM/DD" format.
+        Example: "01/12/26" -> "Mon 01/12"
+        """
+        try:
+            # Parse MM/DD/YY
+            parts = date_str.split('/')
+            if len(parts) == 3:
+                month, day, year = parts
+                # Convert to datetime to get day name
+                # Assume 20XX for years < 50, 19XX otherwise
+                year_int = int(year)
+                if year_int < 50:
+                    year_int += 2000
+                else:
+                    year_int += 1900
+                
+                from datetime import datetime
+                dt = datetime(int(year_int), int(month), int(day))
+                day_name = dt.strftime('%a')
+                return f"{day_name} {month}/{day}"
+        except Exception:
+            pass
+        return date_str  # Return original if parsing fails
+
+    def parse_assignments(assignments_str):
+        """
+        Parse comma-separated assignments into a list.
+        """
+        if not assignments_str:
+            return []
+        # Split by comma and clean up
+        return [a.strip() for a in assignments_str.split(',') if a.strip()]
+
     # Fetch content (same logic as _load_csv_to_resources_map)
     text = ''
     if src.startswith('http://') or src.startswith('https://'):
