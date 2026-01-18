@@ -6,16 +6,24 @@ navigation:
     icon: "fa-gavel"
 internal:
 external:
+    resources:  'csv:static/csv/resources.csv'
 body:       |
 
     {% set assignment_name = "{{ assignment_name }}" %}
+    {% set assignment_display = "Homework " + "{{ number_str }}" %}
+    {% set assignment_resource = find_assignment_resource(page.external.get('resources', {}), assignment_display, '') %}
+    {% set notebook_link = assignment_resource.get('link', '') if assignment_resource else '' %}
 
     ## Task 1: Notebook
 
     Copy the following notebook and answer the included questions using the method of your choosing:
 
     <div class="alert alert-success" markdown="1">
+    {% if notebook_link %}
+    [OPEN NOTEBOOK IN GOOGLE COLAB]({{ notebook_link }})
+    {% else %}
     [OPEN NOTEBOOK IN GOOGLE COLAB]()
+    {% end %}
     </div>
 
     For your convenience the notebook is displayed below as HTML but you will likely

@@ -145,7 +145,8 @@
                                 {% end %}
 
                                 {% set assignment_resource = find_assignment_resource(page.external.get('resources', {}), assignment, lecture_id) %}
-                                {% if assignment_resource and assignment_resource.get('link') %}
+                                {% set is_lab_or_homework_or_reading = assignment_id.startswith('lab_') or assignment_id.startswith('homework_') or assignment_id.startswith('reading_') %}
+                                {% if assignment_resource and assignment_resource.get('link') and not is_lab_or_homework_or_reading %}
                                     {% set assignment_type = (assignment_resource.get('type') or '').lower() %}
                                     {% if assignment_label == 'caution' %}
                                         {% if 'exam' in assignment_type %}

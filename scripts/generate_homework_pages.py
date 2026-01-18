@@ -19,9 +19,9 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 SEMESTER_INFO_FILE = PROJECT_ROOT / "static" / "yaml" / "semester_info.yaml"
 SCHEDULE_FILE = PROJECT_ROOT / "static" / "yaml" / "schedule.yaml"  # Fallback
-HOMEWORK_TEMPLATE_FILE = PROJECT_ROOT / "templates" / "homework.tmpl.yaml"
-LAB_TEMPLATE_FILE = PROJECT_ROOT / "templates" / "lab.tmpl.yaml"
-READING_TEMPLATE_FILE = PROJECT_ROOT / "templates" / "reading.tmpl.yaml"
+HOMEWORK_TEMPLATE_FILE = PROJECT_ROOT / "templates" / "homework.yaml"
+LAB_TEMPLATE_FILE = PROJECT_ROOT / "templates" / "lab.yaml"
+READING_TEMPLATE_FILE = PROJECT_ROOT / "templates" / "reading.yaml"
 PAGES_DIR = PROJECT_ROOT / "pages"
 
 

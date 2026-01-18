@@ -10,6 +10,10 @@ external:
     semester_info: 'static/yaml/semester_info.yaml'
 body:       |
 
+    {% set reading_display = "Reading " + reading_number %}
+    {% set assignment_resource = find_assignment_resource(page.external.get('resources', {}), reading_display, '') %}
+    {% set quiz_link = assignment_resource.get('link', '') if assignment_resource else '' %}
+
     {% if reading_number and reading_number == "01" %}
     {% set semester_info = page.external.get('semester_info', {}) %}
     {% set term_code = '' %}
@@ -142,3 +146,9 @@ body:       |
     {% end %}
 
     Please respond to the quiz below{% if not reading_number or reading_number != "01" %}, you will need to be signed into your ND email in order to respond{% end %}. You may edit your responses after each submission, so there's really no reason you shouldn't get full credit on these!
+
+    {% if quiz_link %}
+    <div class="alert alert-success" markdown="1">
+    [Access the quiz here]({{ quiz_link }})
+    </div>
+    {% end %}
