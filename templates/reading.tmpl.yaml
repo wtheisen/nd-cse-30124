@@ -11,9 +11,12 @@ external:
 body:       |
 
     {% if reading_number and reading_number == "01" %}
-    {% set term_code = page.external['semester_info']['Term'][:2].lower() + page.external['semester_info']['Year'][-2:] %}
-
-    {% set gh_homework_link = page.external['semester_info'].get('gh_homework_link', '') %}
+    {% set semester_info = page.external.get('semester_info', {}) %}
+    {% set term_code = '' %}
+    {% if semester_info.get('Term') and semester_info.get('Year') %}
+    {% set term_code = semester_info['Term'][:2].lower() + semester_info['Year'][-2:] %}
+    {% end %}
+    {% set gh_homework_link = semester_info.get('gh_homework_link', '') %}
 
     **Welcome** to [CSE 30124 Introduction to Artifical Intelligence](index.html), which (as the syllabus
     states) is a broad introduction to the field of artificial intelligence. We
