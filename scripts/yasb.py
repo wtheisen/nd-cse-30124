@@ -209,12 +209,19 @@ def render_page(page):
         'reading_number': reading_number,  # Add reading_number to template context
     }
     
-    # First, process the body as a Tornado template to evaluate template syntax
-    # This allows {% set %}, {% if %}, {{ variables }} to be evaluated BEFORE markdown
-    body_template = tornado.template.Template(page.body, loader=loader)
-    processed_body = body_template.generate(**settings).decode()
+    # Check if body contains template syntax that needs evaluation ({% set %}, {% if %})
+    # but NOT {% include %} which should be processed by the final layout template
+    has_template_logic = ('{% set' in page.body or '{% if' in page.body) and '{% include' not in page.body
     
-    # Now process the evaluated body through markdown
+    if has_template_logic:
+        # Process body as template first to evaluate {% set %}, {% if %}, {{ variables }}
+        body_template = tornado.template.Template(page.body, loader=loader)
+        processed_body = body_template.generate(**settings).decode()
+    else:
+        # For pages with {% include %} or no template logic, process body directly through markdown
+        processed_body = page.body
+    
+    # Process through markdown
     markdown_output = markdown.markdown(processed_body, extensions=['extra', toc, hilite, footnotes], output_format='html5')
     
     # Escape braces for .format() insertion into layout template
