@@ -12,7 +12,10 @@ body:       |
     {% set assignment_name = "{{ assignment_name }}" %}
     {% set assignment_display = "Lab " + "{{ number_str }}" %}
     {% set assignment_resource = find_assignment_resource(page.external.get('resources', {}), assignment_display, '') %}
-    {% set notebook_link = assignment_resource.get('link', '') if assignment_resource else '' %}
+    {% set notebook_link = '' %}
+    {% if assignment_resource %}
+        {% set notebook_link = assignment_resource.get('link', '') %}
+    {% end %}
 
     ## Task 1: Notebook
 

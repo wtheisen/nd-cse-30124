@@ -12,7 +12,10 @@ body:       |
 
     {% set reading_display = "Reading " + reading_number %}
     {% set assignment_resource = find_assignment_resource(page.external.get('resources', {}), reading_display, '') %}
-    {% set quiz_link = assignment_resource.get('link', '') if assignment_resource else '' %}
+    {% set quiz_link = '' %}
+    {% if assignment_resource %}
+        {% set quiz_link = assignment_resource.get('link', '') %}
+    {% end %}
 
     {% if reading_number and reading_number == "01" %}
     {% set semester_info = page.external.get('semester_info', {}) %}
