@@ -23,8 +23,8 @@ function getTopicRowColors() {
     if (theme === 'gruvbox-dark') {
         return ['#3a3432', '#2e2a28'];
     }
-    if (theme === 'gruvbox-light') {
-        return ['#f2e5bc', '#fbf7db'];
+    if (theme === 'bluegold') {
+        return ['#f9f9f9', '#ffffff'];
     }
     return ['#f9f9f9', '#ffffff'];
 }

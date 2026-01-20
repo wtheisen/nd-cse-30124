@@ -185,13 +185,7 @@ footer p {
   color: #d65d0e !important;
 }
 
-.topic-row:nth-child(even) {
-  background-color: rgba(80, 73, 69, 0.45) !important;
-}
-
-.topic-row:nth-child(odd) {
-  background-color: rgba(40, 40, 40, 0.6) !important;
-}
+/* Striping handled by JS in index.js - fixAlternatingRows() */
 
 .progress {
   background-color: #32302f !important;
@@ -244,13 +238,7 @@ footer p {
   color: #d5c4a1 !important;
 }
 
-[data-theme="gruvbox-dark"] table.schedule tbody tr.topic-row:nth-of-type(even) {
-  background-color: #3a3432 !important;
-}
-
-[data-theme="gruvbox-dark"] table.schedule tbody tr.topic-row:nth-of-type(odd) {
-  background-color: #2e2a28 !important;
-}
+/* nth-of-type striping removed - handled by JS */
 
 [data-theme="gruvbox-dark"] table.schedule tbody tr.resource-row {
   background-color: rgba(29, 32, 33, 0.85) !important;
