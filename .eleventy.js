@@ -377,11 +377,11 @@ module.exports = function(eleventyConfig) {
 .oh-event {
   position: absolute;
   box-sizing: border-box;
-  padding: 4px 6px;
+  padding: 2px 4px;
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,0.15);
-  font-size: 11px;
-  line-height: 1.3;
+  font-size: 9px;
+  line-height: 1.2;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -389,17 +389,19 @@ module.exports = function(eleventyConfig) {
   overflow: hidden;
   transition: z-index 0s, transform 0.1s, box-shadow 0.1s;
   cursor: pointer;
+  container-type: size;
 }
 .oh-event:hover {
   z-index: 100 !important;
-  transform: scale(1.02);
+  transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   background-color: rgba(var(--event-rgb), 1) !important;
 }
 .oh-event strong {
   display: block;
-  font-size: 12px;
-  margin-bottom: 2px;
+  font-size: 10px;
+  font-size: clamp(8px, 25cqh, 12px);
+  margin-bottom: 1px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -407,7 +409,8 @@ module.exports = function(eleventyConfig) {
 .oh-event small {
   display: block;
   color: #555;
-  font-size: 10px;
+  font-size: 8px;
+  font-size: clamp(6px, 18cqh, 10px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
