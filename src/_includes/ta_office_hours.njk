@@ -1,0 +1,5 @@
+{# TA Office Hours calendar partial #}
+{# Expects: semesterInfo from global data #}
+{# Uses the officeHoursCalendar filter to generate the calendar grid #}
+
+{{ semesterInfo | officeHoursCalendar | safe }}
