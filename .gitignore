@@ -1,15 +1,18 @@
-pages/*.html
-*.pyc
+# Build output
+docs/
+
+# Dependencies
+node_modules/
+
+# Editor/OS files
 *.swp
-*_solutions.ipynb
 .DS_Store
-alphabet
-MNIST
-*/solutions/*.png
-static/solutions
-scripts/yasb.py
-Makefile
-static/csv/*
 .vscode/settings.json
+
+# Old Python artifacts (keeping for safety)
+*.pyc
+
+# Course-specific
+*_solutions.ipynb
+*/solutions/*.png
 students.csv
-static/csv/students.csv

@@ -159,7 +159,7 @@ navigation:
     <h3>{{ topic }}</h3>
 
     {% if topic_resources | length %}
-        {% set resourcesForSection = topic_resources %}
+        {% set resourcesList = topic_resources %}
         {% include "resource_sections.njk" %}
     {% else %}
         <p><em>No resources available for this topic yet.</em></p>

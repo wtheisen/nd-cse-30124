@@ -1,7 +1,7 @@
 {
-  "name": "nd-cse-10124",
+  "name": "nd-cse-30124",
   "version": "1.0.0",
-  "description": "CSE 10124 - Building ChatGPT course website",
+  "description": "CSE 30124 - Introduction to Artificial Intelligence course website",
   "main": ".eleventy.js",
   "scripts": {
     "build": "npx @11ty/eleventy",
