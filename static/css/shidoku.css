@@ -1246,6 +1246,8 @@
 #comparison-table {
     margin-bottom: 0;
     font-size: 12px;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 #comparison-table th {
