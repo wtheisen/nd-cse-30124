@@ -1,0 +1,305 @@
+---
+layout: base.njk
+title: KNN Classification Visualizer
+icon: fa-project-diagram
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-gavel"
+permalink: "knn.html"
+extraScript: "static/js/knn.js"
+---
+
+<link rel="stylesheet" href="static/css/knn.css">
+
+<!-- Dataset Selector Panel -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body dataset-panel">
+                <div class="dataset-selector">
+                    <label>Dataset:</label>
+                    <div class="btn-group sample-input-tabs" role="group">
+                        <button type="button" class="btn btn-sm btn-default active" data-dataset="moons" title="Two interleaving half circles">Moons</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="circles" title="Concentric circles">Circles</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="blobs" title="Gaussian blobs">Blobs</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="linear" title="Linearly separable">Linear</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="xor" title="XOR pattern">XOR</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="spiral" title="Two spirals">Spiral</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="custom" title="Draw your own">Custom</button>
+                    </div>
+                </div>
+                <div class="dataset-info">
+                    <span id="dataset-description"><i class="fa fa-info-circle"></i> Two interleaving half circles - a classic non-linear classification problem</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content: Canvas (left) + Controls/Info (right) -->
+<div class="row" id="main-content">
+    <!-- Left Column: Classification Canvas -->
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-content">
+                    <span class="panel-title-text"><i class="fa fa-crosshairs"></i> Classification Space</span>
+                    <div class="edit-toolbar" id="edit-toolbar" style="display: none;">
+                        <div class="btn-group edit-mode-buttons" role="group">
+                            <button type="button" class="btn btn-sm btn-default active" data-mode="classify" title="Click to classify">
+                                <i class="fa fa-crosshairs"></i> Classify
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-mode="add" title="Add training points">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-mode="delete" title="Delete points">
+                                <i class="fa fa-minus"></i> Delete
+                            </button>
+                        </div>
+                        <div class="btn-group class-selector" role="group" id="class-selector">
+                            <button type="button" class="btn btn-sm btn-default active" data-class="0" title="Class 1">
+                                <span class="class-dot class-0"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-class="1" title="Class 2">
+                                <span class="class-dot class-1"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-class="2" title="Class 3">
+                                <span class="class-dot class-2"></span>
+                            </button>
+                        </div>
+                        <button id="btn-clear-points" class="btn btn-sm btn-danger" title="Clear all points">
+                            <i class="fa fa-trash"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body canvas-panel-body">
+                <div class="canvas-wrapper">
+                    <canvas id="knn-canvas" width="560" height="480"></canvas>
+                    <canvas id="boundary-canvas" width="560" height="480"></canvas>
+                    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Computing boundaries...</div>
+                    </div>
+                </div>
+                <div class="canvas-legend">
+                    <span class="legend-item"><span class="legend-color class-0"></span> Class 1</span>
+                    <span class="legend-item"><span class="legend-color class-1"></span> Class 2</span>
+                    <span class="legend-item" id="legend-class-2"><span class="legend-color class-2"></span> Class 3</span>
+                    <span class="legend-item"><span class="legend-color query-point"></span> Query</span>
+                    <span class="legend-item"><span class="legend-line neighbor-line"></span> Neighbor</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playback Controls Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body playback-panel-body">
+                <div class="playback-controls-row">
+                    <div class="btn-toolbar playback-buttons" role="toolbar">
+                        <button id="btn-play" class="btn btn-success" title="Play classification animation" disabled>
+                            <i class="fa fa-play"></i> Play
+                        </button>
+                        <button id="btn-pause" class="btn btn-warning" title="Pause" disabled>
+                            <i class="fa fa-pause"></i>
+                        </button>
+                        <button id="btn-step-back" class="btn btn-info" title="Step backward" disabled>
+                            <i class="fa fa-step-backward"></i>
+                        </button>
+                        <button id="btn-step-forward" class="btn btn-info" title="Step forward" disabled>
+                            <i class="fa fa-step-forward"></i>
+                        </button>
+                        <button id="btn-reset" class="btn btn-danger" title="Reset classification">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                    <div class="playback-status">
+                        <span id="playback-step">Click anywhere to classify</span>
+                    </div>
+                    <div class="speed-control-inline">
+                        <label><i class="fa fa-tachometer"></i></label>
+                        <input type="range" id="speed-slider" min="1" max="10" value="5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Controls + Info -->
+    <div class="col-md-5">
+        <!-- Algorithm Options Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-cogs"></i> Algorithm Options</h3>
+            </div>
+            <div class="panel-body compact-panel">
+                <div class="option-row">
+                    <label>K Value:</label>
+                    <div class="k-control">
+                        <input type="range" id="k-slider" min="1" max="15" value="3">
+                        <span id="k-value">3</span>
+                    </div>
+                </div>
+                <div class="option-row">
+                    <label>Distance Metric:</label>
+                    <select id="distance-metric" class="form-control input-sm">
+                        <option value="euclidean" selected>Euclidean</option>
+                        <option value="manhattan">Manhattan</option>
+                        <option value="chebyshev">Chebyshev</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="show-boundaries">
+                        Show decision boundaries
+                    </label>
+                </div>
+                <div class="option-row">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="weighted-knn">
+                        Weighted voting (1/distance)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart"></i> Classification Result</h3>
+            </div>
+            <div class="panel-body compact-panel">
+                <table class="table table-condensed metrics-table">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-crosshairs"></i> Query Point</td>
+                            <td id="metric-query" class="text-right metric-value">-</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-tag"></i> Prediction</td>
+                            <td id="metric-prediction" class="text-right metric-value">-</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-percent"></i> Confidence</td>
+                            <td id="metric-confidence" class="text-right metric-value">-</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-users"></i> K Neighbors</td>
+                            <td id="metric-neighbors" class="text-right metric-value">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="vote-breakdown" class="vote-breakdown" style="display: none;">
+                    <div class="vote-header">Vote Breakdown:</div>
+                    <div id="vote-bars" class="vote-bars"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabbed Info Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="btn-group info-panel-tabs" role="group">
+                    <button type="button" class="btn btn-sm btn-default active" data-tab="about">
+                        <i class="fa fa-info-circle"></i> About
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-tab="algorithm">
+                        <i class="fa fa-book"></i> Algorithm
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-tab="neighbors">
+                        <i class="fa fa-list"></i> Neighbors
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-tab="compare">
+                        <i class="fa fa-table"></i> Compare
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body info-panel-body">
+                <!-- About Tab -->
+                <div id="tab-about" class="info-tab-content active">
+                    <h4><i class="fa fa-project-diagram"></i> What is KNN?</h4>
+                    <p>
+                        <strong>K-Nearest Neighbors</strong> is a simple yet powerful classification algorithm.
+                        It classifies a point based on the majority class of its K nearest neighbors.
+                    </p>
+                    <h4><i class="fa fa-mouse-pointer"></i> How to Use</h4>
+                    <ul class="interaction-list">
+                        <li><strong>Click</strong> anywhere to classify that point</li>
+                        <li><strong>Watch</strong> the algorithm find K nearest neighbors</li>
+                        <li><strong>Adjust K</strong> to see how it affects classification</li>
+                        <li><strong>Try</strong> different distance metrics</li>
+                    </ul>
+                    <h4><i class="fa fa-pencil"></i> Custom Mode</h4>
+                    <p>
+                        Select "Custom" dataset to draw your own training points.
+                        Switch between Add/Delete modes to create your dataset.
+                    </p>
+                </div>
+
+                <!-- Algorithm Tab -->
+                <div id="tab-algorithm" class="info-tab-content">
+                    <h4><i class="fa fa-cogs"></i> Algorithm Steps</h4>
+                    <ol class="algorithm-steps">
+                        <li>Calculate distance from query to all training points</li>
+                        <li>Sort points by distance (ascending)</li>
+                        <li>Select K nearest neighbors</li>
+                        <li>Count votes for each class</li>
+                        <li>Assign majority class to query</li>
+                    </ol>
+                    <h4><i class="fa fa-ruler"></i> Distance Metrics</h4>
+                    <ul class="formula-list">
+                        <li><strong>Euclidean</strong>: √(Σ(xᵢ - yᵢ)²)</li>
+                        <li><strong>Manhattan</strong>: Σ|xᵢ - yᵢ|</li>
+                        <li><strong>Chebyshev</strong>: max(|xᵢ - yᵢ|)</li>
+                    </ul>
+                    <h4><i class="fa fa-balance-scale"></i> Weighted Voting</h4>
+                    <p>
+                        When enabled, closer neighbors have more influence.
+                        Each vote is weighted by <code>1/distance</code>.
+                    </p>
+                </div>
+
+                <!-- Neighbors Tab -->
+                <div id="tab-neighbors" class="info-tab-content">
+                    <div class="neighbors-header">
+                        <span>K Nearest Neighbors</span>
+                        <span id="neighbors-count" class="badge">0</span>
+                    </div>
+                    <div id="neighbors-list" class="neighbors-list">
+                        <div class="list-empty">Click to classify a point</div>
+                    </div>
+                </div>
+
+                <!-- Compare Tab -->
+                <div id="tab-compare" class="info-tab-content">
+                    <div class="compare-controls">
+                        <button id="btn-run-comparison" class="btn btn-sm btn-default" disabled>
+                            <i class="fa fa-refresh"></i> Run Comparison
+                        </button>
+                    </div>
+                    <div class="compare-table-container">
+                        <table id="comparison-table" class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>K</th>
+                                    <th>Metric</th>
+                                    <th>Prediction</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="compare-empty">
+                                    <td colspan="4">Classify a point to compare</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="compare-hint">
+                        <i class="fa fa-lightbulb-o"></i> Shows classification with different K values and metrics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
