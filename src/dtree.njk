@@ -1,0 +1,267 @@
+---
+layout: base.njk
+title: Decision Tree Visualizer
+icon: fa-sitemap
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-gavel"
+permalink: "dtree.html"
+extraScript: "static/js/dtree.js"
+---
+
+<link rel="stylesheet" href="static/css/dtree.css">
+
+<!-- Dataset Selector Panel -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body dataset-panel">
+                <div class="dataset-selector">
+                    <label>Dataset:</label>
+                    <div class="btn-group sample-input-tabs" role="group">
+                        <button type="button" class="btn btn-sm btn-default active" data-dataset="moons" title="Two interleaving half circles">Moons</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="circles" title="Concentric circles">Circles</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="blobs" title="Gaussian blobs">Blobs</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="linear" title="Linearly separable">Linear</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="xor" title="XOR pattern">XOR</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="spiral" title="Two spirals">Spiral</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dataset="custom" title="Draw your own">Custom</button>
+                    </div>
+                </div>
+                <div class="dataset-info">
+                    <span id="dataset-description"><i class="fa fa-info-circle"></i> Two interleaving half circles - a classic non-linear classification problem</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content: Canvas (left) + Controls/Info (right) -->
+<div class="row" id="main-content">
+    <!-- Left Column: Classification Canvas + Tree View -->
+    <div class="col-md-7">
+        <!-- Classification Space -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-content">
+                    <span class="panel-title-text"><i class="fa fa-crosshairs"></i> Classification Space</span>
+                    <div class="edit-toolbar" id="edit-toolbar" style="display: none;">
+                        <div class="btn-group edit-mode-buttons" role="group">
+                            <button type="button" class="btn btn-sm btn-default active" data-mode="classify" title="Click to classify">
+                                <i class="fa fa-crosshairs"></i> Classify
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-mode="add" title="Add training points">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-mode="delete" title="Delete points">
+                                <i class="fa fa-minus"></i> Delete
+                            </button>
+                        </div>
+                        <div class="btn-group class-selector" role="group" id="class-selector">
+                            <button type="button" class="btn btn-sm btn-default active" data-class="0" title="Class 1">
+                                <span class="class-dot class-0"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-class="1" title="Class 2">
+                                <span class="class-dot class-1"></span>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" data-class="2" title="Class 3">
+                                <span class="class-dot class-2"></span>
+                            </button>
+                        </div>
+                        <button id="btn-clear-points" class="btn btn-sm btn-danger" title="Clear all points">
+                            <i class="fa fa-trash"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body canvas-panel-body">
+                <div class="canvas-wrapper">
+                    <canvas id="dtree-canvas" width="560" height="400"></canvas>
+                    <canvas id="boundary-canvas" width="560" height="400"></canvas>
+                </div>
+                <div class="canvas-legend">
+                    <span class="legend-item"><span class="legend-color class-0"></span> Class 1</span>
+                    <span class="legend-item"><span class="legend-color class-1"></span> Class 2</span>
+                    <span class="legend-item" id="legend-class-2"><span class="legend-color class-2"></span> Class 3</span>
+                    <span class="legend-item"><span class="legend-color query-point"></span> Query</span>
+                    <span class="legend-item"><span class="legend-line split-line"></span> Split</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tree Structure Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-content">
+                    <span class="panel-title-text"><i class="fa fa-sitemap"></i> Tree Structure</span>
+                    <div class="tree-controls">
+                        <button id="btn-rebuild-tree" class="btn btn-sm btn-default" title="Rebuild tree">
+                            <i class="fa fa-refresh"></i> Rebuild
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body tree-panel-body">
+                <div class="tree-wrapper">
+                    <svg id="tree-svg" width="560" height="200"></svg>
+                </div>
+                <div class="tree-stats">
+                    <span><i class="fa fa-tree"></i> Depth: <strong id="stat-depth">0</strong></span>
+                    <span><i class="fa fa-leaf"></i> Leaves: <strong id="stat-leaves">0</strong></span>
+                    <span><i class="fa fa-code-fork"></i> Nodes: <strong id="stat-nodes">0</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Controls + Info -->
+    <div class="col-md-5">
+        <!-- Algorithm Options Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-cogs"></i> Algorithm Options</h3>
+            </div>
+            <div class="panel-body compact-panel">
+                <div class="option-row">
+                    <label>Max Depth:</label>
+                    <div class="slider-control">
+                        <input type="range" id="max-depth-slider" min="1" max="10" value="5">
+                        <span id="max-depth-value">5</span>
+                    </div>
+                </div>
+                <div class="option-row">
+                    <label>Min Samples Split:</label>
+                    <div class="slider-control">
+                        <input type="range" id="min-samples-slider" min="2" max="20" value="2">
+                        <span id="min-samples-value">2</span>
+                    </div>
+                </div>
+                <div class="option-row">
+                    <label>Split Criterion:</label>
+                    <select id="criterion-select" class="form-control input-sm">
+                        <option value="gini" selected>Gini Impurity</option>
+                        <option value="entropy">Entropy (Info Gain)</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="show-boundaries" checked>
+                        Show decision boundaries
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classification Result Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart"></i> Classification Result</h3>
+            </div>
+            <div class="panel-body compact-panel">
+                <table class="table table-condensed metrics-table">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-crosshairs"></i> Query Point</td>
+                            <td id="metric-query" class="text-right metric-value">-</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-tag"></i> Prediction</td>
+                            <td id="metric-prediction" class="text-right metric-value">-</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-route"></i> Path Length</td>
+                            <td id="metric-path" class="text-right metric-value">-</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-leaf"></i> Leaf Samples</td>
+                            <td id="metric-samples" class="text-right metric-value">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="class-distribution" class="class-distribution" style="display: none;">
+                    <div class="distribution-header">Leaf Class Distribution:</div>
+                    <div id="distribution-bars" class="distribution-bars"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabbed Info Panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="btn-group info-panel-tabs" role="group">
+                    <button type="button" class="btn btn-sm btn-default active" data-tab="about">
+                        <i class="fa fa-info-circle"></i> About
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-tab="algorithm">
+                        <i class="fa fa-book"></i> Algorithm
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" data-tab="path">
+                        <i class="fa fa-route"></i> Path
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body info-panel-body">
+                <!-- About Tab -->
+                <div id="tab-about" class="info-tab-content active">
+                    <h4><i class="fa fa-sitemap"></i> What is a Decision Tree?</h4>
+                    <p>
+                        A <strong>Decision Tree</strong> is a flowchart-like classifier that makes decisions
+                        by asking a series of questions about feature values. Each internal node tests a
+                        feature, each branch represents the outcome, and each leaf holds a class prediction.
+                    </p>
+                    <h4><i class="fa fa-mouse-pointer"></i> How to Use</h4>
+                    <ul class="interaction-list">
+                        <li><strong>Click</strong> anywhere to classify that point</li>
+                        <li><strong>Watch</strong> the path through the tree</li>
+                        <li><strong>Adjust depth</strong> to control tree complexity</li>
+                        <li><strong>Try</strong> different split criteria</li>
+                    </ul>
+                    <h4><i class="fa fa-lightbulb-o"></i> Key Insight</h4>
+                    <p>
+                        Decision trees create axis-aligned boundaries. This works well for some problems
+                        but struggles with diagonal or circular patterns without growing very deep.
+                    </p>
+                </div>
+
+                <!-- Algorithm Tab -->
+                <div id="tab-algorithm" class="info-tab-content">
+                    <h4><i class="fa fa-cogs"></i> Building the Tree</h4>
+                    <ol class="algorithm-steps">
+                        <li>Start with all samples at root</li>
+                        <li>Find best feature and threshold to split</li>
+                        <li>Create child nodes for each split</li>
+                        <li>Recurse until stopping criteria met</li>
+                        <li>Assign majority class to leaves</li>
+                    </ol>
+                    <h4><i class="fa fa-calculator"></i> Split Criteria</h4>
+                    <p><strong>Gini Impurity:</strong></p>
+                    <code>G = 1 - Σ(pᵢ)²</code>
+                    <p class="formula-desc">Measures probability of misclassification</p>
+
+                    <p><strong>Entropy:</strong></p>
+                    <code>H = -Σ pᵢ log₂(pᵢ)</code>
+                    <p class="formula-desc">Measures information content / uncertainty</p>
+
+                    <h4><i class="fa fa-stop-circle"></i> Stopping Criteria</h4>
+                    <ul class="criteria-list">
+                        <li>Max depth reached</li>
+                        <li>Min samples per node</li>
+                        <li>Pure node (single class)</li>
+                    </ul>
+                </div>
+
+                <!-- Path Tab -->
+                <div id="tab-path" class="info-tab-content">
+                    <div class="path-header">
+                        <span>Decision Path</span>
+                        <span id="path-length" class="badge">0</span>
+                    </div>
+                    <div id="path-list" class="path-list">
+                        <div class="list-empty">Click to classify a point</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
