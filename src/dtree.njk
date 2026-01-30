@@ -96,13 +96,28 @@ extraScript: "static/js/dtree.js"
                 <div class="panel-heading-content">
                     <span class="panel-title-text"><i class="fa fa-sitemap"></i> Tree Structure</span>
                     <div class="tree-controls">
+                        <div class="btn-group tree-mode-toggle" role="group">
+                            <button type="button" class="btn btn-sm btn-default active" id="btn-auto-mode" title="Auto-build from data">
+                                <i class="fa fa-magic"></i> Auto
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" id="btn-design-mode" title="Design tree manually">
+                                <i class="fa fa-pencil"></i> Design
+                            </button>
+                        </div>
                         <button id="btn-rebuild-tree" class="btn btn-sm btn-default" title="Rebuild tree">
                             <i class="fa fa-refresh"></i> Rebuild
+                        </button>
+                        <button id="btn-clear-tree" class="btn btn-sm btn-danger" title="Clear tree" style="display: none;">
+                            <i class="fa fa-trash"></i> Clear
                         </button>
                     </div>
                 </div>
             </div>
             <div class="panel-body tree-panel-body">
+                <div id="design-instructions" class="design-instructions" style="display: none;">
+                    <i class="fa fa-info-circle"></i>
+                    <span id="design-instruction-text">Click on a <strong>leaf node</strong> to split it, or click to change its class.</span>
+                </div>
                 <div class="tree-wrapper">
                     <svg id="tree-svg" width="560" height="200"></svg>
                 </div>
@@ -110,6 +125,36 @@ extraScript: "static/js/dtree.js"
                     <span><i class="fa fa-tree"></i> Depth: <strong id="stat-depth">0</strong></span>
                     <span><i class="fa fa-leaf"></i> Leaves: <strong id="stat-leaves">0</strong></span>
                     <span><i class="fa fa-code-fork"></i> Nodes: <strong id="stat-nodes">0</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Mode Split Dialog (hidden by default) -->
+        <div id="split-dialog" class="split-dialog" style="display: none;">
+            <div class="split-dialog-content">
+                <div class="split-dialog-header">
+                    <span><i class="fa fa-code-fork"></i> Create Split</span>
+                    <button id="btn-close-split-dialog" class="btn btn-xs btn-default"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="split-dialog-body">
+                    <div class="split-option-row">
+                        <label>Feature:</label>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-default active" data-feature="x">X (horizontal)</button>
+                            <button type="button" class="btn btn-sm btn-default" data-feature="y">Y (vertical)</button>
+                        </div>
+                    </div>
+                    <div class="split-option-row">
+                        <label>Threshold: <span id="threshold-value">0.50</span></label>
+                        <input type="range" id="threshold-slider" min="0" max="100" value="50">
+                    </div>
+                    <div class="split-preview">
+                        <span id="split-preview-text">x ≤ 0.50</span>
+                    </div>
+                </div>
+                <div class="split-dialog-footer">
+                    <button id="btn-cancel-split" class="btn btn-sm btn-default">Cancel</button>
+                    <button id="btn-apply-split" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Apply Split</button>
                 </div>
             </div>
         </div>
@@ -210,17 +255,23 @@ extraScript: "static/js/dtree.js"
                         by asking a series of questions about feature values. Each internal node tests a
                         feature, each branch represents the outcome, and each leaf holds a class prediction.
                     </p>
-                    <h4><i class="fa fa-mouse-pointer"></i> How to Use</h4>
+                    <h4><i class="fa fa-magic"></i> Auto Mode</h4>
                     <ul class="interaction-list">
-                        <li><strong>Click</strong> anywhere to classify that point</li>
-                        <li><strong>Watch</strong> the path through the tree</li>
-                        <li><strong>Adjust depth</strong> to control tree complexity</li>
-                        <li><strong>Try</strong> different split criteria</li>
+                        <li><strong>Click canvas</strong> to classify points</li>
+                        <li><strong>Adjust depth</strong> to control complexity</li>
+                        <li>Tree is built automatically from data</li>
+                    </ul>
+                    <h4><i class="fa fa-pencil"></i> Design Mode</h4>
+                    <ul class="interaction-list">
+                        <li><strong>Click leaf</strong> to split it or change class</li>
+                        <li><strong>Choose feature</strong> (X or Y) and threshold</li>
+                        <li><strong>Drag on canvas</strong> to set threshold visually</li>
+                        <li>Build your own tree from scratch!</li>
                     </ul>
                     <h4><i class="fa fa-lightbulb-o"></i> Key Insight</h4>
                     <p>
-                        Decision trees create axis-aligned boundaries. This works well for some problems
-                        but struggles with diagonal or circular patterns without growing very deep.
+                        Decision trees create axis-aligned boundaries. Design mode helps you understand
+                        why certain splits work better than others!
                     </p>
                 </div>
 
