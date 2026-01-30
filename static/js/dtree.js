@@ -667,6 +667,7 @@
             this.levelHeight = 50;
             this.highlightedPath = new Set();
             this.isDarkTheme = this.checkDarkTheme();
+            this.isClickable = false;
         }
 
         checkDarkTheme() {
@@ -771,8 +772,10 @@
 
             const colors = this.getClassColors();
             const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            g.setAttribute('class', `tree-node ${node.isLeaf ? 'leaf class-' + node.prediction : 'internal'}` +
-                (this.highlightedPath.has(node.id) ? ' highlighted' : ''));
+            let nodeClass = `tree-node ${node.isLeaf ? 'leaf class-' + node.prediction : 'internal'}`;
+            if (this.highlightedPath.has(node.id)) nodeClass += ' highlighted';
+            if (this.isClickable && node.isLeaf) nodeClass += ' clickable';
+            g.setAttribute('class', nodeClass);
             g.setAttribute('data-node-id', node.id);
             g.setAttribute('transform', `translate(${node.x}, ${node.y})`);
 
@@ -810,8 +813,180 @@
             }
         }
 
+        setClickable(enabled) {
+            this.isClickable = enabled;
+        }
+
         updateTheme() {
             this.isDarkTheme = this.checkDarkTheme();
+        }
+    }
+
+    // ============================================
+    // Manual Tree Builder (for Design Mode)
+    // ============================================
+    class ManualTreeBuilder {
+        constructor() {
+            this.root = null;
+            this.nodeCount = 0;
+            this.leafCount = 0;
+            this.maxTreeDepth = 0;
+        }
+
+        createInitialTree(defaultClass = 0) {
+            this.nodeCount = 0;
+            this.leafCount = 0;
+            this.maxTreeDepth = 0;
+
+            this.root = new TreeNode();
+            this.root.id = this.nodeCount++;
+            this.root.isLeaf = true;
+            this.root.prediction = defaultClass;
+            this.root.depth = 0;
+            this.root.samples = [];
+            this.root.classCounts = {};
+            this.leafCount = 1;
+
+            return this.root;
+        }
+
+        splitNode(node, feature, threshold) {
+            if (node.isLeaf) {
+                node.isLeaf = false;
+                node.feature = feature;
+                node.threshold = threshold;
+                this.leafCount--;
+
+                // Create left child
+                node.left = new TreeNode();
+                node.left.id = this.nodeCount++;
+                node.left.isLeaf = true;
+                node.left.prediction = node.prediction || 0;
+                node.left.depth = node.depth + 1;
+                node.left.samples = [];
+                node.left.classCounts = {};
+                this.leafCount++;
+
+                // Create right child
+                node.right = new TreeNode();
+                node.right.id = this.nodeCount++;
+                node.right.isLeaf = true;
+                node.right.prediction = node.prediction || 0;
+                node.right.depth = node.depth + 1;
+                node.right.samples = [];
+                node.right.classCounts = {};
+                this.leafCount++;
+
+                this.maxTreeDepth = Math.max(this.maxTreeDepth, node.depth + 1);
+
+                // Clear node's own prediction since it's now internal
+                node.prediction = null;
+            }
+        }
+
+        setLeafClass(node, classLabel) {
+            if (node.isLeaf) {
+                node.prediction = classLabel;
+            }
+        }
+
+        findNodeById(nodeId, node = this.root) {
+            if (!node) return null;
+            if (node.id === nodeId) return node;
+            if (node.isLeaf) return null;
+
+            const leftResult = this.findNodeById(nodeId, node.left);
+            if (leftResult) return leftResult;
+
+            return this.findNodeById(nodeId, node.right);
+        }
+
+        predict(point) {
+            if (!this.root) return null;
+            return this.traverse(this.root, point).prediction;
+        }
+
+        predictWithPath(point) {
+            if (!this.root) return { prediction: null, path: [] };
+
+            const path = [];
+            let node = this.root;
+
+            while (!node.isLeaf) {
+                path.push({
+                    nodeId: node.id,
+                    feature: node.feature,
+                    threshold: node.threshold,
+                    value: point[node.feature],
+                    direction: point[node.feature] <= node.threshold ? 'left' : 'right',
+                    depth: node.depth
+                });
+
+                if (point[node.feature] <= node.threshold) {
+                    node = node.left;
+                } else {
+                    node = node.right;
+                }
+            }
+
+            path.push({
+                nodeId: node.id,
+                isLeaf: true,
+                prediction: node.prediction,
+                classCounts: node.classCounts,
+                samples: 0,
+                depth: node.depth
+            });
+
+            return {
+                prediction: node.prediction,
+                path: path,
+                leafNode: node
+            };
+        }
+
+        traverse(node, point) {
+            if (node.isLeaf) return node;
+            if (point[node.feature] <= node.threshold) {
+                return this.traverse(node.left, point);
+            } else {
+                return this.traverse(node.right, point);
+            }
+        }
+
+        getStats() {
+            this.recalculateStats();
+            return {
+                depth: this.maxTreeDepth,
+                nodes: this.nodeCount,
+                leaves: this.leafCount
+            };
+        }
+
+        recalculateStats() {
+            this.nodeCount = 0;
+            this.leafCount = 0;
+            this.maxTreeDepth = 0;
+            this.countNodes(this.root);
+        }
+
+        countNodes(node) {
+            if (!node) return;
+            this.nodeCount++;
+            this.maxTreeDepth = Math.max(this.maxTreeDepth, node.depth);
+            if (node.isLeaf) {
+                this.leafCount++;
+            } else {
+                this.countNodes(node.left);
+                this.countNodes(node.right);
+            }
+        }
+
+        clear() {
+            this.root = null;
+            this.nodeCount = 0;
+            this.leafCount = 0;
+            this.maxTreeDepth = 0;
         }
     }
 
@@ -827,6 +1002,7 @@
             this.renderer = new Renderer(this.canvas, this.boundaryCanvas);
             this.treeViz = new TreeVisualizer(this.treeSvg);
             this.classifier = new DecisionTreeClassifier(5, 2, 'gini');
+            this.manualTree = new ManualTreeBuilder();
 
             this.trainingData = [];
             this.currentDataset = 'moons';
@@ -836,6 +1012,13 @@
             this.editMode = 'classify';
             this.selectedClass = 0;
             this.numClasses = 2;
+
+            // Design mode state
+            this.isDesignMode = false;
+            this.selectedNode = null;
+            this.splitFeature = 'x';
+            this.splitThreshold = 0.5;
+            this.leafClassPicker = null;
 
             this.bindEvents();
             this.loadDataset('moons');
@@ -853,25 +1036,26 @@
 
             // Canvas click
             this.canvas.addEventListener('click', this.onCanvasClick.bind(this));
+            this.canvas.addEventListener('mousemove', this.onCanvasMouseMove.bind(this));
 
             // Algorithm options
             document.getElementById('max-depth-slider').addEventListener('input', (e) => {
                 const depth = parseInt(e.target.value);
                 document.getElementById('max-depth-value').textContent = depth;
                 this.classifier.setMaxDepth(depth);
-                this.rebuildTree();
+                if (!this.isDesignMode) this.rebuildTree();
             });
 
             document.getElementById('min-samples-slider').addEventListener('input', (e) => {
                 const minSamples = parseInt(e.target.value);
                 document.getElementById('min-samples-value').textContent = minSamples;
                 this.classifier.setMinSamplesSplit(minSamples);
-                this.rebuildTree();
+                if (!this.isDesignMode) this.rebuildTree();
             });
 
             document.getElementById('criterion-select').addEventListener('change', (e) => {
                 this.classifier.setCriterion(e.target.value);
-                this.rebuildTree();
+                if (!this.isDesignMode) this.rebuildTree();
             });
 
             document.getElementById('show-boundaries').addEventListener('change', (e) => {
@@ -881,7 +1065,24 @@
 
             // Rebuild button
             document.getElementById('btn-rebuild-tree').addEventListener('click', () => {
-                this.rebuildTree();
+                if (!this.isDesignMode) {
+                    this.rebuildTree();
+                }
+            });
+
+            // Design mode toggle
+            document.getElementById('btn-auto-mode').addEventListener('click', () => {
+                this.setDesignMode(false);
+            });
+
+            document.getElementById('btn-design-mode').addEventListener('click', () => {
+                this.setDesignMode(true);
+            });
+
+            // Clear tree button (design mode)
+            document.getElementById('btn-clear-tree').addEventListener('click', () => {
+                this.manualTree.createInitialTree(0);
+                this.updateDesignModeTree();
             });
 
             // Edit mode buttons
@@ -919,15 +1120,212 @@
                 });
             });
 
+            // Split dialog events
+            this.bindSplitDialogEvents();
+
+            // Tree SVG click (for design mode)
+            this.treeSvg.addEventListener('click', this.onTreeNodeClick.bind(this));
+
+            // Close picker when clicking outside
+            document.addEventListener('click', (e) => {
+                if (this.leafClassPicker && !e.target.closest('.leaf-class-picker') && !e.target.closest('.tree-node')) {
+                    this.closeLeafClassPicker();
+                }
+            });
+
             // Theme observer
             const observer = new MutationObserver(() => {
                 this.renderer.updateTheme();
                 this.treeViz.updateTheme();
                 this.render();
                 this.updateBoundary();
-                this.treeViz.render(this.classifier);
+                if (this.isDesignMode) {
+                    this.treeViz.render(this.manualTree);
+                } else {
+                    this.treeViz.render(this.classifier);
+                }
             });
             observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        }
+
+        bindSplitDialogEvents() {
+            // Feature selection
+            document.querySelectorAll('[data-feature]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('[data-feature]').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    this.splitFeature = e.target.dataset.feature;
+                    this.updateSplitPreview();
+                });
+            });
+
+            // Threshold slider
+            document.getElementById('threshold-slider').addEventListener('input', (e) => {
+                this.splitThreshold = parseInt(e.target.value) / 100;
+                this.updateSplitPreview();
+            });
+
+            // Cancel button
+            document.getElementById('btn-cancel-split').addEventListener('click', () => {
+                this.closeSplitDialog();
+            });
+
+            // Close button
+            document.getElementById('btn-close-split-dialog').addEventListener('click', () => {
+                this.closeSplitDialog();
+            });
+
+            // Apply button
+            document.getElementById('btn-apply-split').addEventListener('click', () => {
+                this.applySplit();
+            });
+        }
+
+        setDesignMode(enabled) {
+            this.isDesignMode = enabled;
+
+            // Update UI
+            document.getElementById('btn-auto-mode').classList.toggle('active', !enabled);
+            document.getElementById('btn-design-mode').classList.toggle('active', enabled);
+            document.getElementById('btn-rebuild-tree').style.display = enabled ? 'none' : 'inline-block';
+            document.getElementById('btn-clear-tree').style.display = enabled ? 'inline-block' : 'none';
+            document.getElementById('design-instructions').style.display = enabled ? 'block' : 'none';
+
+            // Disable algorithm options in design mode
+            document.getElementById('max-depth-slider').disabled = enabled;
+            document.getElementById('min-samples-slider').disabled = enabled;
+            document.getElementById('criterion-select').disabled = enabled;
+
+            if (enabled) {
+                // Switch to design mode
+                this.manualTree.createInitialTree(0);
+                this.treeViz.setClickable(true);
+                this.updateDesignModeTree();
+            } else {
+                // Switch to auto mode
+                this.treeViz.setClickable(false);
+                this.closeLeafClassPicker();
+                this.rebuildTree();
+            }
+        }
+
+        updateDesignModeTree() {
+            this.treeViz.render(this.manualTree);
+            this.updateTreeStats();
+            this.updateBoundaryFromManualTree();
+            this.render();
+        }
+
+        updateBoundaryFromManualTree() {
+            if (this.showBoundaries && this.manualTree.root) {
+                this.renderer.drawDecisionBoundary(this.manualTree, this.numClasses);
+            } else {
+                this.renderer.clearBoundary();
+            }
+        }
+
+        onTreeNodeClick(e) {
+            if (!this.isDesignMode) return;
+
+            const nodeElement = e.target.closest('.tree-node');
+            if (!nodeElement) return;
+
+            const nodeId = parseInt(nodeElement.getAttribute('data-node-id'));
+            const node = this.manualTree.findNodeById(nodeId);
+
+            if (!node) return;
+
+            if (node.isLeaf) {
+                // Show picker for leaf: change class or split
+                this.showLeafClassPicker(node, nodeElement);
+            }
+            // For internal nodes, we could add edit functionality later
+        }
+
+        showLeafClassPicker(node, element) {
+            this.closeLeafClassPicker();
+
+            const rect = element.getBoundingClientRect();
+            const svgRect = this.treeSvg.getBoundingClientRect();
+
+            const picker = document.createElement('div');
+            picker.className = 'leaf-class-picker';
+            picker.style.left = (rect.left - svgRect.left + rect.width / 2 - 60) + 'px';
+            picker.style.top = (rect.bottom - svgRect.top + 5) + 'px';
+
+            picker.innerHTML = `
+                <div class="picker-title">Set class or split:</div>
+                <div class="picker-options">
+                    <div class="picker-option class-0" data-action="class" data-class="0" title="Class 1">1</div>
+                    <div class="picker-option class-1" data-action="class" data-class="1" title="Class 2">2</div>
+                    <div class="picker-option class-2" data-action="class" data-class="2" title="Class 3">3</div>
+                    <div class="picker-option split-option" data-action="split" title="Split node"><i class="fa fa-code-fork"></i></div>
+                </div>
+            `;
+
+            picker.querySelectorAll('.picker-option').forEach(opt => {
+                opt.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = opt.dataset.action;
+
+                    if (action === 'class') {
+                        const classLabel = parseInt(opt.dataset.class);
+                        this.manualTree.setLeafClass(node, classLabel);
+                        this.updateDesignModeTree();
+                    } else if (action === 'split') {
+                        this.selectedNode = node;
+                        this.openSplitDialog();
+                    }
+
+                    this.closeLeafClassPicker();
+                });
+            });
+
+            this.treeSvg.parentElement.style.position = 'relative';
+            this.treeSvg.parentElement.appendChild(picker);
+            this.leafClassPicker = picker;
+        }
+
+        closeLeafClassPicker() {
+            if (this.leafClassPicker) {
+                this.leafClassPicker.remove();
+                this.leafClassPicker = null;
+            }
+        }
+
+        openSplitDialog() {
+            this.splitFeature = 'x';
+            this.splitThreshold = 0.5;
+
+            document.querySelectorAll('[data-feature]').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-feature="x"]').classList.add('active');
+            document.getElementById('threshold-slider').value = 50;
+
+            this.updateSplitPreview();
+            document.getElementById('split-dialog').style.display = 'flex';
+        }
+
+        closeSplitDialog() {
+            document.getElementById('split-dialog').style.display = 'none';
+            this.selectedNode = null;
+        }
+
+        updateSplitPreview() {
+            document.getElementById('threshold-value').textContent = this.splitThreshold.toFixed(2);
+            document.getElementById('split-preview-text').textContent =
+                `${this.splitFeature} ≤ ${this.splitThreshold.toFixed(2)}`;
+        }
+
+        applySplit() {
+            if (this.selectedNode) {
+                this.manualTree.splitNode(this.selectedNode, this.splitFeature, this.splitThreshold);
+                this.updateDesignModeTree();
+            }
+            this.closeSplitDialog();
+        }
+
+        onCanvasMouseMove(e) {
+            // Could add live threshold preview line here in the future
         }
 
         loadDataset(name) {

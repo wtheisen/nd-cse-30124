@@ -662,6 +662,237 @@
 [data-theme="gruvbox-dark"] .class-2-text { color: #b8bb26; }
 
 /* ============================================
+   Design Mode
+   ============================================ */
+.tree-mode-toggle {
+    margin-right: 5px;
+}
+
+.design-instructions {
+    background: var(--info-bg, #e7f3ff);
+    border: 1px solid var(--info-border, #b3d7ff);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: var(--info-text, #004085);
+}
+
+.design-instructions i {
+    margin-right: 6px;
+}
+
+[data-theme="gruvbox-dark"] .design-instructions {
+    background: #3c3836;
+    border-color: #504945;
+    color: #ebdbb2;
+}
+
+/* Split Dialog */
+.split-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.split-dialog-content {
+    background: var(--panel-bg, #fff);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 320px;
+    max-width: 90%;
+}
+
+.split-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+.split-dialog-header i {
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+.split-dialog-body {
+    padding: 15px;
+}
+
+.split-option-row {
+    margin-bottom: 15px;
+}
+
+.split-option-row label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.split-option-row .btn-group {
+    width: 100%;
+    display: flex;
+}
+
+.split-option-row .btn-group .btn {
+    flex: 1;
+}
+
+.split-option-row input[type="range"] {
+    width: 100%;
+}
+
+.split-preview {
+    background: var(--code-bg, rgba(0, 0, 0, 0.05));
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    color: var(--accent-color);
+}
+
+.split-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+[data-theme="gruvbox-dark"] .split-dialog-content {
+    background: #282828;
+}
+
+/* Clickable nodes in design mode */
+.tree-node.clickable {
+    cursor: pointer;
+}
+
+.tree-node.clickable:hover circle {
+    stroke-width: 3px;
+    stroke: var(--accent-color, #007bff);
+}
+
+.tree-node.selected circle {
+    stroke: #ff7f00 !important;
+    stroke-width: 4px !important;
+}
+
+/* Leaf class picker popup */
+.leaf-class-picker {
+    position: absolute;
+    background: var(--panel-bg, #fff);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    z-index: 100;
+}
+
+.leaf-class-picker .picker-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.leaf-class-picker .picker-options {
+    display: flex;
+    gap: 6px;
+}
+
+.leaf-class-picker .picker-option {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    transition: transform 0.1s ease;
+}
+
+.leaf-class-picker .picker-option:hover {
+    transform: scale(1.15);
+}
+
+.leaf-class-picker .picker-option.class-0 {
+    background: #e41a1c;
+}
+
+.leaf-class-picker .picker-option.class-1 {
+    background: #377eb8;
+}
+
+.leaf-class-picker .picker-option.class-2 {
+    background: #4daf4a;
+}
+
+.leaf-class-picker .picker-option.split-option {
+    background: #666;
+    font-size: 14px;
+}
+
+[data-theme="gruvbox-dark"] .leaf-class-picker {
+    background: #282828;
+    border-color: #3c3836;
+}
+
+[data-theme="gruvbox-dark"] .leaf-class-picker .picker-option.class-0 {
+    background: #fb4934;
+}
+
+[data-theme="gruvbox-dark"] .leaf-class-picker .picker-option.class-1 {
+    background: #83a598;
+}
+
+[data-theme="gruvbox-dark"] .leaf-class-picker .picker-option.class-2 {
+    background: #b8bb26;
+}
+
+/* Canvas threshold line preview */
+.canvas-wrapper.design-mode {
+    cursor: crosshair;
+}
+
+.threshold-preview-line {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.threshold-preview-line.vertical {
+    width: 2px;
+    background: #ff7f00;
+    top: 0;
+    bottom: 0;
+}
+
+.threshold-preview-line.horizontal {
+    height: 2px;
+    background: #ff7f00;
+    left: 0;
+    right: 0;
+}
+
+/* ============================================
    Responsive
    ============================================ */
 @media (max-width: 992px) {
