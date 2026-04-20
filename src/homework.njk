@@ -17,11 +17,7 @@ navigation:
 
 {% set assignment_name = hw.assignmentName %}
 {% set assignment_display = hw.assignmentDisplay %}
-{% set assignment_resource = resources | findAssignmentResource(assignment_display, '') %}
-{% set document_link = '' %}
-{% if assignment_resource %}
-    {% set document_link = assignment_resource.link %}
-{% endif %}
+{% set document_link = hw.link %}
 
 <h2>Task 1: Notebook</h2>
 

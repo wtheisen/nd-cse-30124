@@ -525,75 +525,14 @@ module.exports = function(eleventyConfig) {
     return resourcesMap[lid] || [];
   });
 
-  // find_assignment_resource - find resource for an assignment
-  eleventyConfig.addFilter("findAssignmentResource", function(resourcesMap, assignmentName, lectureId = '') {
-    if (!resourcesMap || typeof resourcesMap !== 'object') return null;
-
-    const targetName = (assignmentName || '').trim().toLowerCase();
-    if (!targetName) return null;
-
-    const preferredKeywords = [
-      'assignment', 'homework', 'project', 'exam', 'quiz', 'practice', 'solution'
-    ];
-
-    // Helper to slugify
-    const slugify = (s) => {
-      if (!s) return '';
-      return s.toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '');
-    };
-
-    // Helper to get lecture ID from topic
-    const lectureIdFor = (topic) => {
-      if (!topic) return '';
-      const key = topic.trim().toLowerCase();
-      const slug = LECTURE_ALIASES[key] || slugify(topic);
-      return slug ? `lec-${slug}` : '';
-    };
-
-    // Build candidate IDs
-    const candidateIds = [];
-    if (lectureId) candidateIds.push(lectureId);
-    const slug = lectureIdFor(assignmentName);
-    if (slug && !candidateIds.includes(slug)) candidateIds.push(slug);
-    if (!candidateIds.includes('lec-assignments')) candidateIds.push('lec-assignments');
-
-    // Search function
-    const searchResources = (ids, keywords = null) => {
-      for (const lid of ids) {
-        if (!lid) continue;
-        const resources = resourcesMap[lid] || [];
-        for (const resource of resources) {
-          const resName = (resource.name || '').trim().toLowerCase();
-          if (resName !== targetName) continue;
-          if (keywords) {
-            const rtype = (resource.type || '').trim().toLowerCase();
-            if (!rtype) continue;
-            if (!keywords.some(k => rtype.includes(k))) continue;
-          }
-          return resource;
-        }
-      }
-      return null;
-    };
-
-    // Try with preferred keywords first
-    let result = searchResources(candidateIds, preferredKeywords);
-    if (result) return result;
-
-    // Try without keywords
-    result = searchResources(candidateIds);
-    if (result) return result;
-
-    // Fallback: search all resources
-    const allKeys = Object.keys(resourcesMap);
-    if (!allKeys.includes('lec-assignments')) allKeys.push('lec-assignments');
-
-    result = searchResources(allKeys, preferredKeywords);
-    if (result) return result;
-
-    return searchResources(allKeys);
+  // Look up an assignment by display name against the Assignments tab data
+  eleventyConfig.addFilter("findAssignmentByName", function(assignments, name) {
+    if (!Array.isArray(assignments) || !name) return null;
+    const target = String(name).trim().toLowerCase();
+    for (const a of assignments) {
+      if ((a.name || '').trim().toLowerCase() === target) return a;
+    }
+    return null;
   });
 
   // Filter resources by type

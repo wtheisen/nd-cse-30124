@@ -123,7 +123,7 @@
                                 {% set assignment_id = assignment | assignmentId %}
                                 {% set assignment_label = assignment_id | assignmentLabel %}
 
-                                {% set assignment_resource = resources | findAssignmentResource(assignment, lecture_id) %}
+                                {% set assignment_resource = assignments | findAssignmentByName(assignment) %}
                                 {% set is_lab_or_homework_or_reading = assignment_id | startswith('lab_') or assignment_id | startswith('homework_') or assignment_id | startswith('reading_') %}
 
                                 {% if assignment_resource and assignment_resource.link and not is_lab_or_homework_or_reading %}

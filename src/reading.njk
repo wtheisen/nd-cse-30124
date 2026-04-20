@@ -17,11 +17,7 @@ navigation:
 
 {% set reading_number = reading.numberStr %}
 {% set reading_display = reading.readingDisplay %}
-{% set assignment_resource = resources | findAssignmentResource(reading_display, '') %}
-{% set quiz_link = '' %}
-{% if assignment_resource %}
-    {% set quiz_link = assignment_resource.link %}
-{% endif %}
+{% set quiz_link = reading.link %}
 
 {% if reading_number == "01" %}
     {% set term_code = semesterInfo | termCode %}

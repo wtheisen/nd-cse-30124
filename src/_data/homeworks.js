@@ -1,39 +1,30 @@
 /**
- * Generate homework data for pagination
- * Returns an array of homework objects that can be paginated
+ * Generate homework data for pagination.
+ * Sourced from the Assignments tab (name matching "Homework NN").
  */
 module.exports = async function() {
-  // Import schedule data
-  const scheduleData = require('./schedule.js');
-  const schedule = await scheduleData();
+  const assignmentsData = require('./assignments.js');
+  const assignments = await assignmentsData();
 
-  // Extract homework numbers from schedule
-  const homeworkNumbers = new Set();
+  const homeworks = [];
+  for (const a of assignments) {
+    const match = (a.name || '').match(/^Homework\s+(\d+)$/i);
+    if (!match) continue;
 
-  for (const unit of schedule) {
-    if (!unit.days) continue;
-    for (const day of unit.days) {
-      if (!day.assignments) continue;
-      for (const assignment of day.assignments) {
-        const match = assignment.match(/homework\s*(\d+)/i);
-        if (match) {
-          homeworkNumbers.add(parseInt(match[1], 10));
-        }
-      }
-    }
+    const num = parseInt(match[1], 10);
+    const numberStr = String(num).padStart(2, '0');
+
+    homeworks.push({
+      number: num,
+      numberStr,
+      assignmentName: `homework${numberStr}`,
+      assignmentDisplay: a.name,
+      link: a.link || ''
+    });
   }
 
-  // Convert to sorted array of homework objects
-  const homeworks = Array.from(homeworkNumbers)
-    .sort((a, b) => a - b)
-    .map(num => ({
-      number: num,
-      numberStr: String(num).padStart(2, '0'),
-      assignmentName: `homework${String(num).padStart(2, '0')}`,
-      assignmentDisplay: `Homework ${String(num).padStart(2, '0')}`
-    }));
+  homeworks.sort((a, b) => a.number - b.number);
 
   console.log(`[11ty] Found ${homeworks.length} homeworks: ${homeworks.map(h => h.number).join(', ')}`);
-
   return homeworks;
 };

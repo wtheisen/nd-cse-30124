@@ -1,39 +1,30 @@
 /**
- * Generate lab data for pagination
- * Returns an array of lab objects that can be paginated
+ * Generate lab data for pagination.
+ * Sourced from the Assignments tab (name matching "Lab NN").
  */
 module.exports = async function() {
-  // Import schedule data
-  const scheduleData = require('./schedule.js');
-  const schedule = await scheduleData();
+  const assignmentsData = require('./assignments.js');
+  const assignments = await assignmentsData();
 
-  // Extract lab numbers from schedule
-  const labNumbers = new Set();
+  const labs = [];
+  for (const a of assignments) {
+    const match = (a.name || '').match(/^Lab\s+(\d+)$/i);
+    if (!match) continue;
 
-  for (const unit of schedule) {
-    if (!unit.days) continue;
-    for (const day of unit.days) {
-      if (!day.assignments) continue;
-      for (const assignment of day.assignments) {
-        const match = assignment.match(/lab\s*(\d+)/i);
-        if (match) {
-          labNumbers.add(parseInt(match[1], 10));
-        }
-      }
-    }
+    const num = parseInt(match[1], 10);
+    const numberStr = String(num).padStart(2, '0');
+
+    labs.push({
+      number: num,
+      numberStr,
+      assignmentName: `lab${numberStr}`,
+      assignmentDisplay: a.name,
+      link: a.link || ''
+    });
   }
 
-  // Convert to sorted array of lab objects
-  const labs = Array.from(labNumbers)
-    .sort((a, b) => a - b)
-    .map(num => ({
-      number: num,
-      numberStr: String(num).padStart(2, '0'),
-      assignmentName: `lab${String(num).padStart(2, '0')}`,
-      assignmentDisplay: `Lab ${String(num).padStart(2, '0')}`
-    }));
+  labs.sort((a, b) => a.number - b.number);
 
   console.log(`[11ty] Found ${labs.length} labs: ${labs.map(l => l.number).join(', ')}`);
-
   return labs;
 };
