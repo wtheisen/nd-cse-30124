@@ -49,32 +49,29 @@ module.exports = async function() {
   // Sort by reading number to handle any out-of-order assignments
   readingDayIndices.sort((a, b) => a.readingNum - b.readingNum);
 
-  // Build readings map with topics from current reading day until next reading day
+  // Each reading covers the two upcoming lectures starting on its due date,
+  // skipping cancelled days and review/exam days (which aren't lecture topics).
+  const TOPICS_PER_READING = 2;
+  const nonLecturePatterns = ['review', 'exam'];
+
   const readingsMap = new Map();
 
-  for (let r = 0; r < readingDayIndices.length; r++) {
-    const { index: startIdx, readingNum } = readingDayIndices[r];
-
-    // End index is the start of the next reading, or end of all days
-    const endIdx = (r + 1 < readingDayIndices.length)
-      ? readingDayIndices[r + 1].index
-      : allDays.length;
-
+  for (const { index: startIdx, readingNum } of readingDayIndices) {
     const topics = [];
     const topicSlugs = [];
 
-    // Collect topics from startIdx to endIdx (exclusive)
-    for (let i = startIdx; i < endIdx; i++) {
+    for (let i = startIdx; i < allDays.length && topics.length < TOPICS_PER_READING; i++) {
       const day = allDays[i];
       if (!day.topics) continue;
 
-      // Skip cancelled topics
-      const isCancelled = cancelledTopics.some(cancelled =>
-        day.topics.toLowerCase().includes(cancelled.toLowerCase())
-      );
+      const topicLower = day.topics.toLowerCase();
+
+      const isCancelled = cancelledTopics.some(c => topicLower.includes(c.toLowerCase()));
       if (isCancelled) continue;
 
-      // Add topic if not already present
+      const isNonLecture = nonLecturePatterns.some(p => topicLower.includes(p));
+      if (isNonLecture) continue;
+
       if (!topics.includes(day.topics)) {
         topics.push(day.topics);
         if (day.topic_slug) {
