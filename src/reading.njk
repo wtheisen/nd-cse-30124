@@ -20,9 +20,6 @@ navigation:
 {% set quiz_link = reading.link %}
 
 {% if reading_number == "01" %}
-    {% set term_code = semesterInfo | termCode %}
-    {% set gh_homework_link = semesterInfo.gh_homework_link if semesterInfo.gh_homework_link else '' %}
-
     {# Reading 01-only welcome copy for the current course sequence. #}
     <p><strong>Welcome</strong> to <a href="index.html">CSE 30124 Introduction to Artificial Intelligence</a>, which (as the syllabus
     states) is a broad introduction to the field of artificial intelligence. We
@@ -34,9 +31,9 @@ navigation:
 
     <h4><i class="fa fa-bookmark"></i> TL;DR</h4>
 
-    <p>For this week, you should familiarize yourself with using <a href="https://nd-cse.slack.com">Slack</a>, setup
-    your <a href="https://github.com">GitHub</a> assignments repository, decide how you will run the notebook
-    software used in this course and then submit your first reading quiz.</p>
+    <p>For this week, decide how you will run the notebook software used in this
+    course, complete the assigned readings, and then submit your first reading
+    quiz.</p>
 
     </div>
 
@@ -54,65 +51,7 @@ navigation:
     However at the end of the semester and the bottom of the circles we will
     find that we start to wrap back around again to the top.</p>
 
-    <h2>Task 1: Slack</h2>
-
-    <p>For communication outside of our meeting time, we will be using <a href="https://nd-cse.slack.com">Slack</a>,
-    specifically the <code>#cse-30124-{{ term_code }}</code> channel:</p>
-
-    <blockquote>
-    <a href="https://nd-cse.slack.com/messages/{{ term_code }}-cse-30124">https://nd-cse.slack.com/messages/{{ term_code }}-cse-30124</a>
-    </blockquote>
-
-    <p>There is a class mailing list, but most day-to-day communication
-    (including office hours and homework help) should take place on Slack.</p>
-
-    <div class="alert alert-warning">
-    <p>Be aware of the following:</p><br>
-
-    <ul>
-    <li>You will need to signup and create a Slack account if you don't already
-      have one.</li>
-
-    <li>You can use the web interface or download the Slack desktop client
-      (there are also mobile applications as well).</li>
-
-    <li>Feel free to join any other channels that may interest you such as
-      <code>#commons</code> or <code>#jobs</code>.</li>
-    </ul>
-
-    </div>
-
-    <h2>Task 2: Canvas Homework Group</h2>
-
-    <p>All of your assignments (labs and homeworks) will be submitted via Canvas as an html file.</p>
-
-    <ol>
-    <li>(Optional) Find a partner to work with.</li>
-
-    <li><strong>Sign-in</strong> to Canvas and navigate to the course page.</li>
-    </ol>
-
-    <div class="thumbnail">
-    <img src="static/img/group_join_1.png" class="img-responsive"/>
-    </div>
-
-    <ol start="3">
-    <li><strong>Navigate</strong> to the People tab, and then the Intro to AI Groups tab.</li>
-    </ol>
-
-    <div class="thumbnail">
-    <img src="static/img/group_join_2.png" class="img-responsive"/>
-    </div>
-
-    <ol start="4">
-    <li><strong>Join</strong> one of the avaible teams with your partner.</li>
-
-    <li>Now when you or your partner submit a homework assignment, it will be submitted for both of you!</li>
-
-    <li><strong>Optionally:</strong> Message the professor or one of your TAs to update your team name!</li>
-    </ol>
-
-    <h2>Task 3: Notebooks</h2>
+    <h2>Task 1: Notebooks</h2>
 
     <ul>
     <li><a href="https://colab.research.google.com/notebooks/basic_features_overview.ipynb">Google Colab</a></li>
@@ -127,7 +66,7 @@ navigation:
     recommend and use. If you have other methods, please feel free to reach out to
     your me to discuss them.</p>
 
-    <h2>Task 4: Reading</h2>
+    <h2>Task 2: Reading</h2>
 
     <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
 
@@ -164,7 +103,7 @@ navigation:
 {% endif %}
 
 {% if reading_number == "01" %}
-<h2>Task 5: Quiz</h2>
+<h2>Task 3: Quiz</h2>
 {% else %}
 <h2>Reading Quiz {{ reading_number }}</h2>
 {% endif %}
