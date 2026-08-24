@@ -473,6 +473,11 @@ module.exports = function(eleventyConfig) {
   const LECTURE_ALIASES = {
     'syllabus, history of ai': 'introduction',
     'intro to ai': 'introduction',
+    'logistic regression and gradient descent': 'logistic-regression',
+    'svms': 'support-vector-machines',
+    'feed-forward networks': 'feedforward-neural-networks',
+    'convolutional neural networks (cnns)': 'convolutional-neural-networks',
+    'llms and agentic llms': 'llms-and-agents',
   };
 
   // Slugify function - convert string to URL-safe slug
