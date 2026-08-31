@@ -19,7 +19,10 @@ module.exports = async function() {
       numberStr,
       assignmentName: `homework${numberStr}`,
       assignmentDisplay: a.name,
-      link: a.link || ''
+      link: a.link || '',
+      previewBase: num === 1
+        ? 'static/homeworks/homework01/homework01'
+        : ''
     });
   }
 

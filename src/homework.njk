@@ -35,6 +35,25 @@ navigation:
 </div>
 {% endif %}
 
+{% if hw.previewBase %}
+<p>For your convenience the notebook is displayed below as HTML, but you will likely
+find it easier to copy the notebook from the Google Colab link above.</p>
+
+<div class="embed-responsive embed-responsive-4by3">
+<iframe
+    class="embed-responsive-item course-embed theme-notebook-frame"
+    width="100%"
+    height="800"
+    src="{{ hw.previewBase }}-light.html"
+    data-src-light="{{ hw.previewBase }}-light.html"
+    data-src-dark="{{ hw.previewBase }}-dark.html"></iframe>
+</div>
+{% else %}
+<div class="alert alert-warning">
+<p>Rendered notebook preview not yet available. Use the Google Colab link above.</p>
+</div>
+{% endif %}
+
 <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
 
 <h2>Task 2: Assignment Submission Instructions</h2>
