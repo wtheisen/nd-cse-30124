@@ -6844,7 +6844,9 @@ all of MD as it is not optimized for dense, information rich UIs.
    * https://material-components-web.appspot.com/elevation.html
    */
 
-  --jp-shadow-base-lightness: 0;
+  /* The dark theme shadows need a bit of work, but this will probably also require work on the core layout
+   * colors used in the theme as well. */
+  --jp-shadow-base-lightness: 32;
   --jp-shadow-umbra-color: rgba(
     var(--jp-shadow-base-lightness),
     var(--jp-shadow-base-lightness),
@@ -6898,10 +6900,10 @@ all of MD as it is not optimized for dense, information rich UIs.
    */
 
   --jp-border-width: 1px;
-  --jp-border-color0: var(--md-grey-400);
-  --jp-border-color1: var(--md-grey-400);
-  --jp-border-color2: var(--md-grey-300);
-  --jp-border-color3: var(--md-grey-200);
+  --jp-border-color0: var(--md-grey-700);
+  --jp-border-color1: var(--md-grey-700);
+  --jp-border-color2: var(--md-grey-800);
+  --jp-border-color3: var(--md-grey-900);
   --jp-inverse-border-color: var(--md-grey-600);
   --jp-border-radius: 2px;
 
@@ -6930,20 +6932,20 @@ all of MD as it is not optimized for dense, information rich UIs.
    */
 
   /* Defaults use Material Design specification */
-  --jp-ui-font-color0: rgba(0, 0, 0, 1);
-  --jp-ui-font-color1: rgba(0, 0, 0, 0.87);
-  --jp-ui-font-color2: rgba(0, 0, 0, 0.54);
-  --jp-ui-font-color3: rgba(0, 0, 0, 0.38);
+  --jp-ui-font-color0: rgba(255, 255, 255, 1);
+  --jp-ui-font-color1: rgba(255, 255, 255, 0.87);
+  --jp-ui-font-color2: rgba(255, 255, 255, 0.54);
+  --jp-ui-font-color3: rgba(255, 255, 255, 0.38);
 
   /*
    * Use these against the brand/accent/warn/error colors.
    * These will typically go from light to darker, in both a dark and light theme.
    */
 
-  --jp-ui-inverse-font-color0: rgba(255, 255, 255, 1);
-  --jp-ui-inverse-font-color1: rgba(255, 255, 255, 1);
-  --jp-ui-inverse-font-color2: rgba(255, 255, 255, 0.7);
-  --jp-ui-inverse-font-color3: rgba(255, 255, 255, 0.5);
+  --jp-ui-inverse-font-color0: rgba(0, 0, 0, 1);
+  --jp-ui-inverse-font-color1: rgba(0, 0, 0, 0.8);
+  --jp-ui-inverse-font-color2: rgba(0, 0, 0, 0.5);
+  --jp-ui-inverse-font-color3: rgba(0, 0, 0, 0.3);
 
   /* Content Fonts
    *
@@ -6971,11 +6973,11 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-content-heading-font-weight: 500;
 
   /* Defaults use Material Design specification */
-  --jp-content-font-color0: rgba(0, 0, 0, 1);
-  --jp-content-font-color1: rgba(0, 0, 0, 0.87);
-  --jp-content-font-color2: rgba(0, 0, 0, 0.54);
-  --jp-content-font-color3: rgba(0, 0, 0, 0.38);
-  --jp-content-link-color: var(--md-blue-900);
+  --jp-content-font-color0: rgba(255, 255, 255, 1);
+  --jp-content-font-color1: rgba(255, 255, 255, 1);
+  --jp-content-font-color2: rgba(255, 255, 255, 0.7);
+  --jp-content-font-color3: rgba(255, 255, 255, 0.5);
+  --jp-content-link-color: var(--md-blue-300);
   --jp-content-font-family: system-ui, -apple-system, blinkmacsystemfont,
     'Segoe UI', helvetica, arial, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -7006,10 +7008,10 @@ all of MD as it is not optimized for dense, information rich UIs.
    * theme these would go from light to dark.
    */
 
-  --jp-layout-color0: white;
-  --jp-layout-color1: white;
-  --jp-layout-color2: var(--md-grey-200);
-  --jp-layout-color3: var(--md-grey-400);
+  --jp-layout-color0: #111;
+  --jp-layout-color1: var(--md-grey-900);
+  --jp-layout-color2: var(--md-grey-800);
+  --jp-layout-color3: var(--md-grey-700);
   --jp-layout-color4: var(--md-grey-600);
 
   /* Inverse Layout
@@ -7018,40 +7020,40 @@ all of MD as it is not optimized for dense, information rich UIs.
    * theme these would go from dark to light.
    */
 
-  --jp-inverse-layout-color0: #111;
-  --jp-inverse-layout-color1: var(--md-grey-900);
-  --jp-inverse-layout-color2: var(--md-grey-800);
-  --jp-inverse-layout-color3: var(--md-grey-700);
+  --jp-inverse-layout-color0: white;
+  --jp-inverse-layout-color1: white;
+  --jp-inverse-layout-color2: var(--md-grey-200);
+  --jp-inverse-layout-color3: var(--md-grey-400);
   --jp-inverse-layout-color4: var(--md-grey-600);
 
   /* Brand/accent */
 
-  --jp-brand-color0: var(--md-blue-900);
-  --jp-brand-color1: var(--md-blue-700);
+  --jp-brand-color0: var(--md-blue-700);
+  --jp-brand-color1: var(--md-blue-500);
   --jp-brand-color2: var(--md-blue-300);
   --jp-brand-color3: var(--md-blue-100);
   --jp-brand-color4: var(--md-blue-50);
-  --jp-accent-color0: var(--md-green-900);
-  --jp-accent-color1: var(--md-green-700);
+  --jp-accent-color0: var(--md-green-700);
+  --jp-accent-color1: var(--md-green-500);
   --jp-accent-color2: var(--md-green-300);
   --jp-accent-color3: var(--md-green-100);
 
   /* State colors (warn, error, success, info) */
 
-  --jp-warn-color0: var(--md-orange-900);
-  --jp-warn-color1: var(--md-orange-700);
+  --jp-warn-color0: var(--md-orange-700);
+  --jp-warn-color1: var(--md-orange-500);
   --jp-warn-color2: var(--md-orange-300);
   --jp-warn-color3: var(--md-orange-100);
-  --jp-error-color0: var(--md-red-900);
-  --jp-error-color1: var(--md-red-700);
+  --jp-error-color0: var(--md-red-700);
+  --jp-error-color1: var(--md-red-500);
   --jp-error-color2: var(--md-red-300);
   --jp-error-color3: var(--md-red-100);
-  --jp-success-color0: var(--md-green-900);
-  --jp-success-color1: var(--md-green-700);
+  --jp-success-color0: var(--md-green-700);
+  --jp-success-color1: var(--md-green-500);
   --jp-success-color2: var(--md-green-300);
   --jp-success-color3: var(--md-green-100);
-  --jp-info-color0: var(--md-cyan-900);
-  --jp-info-color1: var(--md-cyan-700);
+  --jp-info-color0: var(--md-cyan-700);
+  --jp-info-color1: var(--md-cyan-500);
   --jp-info-color2: var(--md-cyan-300);
   --jp-info-color3: var(--md-cyan-100);
 
@@ -7061,8 +7063,8 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-cell-collapser-width: 8px;
   --jp-cell-collapser-min-height: 20px;
   --jp-cell-collapser-not-active-hover-opacity: 0.6;
-  --jp-cell-editor-background: var(--md-grey-100);
-  --jp-cell-editor-border-color: var(--md-grey-300);
+  --jp-cell-editor-background: var(--jp-layout-color1);
+  --jp-cell-editor-border-color: var(--md-grey-700);
   --jp-cell-editor-box-shadow: inset 0 0 2px var(--md-blue-300);
   --jp-cell-editor-active-background: var(--jp-layout-color0);
   --jp-cell-editor-active-border-color: var(--jp-brand-color1);
@@ -7070,8 +7072,8 @@ all of MD as it is not optimized for dense, information rich UIs.
   --jp-cell-prompt-font-family: var(--jp-code-font-family-default);
   --jp-cell-prompt-letter-spacing: 0;
   --jp-cell-prompt-opacity: 1;
-  --jp-cell-prompt-not-active-opacity: 0.5;
-  --jp-cell-prompt-not-active-font-color: var(--md-grey-700);
+  --jp-cell-prompt-not-active-opacity: 1;
+  --jp-cell-prompt-not-active-font-color: var(--md-grey-300);
 
   /* A custom blend of MD grey and blue 600
    * See https://meyerweb.com/eric/tools/color-blend/#546E7A:1E88E5:5:hex */
@@ -7085,7 +7087,7 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   --jp-notebook-padding: 10px;
   --jp-notebook-select-background: var(--jp-layout-color1);
-  --jp-notebook-multiselected-color: var(--md-blue-50);
+  --jp-notebook-multiselected-color: rgba(33, 150, 243, 0.24);
 
   /* The scroll padding is calculated to fill enough space at the bottom of the
   notebook to show one single-line cell (with appropriate padding) at the top
@@ -7100,13 +7102,13 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Rendermime styles */
 
-  --jp-rendermime-error-background: #fdd;
-  --jp-rendermime-table-row-background: var(--md-grey-100);
-  --jp-rendermime-table-row-hover-background: var(--md-light-blue-50);
+  --jp-rendermime-error-background: rgba(244, 67, 54, 0.28);
+  --jp-rendermime-table-row-background: var(--md-grey-900);
+  --jp-rendermime-table-row-hover-background: rgba(3, 169, 244, 0.2);
 
   /* Dialog specific styles */
 
-  --jp-dialog-background: rgba(0, 0, 0, 0.25);
+  --jp-dialog-background: rgba(0, 0, 0, 0.6);
 
   /* Console specific styles */
 
@@ -7114,12 +7116,12 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Toolbar specific styles */
 
-  --jp-toolbar-border-color: var(--jp-border-color1);
+  --jp-toolbar-border-color: var(--jp-border-color2);
   --jp-toolbar-micro-height: 8px;
   --jp-toolbar-background: var(--jp-layout-color1);
-  --jp-toolbar-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.24);
+  --jp-toolbar-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
   --jp-toolbar-header-margin: 4px 4px 0 4px;
-  --jp-toolbar-active-background: var(--md-grey-300);
+  --jp-toolbar-active-background: var(--jp-layout-color0);
 
   /* Statusbar specific styles */
 
@@ -7128,43 +7130,43 @@ all of MD as it is not optimized for dense, information rich UIs.
   /* Input field styles */
 
   --jp-input-box-shadow: inset 0 0 2px var(--md-blue-300);
-  --jp-input-active-background: var(--jp-layout-color1);
-  --jp-input-hover-background: var(--jp-layout-color1);
-  --jp-input-background: var(--md-grey-100);
+  --jp-input-active-background: var(--jp-layout-color0);
+  --jp-input-hover-background: var(--jp-layout-color2);
+  --jp-input-background: var(--md-grey-800);
   --jp-input-border-color: var(--jp-inverse-border-color);
   --jp-input-active-border-color: var(--jp-brand-color1);
   --jp-input-active-box-shadow-color: rgba(19, 124, 189, 0.3);
 
   /* General editor styles */
 
-  --jp-editor-selected-background: #d9d9d9;
-  --jp-editor-selected-focused-background: #d7d4f0;
+  --jp-editor-selected-background: var(--jp-layout-color2);
+  --jp-editor-selected-focused-background: rgba(33, 150, 243, 0.24);
   --jp-editor-cursor-color: var(--jp-ui-font-color0);
 
   /* Code mirror specific styles */
 
-  --jp-mirror-editor-keyword-color: #008000;
-  --jp-mirror-editor-atom-color: #88f;
-  --jp-mirror-editor-number-color: #080;
-  --jp-mirror-editor-def-color: #00f;
-  --jp-mirror-editor-variable-color: var(--md-grey-900);
-  --jp-mirror-editor-variable-2-color: rgb(0, 54, 109);
-  --jp-mirror-editor-variable-3-color: #085;
-  --jp-mirror-editor-punctuation-color: #05a;
-  --jp-mirror-editor-property-color: #05a;
+  --jp-mirror-editor-keyword-color: var(--md-green-500);
+  --jp-mirror-editor-atom-color: var(--md-blue-300);
+  --jp-mirror-editor-number-color: var(--md-green-400);
+  --jp-mirror-editor-def-color: var(--md-blue-600);
+  --jp-mirror-editor-variable-color: var(--md-grey-300);
+  --jp-mirror-editor-variable-2-color: var(--md-blue-500);
+  --jp-mirror-editor-variable-3-color: var(--md-green-600);
+  --jp-mirror-editor-punctuation-color: var(--md-blue-400);
+  --jp-mirror-editor-property-color: var(--md-blue-400);
   --jp-mirror-editor-operator-color: #a2f;
   --jp-mirror-editor-comment-color: #408080;
-  --jp-mirror-editor-string-color: #ba2121;
-  --jp-mirror-editor-string-2-color: #708;
+  --jp-mirror-editor-string-color: #ff7070;
+  --jp-mirror-editor-string-2-color: var(--md-purple-300);
   --jp-mirror-editor-meta-color: #a2f;
   --jp-mirror-editor-qualifier-color: #555;
-  --jp-mirror-editor-builtin-color: #008000;
+  --jp-mirror-editor-builtin-color: var(--md-green-600);
   --jp-mirror-editor-bracket-color: #997;
-  --jp-mirror-editor-tag-color: #170;
-  --jp-mirror-editor-attribute-color: #00c;
-  --jp-mirror-editor-header-color: blue;
-  --jp-mirror-editor-quote-color: #090;
-  --jp-mirror-editor-link-color: #00c;
+  --jp-mirror-editor-tag-color: var(--md-green-700);
+  --jp-mirror-editor-attribute-color: var(--md-blue-700);
+  --jp-mirror-editor-header-color: var(--md-blue-500);
+  --jp-mirror-editor-quote-color: var(--md-green-300);
+  --jp-mirror-editor-link-color: var(--md-blue-700);
   --jp-mirror-editor-error-color: #f00;
   --jp-mirror-editor-hr-color: #999;
 
@@ -7174,17 +7176,17 @@ all of MD as it is not optimized for dense, information rich UIs.
     and the icon of the user.
   */
 
-  --jp-collaborator-color1: #ffad8e;
-  --jp-collaborator-color2: #dac83d;
-  --jp-collaborator-color3: #72dd76;
-  --jp-collaborator-color4: #00e4d0;
-  --jp-collaborator-color5: #45d4ff;
-  --jp-collaborator-color6: #e2b1ff;
-  --jp-collaborator-color7: #ff9de6;
+  --jp-collaborator-color1: #ad4a00;
+  --jp-collaborator-color2: #7b6a00;
+  --jp-collaborator-color3: #007e00;
+  --jp-collaborator-color4: #008772;
+  --jp-collaborator-color5: #0079b9;
+  --jp-collaborator-color6: #8b45c6;
+  --jp-collaborator-color7: #be208b;
 
   /* Vega extension styles */
 
-  --jp-vega-background: white;
+  --jp-vega-background: var(--md-grey-400);
 
   /* Sidebar-related styles */
 
@@ -7192,15 +7194,28 @@ all of MD as it is not optimized for dense, information rich UIs.
 
   /* Search-related styles */
 
-  --jp-search-toggle-off-opacity: 0.5;
+  --jp-search-toggle-off-opacity: 0.6;
   --jp-search-toggle-hover-opacity: 0.8;
   --jp-search-toggle-on-opacity: 1;
-  --jp-search-selected-match-background-color: rgb(245, 200, 0);
+  --jp-search-selected-match-background-color: rgb(255, 225, 0);
   --jp-search-selected-match-color: black;
   --jp-search-unselected-match-background-color: var(
     --jp-inverse-layout-color0
   );
   --jp-search-unselected-match-color: var(--jp-ui-inverse-font-color0);
+
+  /* scrollbar related styles. Supports every browser except Edge. */
+
+  /* colors based on JetBrain's Darcula theme */
+
+  --jp-scrollbar-background-color: #3f4244;
+  --jp-scrollbar-thumb-color: 88, 96, 97; /* need to specify thumb color as an RGB triplet */
+  --jp-scrollbar-endpad: 3px; /* the minimum gap between the thumb and the ends of a scrollbar */
+
+  /* hacks for setting the thumb shape. These do nothing in Firefox */
+
+  --jp-scrollbar-thumb-margin: 3.5px; /* the space in between the sides of the thumb and the track */
+  --jp-scrollbar-thumb-radius: 9px; /* set to a large-ish value for rounded endcaps on the thumb */
 
   /* Icon colors that work well with light or dark backgrounds */
   --jp-icon-contrast-color0: var(--md-purple-600);
@@ -7222,15 +7237,15 @@ all of MD as it is not optimized for dense, information rich UIs.
   /* File or activity icons and switch semantic variables */
   --jp-jupyter-icon-color: #f37626;
   --jp-notebook-icon-color: #f37626;
-  --jp-json-icon-color: var(--md-orange-700);
-  --jp-console-icon-background-color: var(--md-blue-700);
+  --jp-json-icon-color: var(--md-orange-500);
+  --jp-console-icon-background-color: var(--md-blue-500);
   --jp-console-icon-color: white;
-  --jp-terminal-icon-background-color: var(--md-grey-800);
-  --jp-terminal-icon-color: var(--md-grey-200);
-  --jp-text-editor-icon-color: var(--md-grey-700);
-  --jp-inspector-icon-color: var(--md-grey-700);
+  --jp-terminal-icon-background-color: var(--md-grey-200);
+  --jp-terminal-icon-color: var(--md-grey-800);
+  --jp-text-editor-icon-color: var(--md-grey-200);
+  --jp-inspector-icon-color: var(--md-grey-200);
   --jp-switch-color: var(--md-grey-400);
-  --jp-switch-true-position-color: var(--md-orange-900);
+  --jp-switch-true-position-color: var(--md-orange-700);
 }
 </style>
 <style type="text/css">
@@ -7803,7 +7818,18 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="CSE-30124---Introduction-to-Artificial-Intelligence:-Homework-01-(5-pts.)">CSE 30124 - Introduction to Artificial Intelligence: Homework 01 (5 pts.)<a class="anchor-link" href="#CSE-30124---Introduction-to-Artificial-Intelligence:-Homework-01-(5-pts.)">¶</a></h1><ul>
+<h1 id="Introduction-to-Artificial-Intelligence---Homework-Assignment-01-(5-pts.)">Introduction to Artificial Intelligence - Homework Assignment 01 (5 pts.)<a class="anchor-link" href="#Introduction-to-Artificial-Intelligence---Homework-Assignment-01-(5-pts.)">¶</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-00">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
 <li>Names:</li>
 <li>NETIDs:</li>
 </ul>
@@ -7863,12 +7889,21 @@ a.anchor-link {
 </tbody>
 </table>
 <p>Please complete all sections. Some questions require written answers, while others involve coding. Run your code cells in order to verify your solutions.</p>
-<p>Late one evening, the police received an emergency call from the <strong>William Theisen-Floyd Estate</strong>, where an elaborate dinner party has ended in murder. By the time the authorities arrived, the host, William Theisen-Floyd, had been found dead in the pantry. The scene suggests that he was killed with gas, but the guests disappeared before they could be questioned.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-01">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Story-Progression"><em>Story Progression</em><a class="anchor-link" href="#Story-Progression">¶</a></h3><p>Late one evening, the police received an emergency call from the <strong>William Theisen-Floyd Estate</strong>, where an elaborate dinner party has ended in murder. By the time the authorities arrived, the host, William Theisen-Floyd, had been found dead in the pantry. The scene suggests that he was killed with gas, but the guests disappeared before they could be questioned.</p>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/homework01/pantry.png"/>
 <figcaption style="text-align: center"><b>Evidence 1: The grisly scene discovered in the estate's pantry.</b></figcaption>
 </div>
-<blockquote>
 <p>The police know that six guests attended the party — three men and three women — but every name on the guest list appears to be an alias:</p>
 <ul>
 <li>Colonel Mustard</li>
@@ -7878,14 +7913,11 @@ a.anchor-link {
 <li>Mrs. Peacock</li>
 <li>Mrs. White</li>
 </ul>
-</blockquote>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/homework01/suspects_party.png"/>
 <figcaption style="text-align: center"><b>Evidence 2: A photograph of William Theisen-Floyd with the six unidentified guests shortly before his murder.</b></figcaption>
 </div>
-<blockquote>
 <p>Investigators searched the estate's bathroom, dining room, kitchen, living room, pantry, and study. In those rooms they recovered six possible weapons: a bag, a firearm, gas, a knife, poison, and a rope. Witness accounts and clues left around the estate allowed the police to reconstruct the party.</p>
-</blockquote>
 <ul>
 <li>Colonel Mustard had been in the dining room with the poison</li>
 <li>Professor Plum in the bathroom with the knife</li>
@@ -7902,19 +7934,15 @@ a.anchor-link {
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/homework02/witness.png"/>
 <figcaption style="text-align: center"><b>Evidence 4: A witness places Mr. Green near the pantry on the night of the murder.</b></figcaption>
 </div>
-<blockquote>
 <p>A few days later, as you finish your drink, you feel a tap on your shoulder.</p>
 <p>"You've got the wrong person, pal."</p>
 <p>When you turn around, you find Officer Gaff waiting behind you. He assures you that you are not under arrest — at least not today — and drives you to the precinct to meet Director Bryant. The department has followed every conventional lead it has, but it still cannot connect the six aliases to the guests' real identities. Director Bryant has heard that you know something about artificial intelligence, or at least that you are currently enrolled in a class with those words in its title, and decides that this is close enough for police work.</p>
 <p>The police have assembled a broad pool of possible suspects and asked each one ten questions about the night of the murder while administering a polygraph examination. For every response, they recorded both the suspect's statement and the estimated probability that the suspect was lying. They also have sixty labeled examples from earlier investigations that describe how likely a person with particular polygraph results was to merit further investigation. Unfortunately, the department's intern handed the data processing to Gemini, and the historical examples and current suspect interviews have all been mixed together in a single file named <code>suspect_data.csv</code>.</p>
-</blockquote>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/lab01/polygraph.png"/>
 <figcaption style="text-align: center"><b>Evidence 5: One of the possible suspects undergoing a police polygraph examination.</b></figcaption>
 </div>
-<blockquote>
 <p>Director Bryant slides the evidence file across the desk. Before the aliases can be unmasked, you will need to separate the historical training records from the current interviews, transform the suspects' raw answers into features a machine-learning algorithm can understand, and implement a classifier capable of narrowing the field. Somewhere in that list is the person who called themself Mr. Green.</p>
-</blockquote>
 </div>
 </div>
 </div>
@@ -7925,7 +7953,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Task-00:-Load-and-Split-Dataset-(0.5-pts.)">Task 00: Load and Split Dataset (0.5 pts.)<a class="anchor-link" href="#Task-00:-Load-and-Split-Dataset-(0.5-pts.)">¶</a></h2><h3 id="Task-00-1:-Load-Dataset-(0-pts.)">Task 00-1: Load Dataset (0 pts.)<a class="anchor-link" href="#Task-00-1:-Load-Dataset-(0-pts.)">¶</a></h3><h4 id="Loading-the-Dataset">Loading the Dataset<a class="anchor-link" href="#Loading-the-Dataset">¶</a></h4><p>Run the cell below to download the evidence, load <code>suspect_data.csv</code> into a DataFrame, and display its first five rows.</p>
+<h2 id="Task-00:-Load-and-Split-Dataset">Task 00: Load and Split Dataset<a class="anchor-link" href="#Task-00:-Load-and-Split-Dataset">¶</a></h2><h3 id="Task-00-1:-Description-(0-pts.)">Task 00-1: Description (0 pts.)<a class="anchor-link" href="#Task-00-1:-Description-(0-pts.)">¶</a></h3><h4 id="Loading-the-Dataset">Loading the Dataset<a class="anchor-link" href="#Loading-the-Dataset">¶</a></h4><p>Run the cell below to download the evidence, load <code>suspect_data.csv</code> into a DataFrame, and display its first five rows.</p>
 <h3 id="Task-00-1:-Code-(0-pts.)">Task 00-1: Code (0 pts.)<a class="anchor-link" href="#Task-00-1:-Code-(0-pts.)">¶</a></h3>
 </div>
 </div>
@@ -7977,17 +8005,28 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-00-1:-Expected-Output-(0-pts.)">Task 00-1: Expected Output (0 pts.)<a class="anchor-link" href="#Task-00-1:-Expected-Output-(0-pts.)">¶</a></h3><pre><code>suspect_name	weapon_mentions	total_lying_prob	good_suspect	statement_1	statement_2	statement_3	statement_4	statement_5	statement_6	...	lying_prob_1	lying_prob_2	lying_prob_3	lying_prob_4	lying_prob_5	lying_prob_6	lying_prob_7	lying_prob_8	lying_prob_9	lying_prob_10
+<h3 id="Task-00-1:-Reference-Output-(0-pts.)">Task 00-1: Reference Output (0 pts.)<a class="anchor-link" href="#Task-00-1:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>suspect_name	weapon_mentions	total_lying_prob	good_suspect	statement_1	statement_2	statement_3	statement_4	statement_5	statement_6	...	lying_prob_1	lying_prob_2	lying_prob_3	lying_prob_4	lying_prob_5	lying_prob_6	lying_prob_7	lying_prob_8	lying_prob_9	lying_prob_10
 0	Clair Green	NaN	NaN	NaN	I arrived late to the party	Someone was carrying a bag upstairs	I heard arguing in the study	The buffet in the kitchen looked incomplete	I stayed near the entrance	Someone mentioned a knife was missing	...	0.50	0.52	0.49	0.51	0.50	0.52	0.49	0.51	0.50	0.51
 1	Amelie Boom	3.0	0.77	1.0	NaN	NaN	NaN	NaN	NaN	NaN	...	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
 2	Kaila Bryant	4.0	0.85	1.0	NaN	NaN	NaN	NaN	NaN	NaN	...	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
 3	Amelie Boom	NaN	NaN	NaN	I arrived alone	I mingled with guests	The host mentioned a knife collection	I stayed in common areas	I left at midnight	Nothing caught my eye	...	0.54	0.53	0.55	0.54	0.53	0.55	0.54	0.53	0.54	0.55
 4	Dannylo Correia	3.0	0.86	1.0	NaN	NaN	NaN	NaN	NaN	NaN	...	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN	NaN
-</code></pre>
-<p><em>Note:</em> Colab will format this DataFrame as a scrollable table.</p>
-<h3 id="Task-00-2:-Description-(0-pts.)">Task 00-2: Description (0 pts.)<a class="anchor-link" href="#Task-00-2:-Description-(0-pts.)">¶</a></h3><h4 id="Splitting-the-Dataset">Splitting the Dataset<a class="anchor-link" href="#Splitting-the-Dataset">¶</a></h4><p>Using pandas, separate the combined DataFrame into two new DataFrames: one containing the 60 labeled examples from prior cases, where <code>good_suspect</code> is either <code>0</code> or <code>1</code>, and one containing the interviews from the 20 suspects in the current case, where <code>good_suspect</code> is <code>NaN</code>. The examples below introduce several pandas operations that may help.</p>
-<p><strong>Checking for missing values:</strong></p>
-<div class="highlight"><pre><span></span><span class="c1"># Count NaN values in each column</span>
+</pre></div>
+<blockquote>
+<p><strong>Note:</strong> Colab will format this DataFrame as a scrollable table.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-02">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-00-2:-Description-(0-pts.)">Task 00-2: Description (0 pts.)<a class="anchor-link" href="#Task-00-2:-Description-(0-pts.)">¶</a></h3><h4 id="Splitting-the-Dataset">Splitting the Dataset<a class="anchor-link" href="#Splitting-the-Dataset">¶</a></h4><p>Separate the combined DataFrame into two new DataFrames using pandas: one containing the 60 labeled examples from prior cases, where <code>good_suspect</code> is either <code>0</code> or <code>1</code>, and one containing the interviews from the 20 suspects in the current case, where <code>good_suspect</code> is <code>NaN</code>. The examples below introduce the pandas operations needed for this task.</p>
+<h4 id="Checking-for-Missing-Values">Checking for Missing Values<a class="anchor-link" href="#Checking-for-Missing-Values">¶</a></h4><div class="highlight"><pre><span></span><span class="c1"># Count NaN values in each column</span>
 <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="c1"># Check if a specific column has NaN values</span>
@@ -7996,12 +8035,10 @@ a.anchor-link {
 <span class="c1"># Filter to rows where a column is NOT NaN</span>
 <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'column_name'</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
 </pre></div>
-<p><strong>Understanding the data types:</strong></p>
-<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># Shows data type and non-null count for each column</span>
+<h4 id="Inspecting-Data-Types">Inspecting Data Types<a class="anchor-link" href="#Inspecting-Data-Types">¶</a></h4><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  <span class="c1"># Shows data type and non-null count for each column</span>
 <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>  <span class="c1"># Just shows data types</span>
 </pre></div>
-<p><strong>Filtering DataFrames with Conditional Indexing</strong></p>
-<div class="highlight"><pre><span></span><span class="c1"># Basic filtering</span>
+<h4 id="Filtering-DataFrames-with-Conditional-Indexing">Filtering DataFrames with Conditional Indexing<a class="anchor-link" href="#Filtering-DataFrames-with-Conditional-Indexing">¶</a></h4><div class="highlight"><pre><span></span><span class="c1"># Basic filtering</span>
 <span class="n">adults</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">]</span>           <span class="c1"># Rows where age is 18+</span>
 <span class="n">students</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'role'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'student'</span><span class="p">]</span> <span class="c1"># Rows where role is 'student'</span>
 
@@ -8012,7 +8049,9 @@ a.anchor-link {
 <span class="c1"># Multiple conditions (use &amp; for AND, | for OR)</span>
 <span class="n">young_students</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'role'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'student'</span><span class="p">)]</span>
 </pre></div>
-<p><strong>Important</strong>: When using multiple conditions, wrap each condition in parentheses!</p>
+<blockquote>
+<p><strong>Important:</strong> When using multiple conditions, wrap each condition in parentheses.</p>
+</blockquote>
 <h3 id="Task-00-2:-Code-(0.5-pts.)">Task 00-2: Code (0.5 pts.)<a class="anchor-link" href="#Task-00-2:-Code-(0.5-pts.)">¶</a></h3>
 </div>
 </div>
@@ -8045,21 +8084,31 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-00-2:-Expected-Output-(0.5-pts.)">Task 00-2: Expected Output (0.5 pts.)<a class="anchor-link" href="#Task-00-2:-Expected-Output-(0.5-pts.)">¶</a></h3><pre><code>Training samples: 60
+<h3 id="Task-00-2:-Reference-Output-(0-pts.)">Task 00-2: Reference Output (0 pts.)<a class="anchor-link" href="#Task-00-2:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>Training samples: 60
 Testing samples: 20
 Total: 80
-</code></pre>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-03">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Story-Progression"><em>Story Progression</em><a class="anchor-link" href="#Story-Progression">¶</a></h3><p>You can't believe the police mixed the training and testing data together in one file — Professor Theisen would have killed you for that. I guess that's what happens when an intern blindly delegates the data processing to AI. Fortunately, you separated the records and can now see that:</p>
 <ul>
-<li><strong>Training data</strong> (60 records) has <code>weapon_mentions</code>, <code>total_lying_prob</code>, and <code>good_suspect</code> (the label).</li>
-<li><strong>Testing data</strong> (20 records) has raw <code>statement_1</code> through <code>statement_10</code> and <code>lying_prob_1</code> through <code>lying_prob_10</code>.</li>
+<li><strong>Training data:</strong> (60 records) has <code>weapon_mentions</code>, <code>total_lying_prob</code>, and <code>good_suspect</code> (the label).</li>
+<li><strong>Testing data:</strong> (20 records) has raw <code>statement_1</code> through <code>statement_10</code> and <code>lying_prob_1</code> through <code>lying_prob_10</code>.</li>
 </ul>
 <p>Unfortunately, the testing data format doesn't match the training data format. You'll need to do some <strong>feature engineering</strong> to transform the raw testing data into the same format as the training data!</p>
 <p><strong>Feature engineering</strong> is the process of transforming raw data into meaningful numerical values ("features") that machine-learning algorithms can use. Good features can make a simple algorithm work well, while poor features can make even a sophisticated algorithm fail.</p>
 <p>We'll need to create two features from the raw polygraph data in order to match our examples:</p>
 <ol>
-<li><strong><code>weapon_mentions</code></strong> (count feature): How many times weapon-related keywords appear in the suspect's statements</li>
-<li><strong><code>total_lying_prob</code></strong> (aggregate feature): The average lying probability across all statements</li>
+<li><strong><code>weapon_mentions</code> (count feature):</strong> How many times weapon-related keywords appear in the suspect's statements</li>
+<li><strong><code>total_lying_prob</code> (aggregate feature):</strong> The average lying probability across all statements</li>
 </ol>
 </div>
 </div>
@@ -8071,7 +8120,7 @@ Total: 80
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Task-01:-Create-Features-from-Testing-Data-to-Match-Training-Data-(1-pt.)">Task 01: Create Features from Testing Data to Match Training Data (1 pt.)<a class="anchor-link" href="#Task-01:-Create-Features-from-Testing-Data-to-Match-Training-Data-(1-pt.)">¶</a></h2><h3 id="Task-01-1:-Description-(0-pts.)">Task 01-1: Description (0 pts.)<a class="anchor-link" href="#Task-01-1:-Description-(0-pts.)">¶</a></h3><h4 id="Creating-the-Weapon-Mention-Feature">Creating the Weapon Mention Feature<a class="anchor-link" href="#Creating-the-Weapon-Mention-Feature">¶</a></h4><p>Our first feature counts how many times weapon-related keywords appear in a suspect's polygraph answers. The keywords are:</p>
+<h2 id="Task-01:-Create-Features-from-Testing-Data-to-Match-Training-Data">Task 01: Create Features from Testing Data to Match Training Data<a class="anchor-link" href="#Task-01:-Create-Features-from-Testing-Data-to-Match-Training-Data">¶</a></h2><h3 id="Task-01-1:-Description-(0-pts.)">Task 01-1: Description (0 pts.)<a class="anchor-link" href="#Task-01-1:-Description-(0-pts.)">¶</a></h3><h4 id="Creating-the-Weapon-Mention-Feature">Creating the Weapon Mention Feature<a class="anchor-link" href="#Creating-the-Weapon-Mention-Feature">¶</a></h4><p>Our first feature counts how many times weapon-related keywords appear in a suspect's polygraph answers. Use the following canonical list:</p>
 <div class="highlight"><pre><span></span><span class="n">weapons</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'gas'</span><span class="p">,</span> <span class="s1">'knife'</span><span class="p">,</span> <span class="s1">'poison'</span><span class="p">,</span> <span class="s1">'rope'</span><span class="p">,</span> <span class="s1">'bag'</span><span class="p">,</span> <span class="s1">'gun'</span><span class="p">]</span>
 </pre></div>
 <p>These terms correspond to the possible weapons identified by police at the crime scene.</p>
@@ -8079,7 +8128,6 @@ Total: 80
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/lab01/weapon_mentions.png"/>
 <figcaption style="text-align: center"><b>Evidence 6: Mapping polygraph answers to weapon mentions.</b></figcaption>
 </div>
-<hr/>
 <h4 id="Useful-String-Operations-in-Pandas">Useful String Operations in Pandas<a class="anchor-link" href="#Useful-String-Operations-in-Pandas">¶</a></h4><div class="highlight"><pre><span></span><span class="c1"># Convert to lowercase (important for matching!)</span>
 <span class="n">text</span> <span class="o">=</span> <span class="s2">"I saw a KNIFE"</span>
 <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># Returns: "i saw a knife"</span>
@@ -8092,7 +8140,6 @@ Total: 80
 <span class="n">statements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"I was home"</span><span class="p">,</span> <span class="s2">"I saw nothing"</span><span class="p">,</span> <span class="s2">"I left early"</span><span class="p">]</span>
 <span class="n">combined</span> <span class="o">=</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">statements</span><span class="p">)</span>  <span class="c1"># "I was home I saw nothing I left early"</span>
 </pre></div>
-<hr/>
 <h4 id="Using-df.apply()-to-Process-Each-Row">Using df.apply() to Process Each Row<a class="anchor-link" href="#Using-df.apply()-to-Process-Each-Row">¶</a></h4><p>When you need to apply a custom function to each row of a DataFrame, use <code>df.apply()</code> with <code>axis=1</code>:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
     <span class="c1"># row is a pandas Series representing one row</span>
@@ -8105,8 +8152,18 @@ Total: 80
 <span class="c1"># Or use a lambda (anonymous function) for simple operations</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">'new_column'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="s1">'b'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
-<hr/>
-<p>In the cell below, finish <code>count_weapon_mentions()</code> to count the weapon references in each suspect's polygraph answers.</p>
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Complete <code>count_weapon_mentions()</code> so that it:</p>
+<ol>
+<li>Combines the ten statement columns for one suspect.</li>
+<li>Converts the combined text to lowercase.</li>
+<li>Counts every occurrence of the six weapon keywords.</li>
+<li>Returns the total count for that suspect.</li>
+</ol>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html"><code>DataFrame.apply()</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#str.lower"><code>str.lower()</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#str.count"><code>str.count()</code></a></li>
+</ul>
 <h3 id="Task-01-1:-Code-(0.5-pts.)">Task 01-1: Code (0.5 pts.)<a class="anchor-link" href="#Task-01-1:-Code-(0.5-pts.)">¶</a></h3>
 </div>
 </div>
@@ -8157,7 +8214,7 @@ Total: 80
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-01-1:-Expected-Output-(0.5-pts.)">Task 01-1: Expected Output (0.5 pts.)<a class="anchor-link" href="#Task-01-1:-Expected-Output-(0.5-pts.)">¶</a></h3><pre><code>Weapon mentions per suspect:
+<h3 id="Task-01-1:-Reference-Output-(0-pts.)">Task 01-1: Reference Output (0 pts.)<a class="anchor-link" href="#Task-01-1:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>Weapon mentions per suspect:
            suspect_name  weapon_mentions
 0           Clair Green                2
 3           Amelie Boom                1
@@ -8169,9 +8226,18 @@ Total: 80
 26  Alexander Nwanganga                6
 32      Annika Svensson                0
 37     Maureen Tremblay                1
-</code></pre>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-04">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Task-01-2:-Description-(0-pts.)">Task 01-2: Description (0 pts.)<a class="anchor-link" href="#Task-01-2:-Description-(0-pts.)">¶</a></h3><h4 id="Creating-the-Average-Lying-Probability-Feature">Creating the Average Lying Probability Feature<a class="anchor-link" href="#Creating-the-Average-Lying-Probability-Feature">¶</a></h4><p>The second missing feature is <code>total_lying_prob</code>. If several polygraph answers have a high estimated probability of deception, the suspect should appear more suspicious overall. We want one number that summarizes that pattern.</p>
-<hr/>
 <h4 id="Aggregation-Methods">Aggregation Methods<a class="anchor-link" href="#Aggregation-Methods">¶</a></h4><p>There are several ways to combine multiple values into one:</p>
 <table>
 <thead>
@@ -8209,8 +8275,6 @@ Total: 80
 </tr>
 </tbody>
 </table>
-<p><strong>For our case:</strong></p>
-<hr/>
 <h4 id="Example-Calculation">Example Calculation<a class="anchor-link" href="#Example-Calculation">¶</a></h4><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># A suspect's lying probabilities for 10 statements</span>
@@ -8219,11 +8283,20 @@ Total: 80
 <span class="c1"># Calculate average</span>
 <span class="n">average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>  <span class="c1"># Returns: 0.779</span>
 </pre></div>
-<p>We'll use the <strong>mean (average)</strong> of all lying probabilities. This produces a single value between 0 and 1 representing the average estimated probability of deception. In the cell below, finish <code>avg_lying_probs()</code> to calculate that value for each suspect.</p>
+<p>We will use the <strong>mean (average)</strong> of all lying probabilities. This produces a single value between 0 and 1 representing the average estimated probability of deception.</p>
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Complete <code>avg_lying_probs()</code> so that it:</p>
+<ol>
+<li>Retrieves the ten lying-probability values for one suspect.</li>
+<li>Computes their arithmetic mean.</li>
+<li>Returns the resulting value.</li>
+</ol>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/lab01/lying_probs.png"/>
 <figcaption style="text-align: center"><b>Evidence 7: Averaging polygraph lying probabilities.</b></figcaption>
 </div>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html"><code>numpy.mean()</code></a></li>
+</ul>
 <h3 id="Task-01-2:-Code-(0.5-pts.)">Task 01-2: Code (0.5 pts.)<a class="anchor-link" href="#Task-01-2:-Code-(0.5-pts.)">¶</a></h3>
 </div>
 </div>
@@ -8272,7 +8345,7 @@ Total: 80
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-01-2:-Expected-Output-(0.5-pts.)">Task 01-2: Expected Output (0.5 pts.)<a class="anchor-link" href="#Task-01-2:-Expected-Output-(0.5-pts.)">¶</a></h3><pre><code>Total lying probability (average) per suspect:
+<h3 id="Task-01-2:-Reference-Output-(0-pts.)">Task 01-2: Reference Output (0 pts.)<a class="anchor-link" href="#Task-01-2:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>Total lying probability (average) per suspect:
            suspect_name  total_lying_prob
 0           Clair Green             0.505
 3           Amelie Boom             0.540
@@ -8284,9 +8357,18 @@ Total: 80
 26  Alexander Nwanganga             0.783
 32      Annika Svensson             0.177
 37     Maureen Tremblay             0.537
-</code></pre>
-<h3 id="Task-01-3:-Description-(0-pts.)">Task 01-3: Description (0 pts.)<a class="anchor-link" href="#Task-01-3:-Description-(0-pts.)">¶</a></h3><h4 id="Prepare-Feature-Matrix-for-Machine-Learning">Prepare Feature Matrix for Machine Learning<a class="anchor-link" href="#Prepare-Feature-Matrix-for-Machine-Learning">¶</a></h4><p>Now that we've created our features, we need to convert the data into the format that our classification models can use.</p>
-<hr/>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-05">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-01-3:-Description-(0-pts.)">Task 01-3: Description (0 pts.)<a class="anchor-link" href="#Task-01-3:-Description-(0-pts.)">¶</a></h3><h4 id="Preparing-Feature-Matrices-for-Machine-Learning">Preparing Feature Matrices for Machine Learning<a class="anchor-link" href="#Preparing-Feature-Matrices-for-Machine-Learning">¶</a></h4><p>Now that we've created our features, we need to convert the data into the format that our classification models can use.</p>
 <h4 id="Scikit-learn's-Data-Format">Scikit-learn's Data Format<a class="anchor-link" href="#Scikit-learn's-Data-Format">¶</a></h4><p>Scikit-learn algorithms expect data in a consistent format:</p>
 <table>
 <thead>
@@ -8313,16 +8395,19 @@ Total: 80
 </tbody>
 </table>
 <ul>
-<li><strong>X</strong> is a 2D array where each row is one sample (suspect) and each column is one feature</li>
-<li><strong>y</strong> is a 1D array of labels (what we're trying to predict)</li>
+<li><strong><code>X</code></strong> is a 2D array where each row is one sample (suspect) and each column is one feature</li>
+<li><strong><code>y</code></strong> is a 1D array of labels (what we're trying to predict)</li>
 </ul>
-<hr/>
 <h4 id="Converting-DataFrame-to-NumPy-Array">Converting DataFrame to NumPy Array<a class="anchor-link" href="#Converting-DataFrame-to-NumPy-Array">¶</a></h4><div class="highlight"><pre><span></span><span class="c1"># Select specific columns and convert them to a NumPy array</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">'feature1'</span><span class="p">,</span> <span class="s1">'feature2'</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="c1"># Get labels</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'label_column'</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Create <code>X_train</code>, <code>y_train</code>, and <code>X_test</code> using the two engineered features in the same column order.</p>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_numpy.html"><code>DataFrame.to_numpy()</code></a></li>
+</ul>
 <h3 id="Task-01-3:-Code-(0-pts.)">Task 01-3: Code (0 pts.)<a class="anchor-link" href="#Task-01-3:-Code-(0-pts.)">¶</a></h3>
 </div>
 </div>
@@ -8348,33 +8433,42 @@ Total: 80
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-02">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-01-3:-Reference-Output-(0-pts.)">Task 01-3: Reference Output (0 pts.)<a class="anchor-link" href="#Task-01-3:-Reference-Output-(0-pts.)">¶</a></h3><blockquote>
+<p><strong>Note:</strong> No printed output is expected from this setup cell.*</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-cell-11">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Task-02:-Implement-kNN-to-Find-the-Suspects-(1.5-pts.)">Task 02: Implement kNN to Find the Suspects (1.5 pts.)<a class="anchor-link" href="#Task-02:-Implement-kNN-to-Find-the-Suspects-(1.5-pts.)">¶</a></h2><p>Unlike many machine-learning algorithms, k-Nearest Neighbors does not construct a
-model during training. It stores the labeled examples and performs the following
-steps for every new example:</p>
+<h2 id="Task-02:-Implement-kNN-to-Find-the-Suspects">Task 02: Implement kNN to Find the Suspects<a class="anchor-link" href="#Task-02:-Implement-kNN-to-Find-the-Suspects">¶</a></h2><p>Unlike many machine-learning algorithms, k-Nearest Neighbors does not construct a model during training. It stores the labeled examples and performs the following steps for every new example:</p>
 <ol>
 <li>Calculate the distance from the new example to every training example.</li>
 <li>Select the <code>k</code> training examples with the smallest distances.</li>
 <li>Collect those neighbors' labels.</li>
 <li>Predict the label that occurs most often.</li>
 </ol>
-<p>You will implement these steps yourself. <strong>Do not use scikit-learn's
-<code>KNeighborsClassifier</code> until Task 02-3</strong>, where it will serve as a reference
+<p>You will implement these steps yourself. <strong>Do not use scikit-learn's <code>KNeighborsClassifier</code> until Task 02-3</strong>, where it will serve as a reference
 implementation for checking your work.</p>
-<h3 id="Task-02-1:-Distance-and-Neighbor-Selection-(0.5-pts.)">Task 02-1: Distance and Neighbor Selection (0.5 pts.)<a class="anchor-link" href="#Task-02-1:-Distance-and-Neighbor-Selection-(0.5-pts.)">¶</a></h3><p>For two feature vectors (\mathbf{x}) and (\mathbf{z}), Euclidean distance is:</p>
+<h3 id="Task-02-1:-Description-(0-pts.)">Task 02-1: Description (0 pts.)<a class="anchor-link" href="#Task-02-1:-Description-(0-pts.)">¶</a></h3><h4 id="Distance-and-Neighbor-Selection">Distance and Neighbor Selection<a class="anchor-link" href="#Distance-and-Neighbor-Selection">¶</a></h4><p>For two feature vectors (\mathbf{x}) and (\mathbf{z}), Euclidean distance is:</p>
 <p>[
 d(\mathbf{x}, \mathbf{z}) = \sqrt{\sum_i (x_i-z_i)^2}
 ]</p>
-<p>Complete <code>euclidean_distance()</code> and <code>find_k_nearest_neighbors()</code> below. The latter
-should calculate one distance per training example and return the indices of the
+<p>Complete <code>euclidean_distance()</code> and <code>find_k_nearest_neighbors()</code> below. The latter should calculate one distance per training example, then return the indices of the
 <code>k</code> smallest distances. <code>np.argsort()</code> may be useful: it returns the indices that
 would arrange an array from smallest to largest.</p>
-<h4 id="NumPy-Tools-for-Calculating-Distance">NumPy Tools for Calculating Distance<a class="anchor-link" href="#NumPy-Tools-for-Calculating-Distance">¶</a></h4><p>NumPy performs arithmetic on arrays element by element:</p>
+<h4 id="Coding-Reference">Coding Reference<a class="anchor-link" href="#Coding-Reference">¶</a></h4><p>NumPy performs arithmetic on arrays element by element:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">point_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">])</span>
@@ -8394,8 +8488,8 @@ the indices let us retrieve the corresponding labels afterward:</p>
 <table>
 <thead>
 <tr>
-<th>Function argument</th>
-<th>Meaning</th>
+<th>Argument</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
@@ -8417,10 +8511,10 @@ the indices let us retrieve the corresponding labels afterward:</p>
 </tr>
 </tbody>
 </table>
-<ul>
-<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html"><code>np.sum()</code></a></li>
-<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html"><code>np.sqrt()</code></a></li>
-<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html"><code>np.argsort()</code></a></li>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html"><code>numpy.sum()</code></a></li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html"><code>numpy.sqrt()</code></a></li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html"><code>numpy.argsort()</code></a></li>
 </ul>
 <h3 id="Task-02-1:-Code-(0.5-pts.)">Task 02-1: Code (0.5 pts.)<a class="anchor-link" href="#Task-02-1:-Code-(0.5-pts.)">¶</a></h3>
 </div>
@@ -8471,11 +8565,21 @@ the indices let us retrieve the corresponding labels afterward:</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-02-1:-Expected-Output-(0.5-pts.)">Task 02-1: Expected Output (0.5 pts.)<a class="anchor-link" href="#Task-02-1:-Expected-Output-(0.5-pts.)">¶</a></h3><pre><code>Distance from the first training example to the first suspect: 1.0345
+<h3 id="Task-02-1:-Reference-Output-(0-pts.)">Task 02-1: Reference Output (0 pts.)<a class="anchor-link" href="#Task-02-1:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>Distance from the first training example to the first suspect: 1.0345
 Indices of the three nearest neighbors: [38, 12, 17]
 Labels of the three nearest neighbors: [0.0, 0.0, 1.0]
-</code></pre>
-<h3 id="Task-02-2:-Majority-Vote-and-Batch-Prediction-(0.5-pts.)">Task 02-2: Majority Vote and Batch Prediction (0.5 pts.)<a class="anchor-link" href="#Task-02-2:-Majority-Vote-and-Batch-Prediction-(0.5-pts.)">¶</a></h3><p>Now use the neighbor indices to make a prediction. <code>predict_one_knn()</code> should:</p>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-06">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-02-2:-Description-(0-pts.)">Task 02-2: Description (0 pts.)<a class="anchor-link" href="#Task-02-2:-Description-(0-pts.)">¶</a></h3><h4 id="Majority-Vote-and-Batch-Prediction">Majority Vote and Batch Prediction<a class="anchor-link" href="#Majority-Vote-and-Batch-Prediction">¶</a></h4><p>Now use the neighbor indices to make a prediction. <code>predict_one_knn()</code> should:</p>
 <ol>
 <li>Find the nearest neighbors.</li>
 <li>Retrieve their labels from <code>y_train</code>.</li>
@@ -8486,7 +8590,7 @@ Labels of the three nearest neighbors: [0.0, 0.0, 1.0]
 label with the largest count. Then complete <code>predict_knn()</code> so it calls your
 single-example function once for every row in <code>X_test</code>.</p>
 <p>We use odd values of <code>k</code> in this assignment, so the two classes cannot tie.</p>
-<h4 id="NumPy-Tools-for-Majority-Voting">NumPy Tools for Majority Voting<a class="anchor-link" href="#NumPy-Tools-for-Majority-Voting">¶</a></h4><p>Suppose the nearest-neighbor indices and the complete training labels are:</p>
+<h4 id="Coding-Reference">Coding Reference<a class="anchor-link" href="#Coding-Reference">¶</a></h4><p>Suppose the nearest-neighbor indices and the complete training labels are:</p>
 <div class="highlight"><pre><span></span><span class="n">neighbor_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="n">y_train_example</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
@@ -8514,8 +8618,8 @@ function repeatedly:</p>
 <table>
 <thead>
 <tr>
-<th>Function argument</th>
-<th>Meaning</th>
+<th>Argument</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
@@ -8541,9 +8645,9 @@ function repeatedly:</p>
 </tr>
 </tbody>
 </table>
-<ul>
-<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.bincount.html"><code>np.bincount()</code></a></li>
-<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html"><code>np.argmax()</code></a></li>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.bincount.html"><code>numpy.bincount()</code></a></li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html"><code>numpy.argmax()</code></a></li>
 </ul>
 <h3 id="Task-02-2:-Code-(0.5-pts.)">Task 02-2: Code (0.5 pts.)<a class="anchor-link" href="#Task-02-2:-Code-(0.5-pts.)">¶</a></h3>
 </div>
@@ -8595,7 +8699,7 @@ function repeatedly:</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-02-2:-Expected-Output-(0-pts.)">Task 02-2: Expected Output (0 pts.)<a class="anchor-link" href="#Task-02-2:-Expected-Output-(0-pts.)">¶</a></h3><pre><code>kNN (k=3) identified 6 suspects to investigate further:
+<h3 id="Task-02-2:-Reference-Output-(0-pts.)">Task 02-2: Reference Output (0 pts.)<a class="anchor-link" href="#Task-02-2:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>kNN (k=3) identified 6 suspects to investigate further:
            suspect_name  weapon_mentions  total_lying_prob  knn_prediction
 3           Amelie Boom                1             0.540             1.0
 9          Kaila Bryant                1             0.540             1.0
@@ -8603,10 +8707,29 @@ function repeatedly:</p>
 26  Alexander Nwanganga                6             0.783             1.0
 37     Maureen Tremblay                1             0.537             1.0
 76           Kaiwen Shi                4             0.779             1.0
-</code></pre>
-<h3 id="Story-Progression"><strong>Story Progression</strong><a class="anchor-link" href="#Story-Progression">¶</a></h3><p>Hmm—that's odd. Several of these suspects have alibis for the night of the murder; you know, for example, that Amelie was supporting the cheer squad at a basketball game that evening. Something must have gone wrong. You wonder whether a different value of <code>k</code> might affect the results. It may be worth trying several hyperparameters. A <strong>hyperparameter</strong> is a value you choose <strong>before</strong> training that affects how the model behaves. Unlike model parameters, which are learned from data, hyperparameters are selected by you.</p>
-<hr/>
-<h4 id="Examples-of-Hyperparameters">Examples of Hyperparameters<a class="anchor-link" href="#Examples-of-Hyperparameters">¶</a></h4><table>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-07">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Story-Progression"><em>Story Progression</em><a class="anchor-link" href="#Story-Progression">¶</a></h3><p>Hmm—that's odd. Several of these suspects have alibis for the night of the murder; you know, for example, that Amelie was supporting the cheer squad at a basketball game that evening. Something must have gone wrong. You wonder whether a different value of <code>k</code> might affect the results. It may be worth trying several hyperparameters. A <strong>hyperparameter</strong> is a value you choose <strong>before</strong> training that affects how the model behaves. Unlike model parameters, which are learned from data, hyperparameters are selected by you.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-08">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-02-3:-Description-(0-pts.)">Task 02-3: Description (0 pts.)<a class="anchor-link" href="#Task-02-3:-Description-(0-pts.)">¶</a></h3><h4 id="Hyperparameter-Selection">Hyperparameter Selection<a class="anchor-link" href="#Hyperparameter-Selection">¶</a></h4><h4 id="Hyperparameter-Examples">Hyperparameter Examples<a class="anchor-link" href="#Hyperparameter-Examples">¶</a></h4><table>
 <thead>
 <tr>
 <th>Algorithm</th>
@@ -8632,8 +8755,7 @@ function repeatedly:</p>
 </tr>
 </tbody>
 </table>
-<hr/>
-<h4 id="The-Effect-of-k-in-kNN">The Effect of k in kNN<a class="anchor-link" href="#The-Effect-of-k-in-kNN">¶</a></h4><ul>
+<h4 id="Effect-of-k-in-kNN">Effect of <code>k</code> in kNN<a class="anchor-link" href="#Effect-of-k-in-kNN">¶</a></h4><ul>
 <li><p><strong>Small k (e.g., 1 or 3)</strong>:</p>
 <ul>
 <li>More sensitive to local patterns</li>
@@ -8649,8 +8771,7 @@ function repeatedly:</p>
 </ul>
 </li>
 </ul>
-<hr/>
-<h3 id="Task-02-3:-Validate-Against-scikit-learn-and-Tune-k-(0.5-pts.)">Task 02-3: Validate Against scikit-learn and Tune k (0.5 pts.)<a class="anchor-link" href="#Task-02-3:-Validate-Against-scikit-learn-and-Tune-k-(0.5-pts.)">¶</a></h3><p>Before relying on a new algorithm implementation, it is important to compare it
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Before relying on a new algorithm implementation, it is important to compare it
 against a trusted reference. For each value in <code>[1, 3, 5, 7, 9]</code>:</p>
 <ol>
 <li>Generate predictions with your <code>predict_knn()</code> function.</li>
@@ -8658,7 +8779,7 @@ against a trusted reference. For each value in <code>[1, 3, 5, 7, 9]</code>:</p>
 <li>Generate its predictions and check whether the two arrays are identical.</li>
 <li>Print the suspects selected by your implementation.</li>
 </ol>
-<h4 id="Using-scikit-learn-as-a-Reference-Implementation">Using scikit-learn as a Reference Implementation<a class="anchor-link" href="#Using-scikit-learn-as-a-Reference-Implementation">¶</a></h4><p>Scikit-learn classifiers use a consistent three-step interface:</p>
+<h4 id="Coding-Reference">Coding Reference<a class="anchor-link" href="#Coding-Reference">¶</a></h4><p>Scikit-learn classifiers use a consistent three-step interface:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
 
 <span class="n">reference_model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -8668,8 +8789,8 @@ against a trusted reference. For each value in <code>[1, 3, 5, 7, 9]</code>:</p>
 <table>
 <thead>
 <tr>
-<th>Call or argument</th>
-<th>Meaning</th>
+<th>Call or Argument</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
@@ -8693,12 +8814,13 @@ against a trusted reference. For each value in <code>[1, 3, 5, 7, 9]</code>:</p>
 </table>
 <p>The reference model must receive the same feature arrays and value of <code>k</code> as your
 implementation; otherwise the comparison would not test equivalent algorithms.</p>
-<ul>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
 <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html"><code>KNeighborsClassifier</code></a></li>
-<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.array_equal.html"><code>np.array_equal()</code></a></li>
+<li><a href="https://numpy.org/doc/stable/reference/generated/numpy.array_equal.html"><code>numpy.array_equal()</code></a></li>
 </ul>
-<p>Every comparison should print <code>True</code>. If one does not, debug your implementation
-before continuing. The final three values of <code>k</code> should produce:</p>
+<blockquote>
+<p><strong>Important:</strong> Every comparison should print <code>True</code>. If one does not, debug your implementation before continuing. The final three values of <code>k</code> should produce:</p>
+</blockquote>
 <p><code>['Clair Green', 'William Theisen', 'Alexander Nwanganga', 'Quinn Hynes', 'Arda Kurama', 'Kaiwen Shi']</code></p>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/lab01/knn.png"/>
@@ -8749,12 +8871,22 @@ before continuing. The final three values of <code>k</code> should produce:</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-02-3:-Expected-Output-(0.5-pts.)">Task 02-3: Expected Output (0.5 pts.)<a class="anchor-link" href="#Task-02-3:-Expected-Output-(0.5-pts.)">¶</a></h3><pre><code>k=1: matches sklearn = True | 6 suspects - ['Amelie Boom', 'Kaila Bryant', 'William Theisen', 'Alexander Nwanganga', 'Maureen Tremblay', 'Kaiwen Shi']
+<h3 id="Task-02-3:-Reference-Output-(0-pts.)">Task 02-3: Reference Output (0 pts.)<a class="anchor-link" href="#Task-02-3:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>k=1: matches sklearn = True | 6 suspects - ['Amelie Boom', 'Kaila Bryant', 'William Theisen', 'Alexander Nwanganga', 'Maureen Tremblay', 'Kaiwen Shi']
 k=3: matches sklearn = True | 6 suspects - ['Amelie Boom', 'Kaila Bryant', 'William Theisen', 'Alexander Nwanganga', 'Maureen Tremblay', 'Kaiwen Shi']
 k=5: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'Alexander Nwanganga', 'Quinn Hynes', 'Arda Kurama', 'Kaiwen Shi']
 k=7: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'Alexander Nwanganga', 'Quinn Hynes', 'Arda Kurama', 'Kaiwen Shi']
 k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'Alexander Nwanganga', 'Quinn Hynes', 'Arda Kurama', 'Kaiwen Shi']
-</code></pre>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-09">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Story-Progression"><em>Story Progression</em><a class="anchor-link" href="#Story-Progression">¶</a></h3><p>The selected suspects change with <code>k</code>, which is a useful warning against trusting a single hyperparameter choice. You leave the changing names for the police to investigate cautiously, but three people appear in every result:</p>
 <ul>
 <li>Kaiwen Shi</li>
@@ -8762,25 +8894,13 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 <li>William Theisen</li>
 </ul>
 <p>These three must be <strong>especially</strong> suspicious. It may be worth paying one of them a visit on your own time...</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-cell-18">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The kNN model identifies the strongest leads, but that evidence alone is not enough to charge anyone. Investigators next compare each suspect's account of the evening with historical activity patterns associated with the six aliases.</p>
 <p>For <code>k=5</code>, <code>k=7</code>, and <code>k=9</code>, your implementation settles on the same six-person shortlist — the same number as the six unidentified guests at the estate. That stable result is a useful lead, but a polygraph score and a few weapon-related words cannot tell the police which suspect used which alias, much less prove who committed the murder.</p>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/homework02/estate.png"/>
 <figcaption style="text-align: center"><b>Evidence 9: A blueprint of the estate and the rooms described in the suspects' statements.</b></figcaption>
 </div>
-<blockquote>
 <p>Director Bryant has another source of evidence. The estate's historical records describe where each alias tended to spend time and what kinds of activities were associated with them during the evening of the party. The police have matching statements from most of the six suspects, but one record was never digitized: William Theisen still has the only paper copy of his statement. Collect that final sheet, preserve it with the exported evidence, and compare all six suspects' activity patterns against the known aliases.</p>
-</blockquote>
 </div>
 </div>
 </div>
@@ -8791,9 +8911,9 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Task-03:-Collect,-Load,-and-Combine-Structured-Statements-(0.5-pts.)">Task 03: Collect, Load, and Combine Structured Statements (0.5 pts.)<a class="anchor-link" href="#Task-03:-Collect,-Load,-and-Combine-Structured-Statements-(0.5-pts.)">¶</a></h2><h3 id="Task-03-1:-Description-(0-pts.)">Task 03-1: Description (0 pts.)<a class="anchor-link" href="#Task-03-1:-Description-(0-pts.)">¶</a></h3><p>The kNN results provide a shortlist, but the polygraph features do not explain what the suspects were doing during the evening. The police have provided historical alias activity samples and complete statements for five of the six suspects. One statement sheet is still missing.</p>
+<h2 id="Task-03:-Collect,-Load,-and-Combine-Structured-Statements">Task 03: Collect, Load, and Combine Structured Statements<a class="anchor-link" href="#Task-03:-Collect,-Load,-and-Combine-Structured-Statements">¶</a></h2><h3 id="Task-03-1:-Description-(0-pts.)">Task 03-1: Description (0 pts.)<a class="anchor-link" href="#Task-03-1:-Description-(0-pts.)">¶</a></h3><p>The kNN results provide a shortlist, but the polygraph features do not explain what the suspects were doing during the evening. The police have provided historical alias activity samples and complete statements for five of the six suspects. One statement sheet is still missing.</p>
 <p>Before completing this task, obtain the <strong>single statement sheet from Professor William Theisen during his office hours</strong>. You will convert its 20 observations into a small DataFrame and add it to the provided evidence.</p>
-<p>Use the CSV evidence files in <code>evidence/homework01/</code>:</p>
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Use the CSV evidence files in <code>evidence/homework01/</code>:</p>
 <ol>
 <li>Load <code>alias_statements.csv</code> into <code>alias_df</code> (2400 rows).</li>
 <li>Load <code>suspect_statements.csv</code> into <code>suspect_statements_df</code> (100 rows representing five suspects).</li>
@@ -8801,14 +8921,16 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 <li>Concatenate the collected statements with the provided statements to produce 120 rows representing all six suspects.</li>
 <li>Define the canonical suspect, alias, room, and weapon lists used by the feature-engineering code.</li>
 </ol>
-<h4 id="Combining-DataFrames-with-pd.concat()">Combining DataFrames with <code>pd.concat()</code><a class="anchor-link" href="#Combining-DataFrames-with-pd.concat()">¶</a></h4><p>When DataFrames have the same columns and should be stacked vertically, use <code>pd.concat()</code>:</p>
+<h4 id="Coding-Reference">Coding Reference<a class="anchor-link" href="#Coding-Reference">¶</a></h4><p>When DataFrames have the same columns and should be stacked vertically, use <code>pd.concat()</code>:</p>
 <div class="highlight"><pre><span></span><span class="n">combined_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_a</span><span class="p">,</span> <span class="n">df_b</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 <p><code>ignore_index=True</code> creates a clean row index after the records are combined.</p>
-<ul>
-<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html">pd.concat()</a></li>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html"><code>pandas.concat()</code></a></li>
 </ul>
-<p>When the collected sheet has been entered correctly, the cell should report 2,400 alias rows, 100 provided suspect rows, 20 collected William rows, and 120 combined suspect rows.</p>
+<blockquote>
+<p><strong>Check:</strong> When the collected sheet has been entered correctly, the cell reports 2,400 alias rows, 100 provided suspect rows, 20 collected William rows, and 120 combined suspect rows.</p>
+</blockquote>
 <h3 id="Task-03-1:-Code-(0.5-pts.)">Task 03-1: Code (0.5 pts.)<a class="anchor-link" href="#Task-03-1:-Code-(0.5-pts.)">¶</a></h3>
 </div>
 </div>
@@ -8873,6 +8995,22 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-03">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-03-1:-Reference-Output-(0-pts.)">Task 03-1: Reference Output (0 pts.)<a class="anchor-link" href="#Task-03-1:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>Alias statement rows: 2400
+Provided suspect statement rows: 100
+Collected William statement rows: 20
+Combined suspect statement rows: 120
+Suspects: ['Clair Green', 'William Theisen', 'Alexander Nwanganga', 'Quinn Hynes', 'Arda Kurama', 'Kaiwen Shi']
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-cell-21">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8890,12 +9028,13 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Task-04:-Decision-Trees-(1.5-pts.)">Task 04: Decision Trees (1.5 pts.)<a class="anchor-link" href="#Task-04:-Decision-Trees-(1.5-pts.)">¶</a></h2><h3 id="Task-04-1:-Description-(0-pts.)">Task 04-1: Description (0 pts.)<a class="anchor-link" href="#Task-04-1:-Description-(0-pts.)">¶</a></h3><h4 id="Feature-Engineering">Feature Engineering<a class="anchor-link" href="#Feature-Engineering">¶</a></h4><p>First, we need to convert the categorical evidence into numerical features. Two useful feature groups are the proportion of time a person spends in each room and whether their activities suggest any of the possible weapons.</p>
+<h2 id="Task-04:-Decision-Trees">Task 04: Decision Trees<a class="anchor-link" href="#Task-04:-Decision-Trees">¶</a></h2><h3 id="Task-04-1:-Description-(0-pts.)">Task 04-1: Description (0 pts.)<a class="anchor-link" href="#Task-04-1:-Description-(0-pts.)">¶</a></h3><h4 id="Feature-Engineering">Feature Engineering<a class="anchor-link" href="#Feature-Engineering">¶</a></h4><p>First, we need to convert the categorical evidence into numerical features. Two useful feature groups are the proportion of time a person spends in each room and whether their activities suggest any of the possible weapons.</p>
 <div class="thumbnail">
 <img alt="No description has been provided for this image" class="img-responsive" src="https://williamtheisen.com/nd-cse-30124-homeworks/imgs/homework02/extract_feature.jpg"/>
 <figcaption style="text-align: center"><b>Evidence 10: Converting categorical features to numerical ones.</b></figcaption>
 </div>
-<h2 id="In-the-cell-below,-finish-the-feature-engineering-function.">In the cell below, finish the feature-engineering function.<a class="anchor-link" href="#In-the-cell-below,-finish-the-feature-engineering-function.">¶</a></h2><h4 id="Counting-Values-with-Series.value_counts()">Counting Values with <code>Series.value_counts()</code><a class="anchor-link" href="#Counting-Values-with-Series.value_counts()">¶</a></h4><p>When you have a column of categorical data and want to count how many times each value appears, use <code>value_counts()</code>:</p>
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Complete <code>extract_features()</code> so that it returns the room-proportion and weapon-activity features defined in the starter code.</p>
+<h4 id="Coding-Reference:-Counting-Categorical-Values">Coding Reference: Counting Categorical Values<a class="anchor-link" href="#Coding-Reference:-Counting-Categorical-Values">¶</a></h4><p>When you have a column of categorical data and want to count how many times each value appears, use <code>value_counts()</code>:</p>
 <div class="highlight"><pre><span></span><span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'location'</span><span class="p">]</span>
 <span class="n">location_counts</span> <span class="o">=</span> <span class="n">locations</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="c1"># Returns a Series like:</span>
@@ -8908,11 +9047,7 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 <span class="n">location_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Study'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Returns: 8</span>
 <span class="n">location_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Pantry'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Returns: 0</span>
 </pre></div>
-<ul>
-<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html">Series.value_counts()</a></li>
-</ul>
-<hr/>
-<h4 id="Mapping-Values-with-Series.map()">Mapping Values with <code>Series.map()</code><a class="anchor-link" href="#Mapping-Values-with-Series.map()">¶</a></h4><p>When you want to convert every value in a column using a dictionary lookup, use <code>Series.map()</code>:</p>
+<h4 id="Coding-Reference:-Mapping-Categorical-Values">Coding Reference: Mapping Categorical Values<a class="anchor-link" href="#Coding-Reference:-Mapping-Categorical-Values">¶</a></h4><p>When you want to convert every value in a column using a dictionary lookup, use <code>Series.map()</code>:</p>
 <div class="highlight"><pre><span></span><span class="n">weapon_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Opening a safe'</span><span class="p">:</span> <span class="s1">'Firearm'</span><span class="p">,</span> <span class="s1">'Taking her dog for a walk'</span><span class="p">:</span> <span class="s1">'Rope'</span><span class="p">}</span>
 
 <span class="c1"># Map each activity to its weapon (unmapped activities become NaN)</span>
@@ -8925,9 +9060,12 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 <span class="c1"># Use .dropna() to remove NaN values</span>
 <span class="n">weapons_used</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>  <span class="c1"># Only keeps the successfully mapped values</span>
 </pre></div>
+<blockquote>
 <p><strong>Note:</strong> <code>.map()</code> is cleaner than writing a loop containing repeated dictionary-membership checks.</p>
-<ul>
-<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html">Series.map()</a></li>
+</blockquote>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"><code>Series.value_counts()</code></a></li>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html"><code>Series.map()</code></a></li>
 </ul>
 <h3 id="Task-04-1:-Code-(0.5-pts.)">Task 04-1: Code (0.5 pts.)<a class="anchor-link" href="#Task-04-1:-Code-(0.5-pts.)">¶</a></h3>
 </div>
@@ -8945,7 +9083,7 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 <span class="n">activity_weapon_mapping</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">'Inflating balloons'</span><span class="p">:</span> <span class="s1">'Gas'</span><span class="p">,</span>
     <span class="s1">'Ripping wippets'</span><span class="p">:</span> <span class="s1">'Gas'</span><span class="p">,</span>
-    <span class="c1"># <span class="todo-keyword">TODO</span>: Supply the third Gas activity.</span>
+    <span class="c1"># TODO: Supply the third Gas activity.</span>
 
     <span class="s1">'Whittling a stick'</span><span class="p">:</span> <span class="s1">'Knife'</span><span class="p">,</span>
     <span class="s1">'Peeling an orange'</span><span class="p">:</span> <span class="s1">'Knife'</span><span class="p">,</span>
@@ -8953,7 +9091,7 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 
     <span class="s1">'Tampering with drinks'</span><span class="p">:</span> <span class="s1">'Poison'</span><span class="p">,</span>
     <span class="s1">'Rinsing a glass carefully'</span><span class="p">:</span> <span class="s1">'Poison'</span><span class="p">,</span>
-    <span class="c1"># <span class="todo-keyword">TODO</span>: Supply the third Poison activity.</span>
+    <span class="c1"># TODO: Supply the third Poison activity.</span>
 
     <span class="s1">'Tying decorative knots'</span><span class="p">:</span> <span class="s1">'Rope'</span><span class="p">,</span>
     <span class="s1">'Raising a painting'</span><span class="p">:</span> <span class="s1">'Rope'</span><span class="p">,</span>
@@ -8965,7 +9103,7 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 
     <span class="s1">'Bragging about their Birkin'</span><span class="p">:</span> <span class="s1">'Bag'</span><span class="p">,</span>
     <span class="s1">'Complaining about TSA going through their purse'</span><span class="p">:</span> <span class="s1">'Bag'</span><span class="p">,</span>
-    <span class="c1"># <span class="todo-keyword">TODO</span>: Supply the third Bag activity.</span>
+    <span class="c1"># TODO: Supply the third Bag activity.</span>
 <span class="p">}</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">extract_features</span><span class="p">(</span><span class="n">statements_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -8998,6 +9136,19 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-04">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-04-1:-Reference-Output-(0-pts.)">Task 04-1: Reference Output (0 pts.)<a class="anchor-link" href="#Task-04-1:-Reference-Output-(0-pts.)">¶</a></h3><blockquote>
+<p><strong>Note:</strong> No printed output is expected when the feature-engineering function is defined.*</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-cell-23">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9005,20 +9156,19 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Task-04-2:-Description-(0-pts.)">Task 04-2: Description (0 pts.)<a class="anchor-link" href="#Task-04-2:-Description-(0-pts.)">¶</a></h3><h4 id="Preparing-Data-for-Classification">Preparing Data for Classification<a class="anchor-link" href="#Preparing-Data-for-Classification">¶</a></h4><p>Now that <code>extract_features()</code> produces numerical values, we can prepare the historical alias data for training and the suspect data for classification.</p>
-<p>To set up for our decision tree, let's store our data in two DataFrames:</p>
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Create the following two DataFrames:</p>
 <ul>
 <li><code>alias_features_df</code>: one row per alias sample, with columns for <code>alias_name</code>, <code>alias_sample_id</code>, plus all feature columns</li>
 <li><code>suspect_features_df</code>: one row per suspect, with columns for <code>suspect_name</code> plus all feature columns</li>
 </ul>
-<hr/>
-<h4 id="Splitting-and-Applying-with-df.groupby().apply()">Splitting and Applying with <code>df.groupby().apply()</code><a class="anchor-link" href="#Splitting-and-Applying-with-df.groupby().apply()">¶</a></h4><p>Earlier in this notebook, we used <code>df.apply(func, axis=1)</code> to run a function on <strong>each row</strong>. Here, we need to run a function on <strong>each group of rows</strong>. Each alias has 20 sample statements, and we want to extract features from each sample separately.</p>
+<h4 id="Coding-Reference">Coding Reference<a class="anchor-link" href="#Coding-Reference">¶</a></h4><p>Earlier in this notebook, we used <code>df.apply(func, axis=1)</code> to run a function on <strong>each row</strong>. Here, we need to run a function on <strong>each group of rows</strong>. Each alias has 20 sample statements, and we want to extract features from each sample separately.</p>
 <p><code>groupby()</code> splits a DataFrame into groups based on one or more columns, then <code>apply()</code> runs a function on each group:</p>
 <div class="highlight"><pre><span></span><span class="c1"># Group by alias_name and sample_id, then extract features from each group</span>
 <span class="n">alias_features_df</span> <span class="o">=</span> <span class="n">alias_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'alias_name'</span><span class="p">,</span> <span class="s1">'alias_sample_id'</span><span class="p">])</span> \
     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">extract_features</span><span class="p">(</span><span class="n">g</span><span class="p">)),</span> <span class="n">include_groups</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 </pre></div>
-<p>Breaking this down step-by-step:</p>
+<p>The chained operations have the following roles:</p>
 <table>
 <thead>
 <tr>
@@ -9053,9 +9203,9 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 </tr>
 </tbody>
 </table>
-<ul>
-<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html">df.groupby()</a></li>
-<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.GroupBy.apply.html">GroupBy.apply()</a></li>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"><code>DataFrame.groupby()</code></a></li>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.GroupBy.apply.html"><code>GroupBy.apply()</code></a></li>
 </ul>
 <h3 id="Task-04-2:-Code-(0-pts.)">Task 04-2: Code (0 pts.)<a class="anchor-link" href="#Task-04-2:-Code-(0-pts.)">¶</a></h3>
 </div>
@@ -9084,6 +9234,19 @@ k=9: matches sklearn = True | 6 suspects - ['Clair Green', 'William Theisen', 'A
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-05">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-04-2:-Reference-Output-(0-pts.)">Task 04-2: Reference Output (0 pts.)<a class="anchor-link" href="#Task-04-2:-Reference-Output-(0-pts.)">¶</a></h3><blockquote>
+<p><strong>Note:</strong> No printed output is expected when the feature DataFrames are constructed.*</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-cell-25">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9095,7 +9258,7 @@ decision tree on the historical aliases and apply it to the six suspects.</p>
 <p>Unlike kNN, you will use scikit-learn for the tree construction. The objective is
 to learn the library's model interface and connect its arguments to the tree
 concepts discussed in lecture.</p>
-<h4 id="Expected-Data-Shapes">Expected Data Shapes<a class="anchor-link" href="#Expected-Data-Shapes">¶</a></h4><p>Scikit-learn expects a two-dimensional feature matrix and a one-dimensional label
+<h4 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">¶</a></h4><p>Scikit-learn expects a two-dimensional feature matrix and a one-dimensional label
 array:</p>
 <table>
 <thead>
@@ -9128,7 +9291,7 @@ array:</p>
 <span class="n">X</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="n">feature_columns</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
-<h4 id="Creating-and-Training-the-Tree">Creating and Training the Tree<a class="anchor-link" href="#Creating-and-Training-the-Tree">¶</a></h4><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<h4 id="Coding-Reference">Coding Reference<a class="anchor-link" href="#Coding-Reference">¶</a></h4><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span>
     <span class="n">criterion</span><span class="o">=</span><span class="s1">'entropy'</span><span class="p">,</span>
@@ -9142,8 +9305,8 @@ array:</p>
 <table>
 <thead>
 <tr>
-<th>Argument or attribute</th>
-<th>Meaning</th>
+<th>Argument or Attribute</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
@@ -9180,9 +9343,9 @@ array:</p>
 <p>For example, if <code>model.classes_[2]</code> is <code>'Mr. Green'</code>, then column 2 of the
 probability matrix contains every suspect's estimated probability of matching
 Mr. Green.</p>
-<ul>
+<h4 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">¶</a></h4><ul>
 <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html"><code>DecisionTreeClassifier</code></a></li>
-<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier.predict_proba"><code>predict_proba()</code></a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier.predict_proba"><code>DecisionTreeClassifier.predict_proba()</code></a></li>
 </ul>
 <h3 id="Task-04-3:-Code-(0-pts.)">Task 04-3: Code (0 pts.)<a class="anchor-link" href="#Task-04-3:-Code-(0-pts.)">¶</a></h3>
 </div>
@@ -9241,7 +9404,7 @@ Mr. Green.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Task-04-3:-Expected-Output-(0.5-pts.)">Task 04-3: Expected Output (0.5 pts.)<a class="anchor-link" href="#Task-04-3:-Expected-Output-(0.5-pts.)">¶</a></h3><pre><code>Probability of Each Suspect Matching Each Alias:
+<h3 id="Task-04-3:-Reference-Output-(0-pts.)">Task 04-3: Reference Output (0 pts.)<a class="anchor-link" href="#Task-04-3:-Reference-Output-(0-pts.)">¶</a></h3><div class="highlight"><pre><span></span>Probability of Each Suspect Matching Each Alias:
 
 ['Colonel Mustard' 'Miss Scarlet' 'Mr. Green' 'Mrs. Peacock' 'Mrs. White' 'Professor Plum']
 Clair Green: ['0.0000', '0.0000', '0.0000', '1.0000', '0.0000', '0.0000']
@@ -9250,17 +9413,34 @@ Alexander Nwanganga: ['0.5000', '0.0000', '0.0000', '0.5000', '0.0000', '0.0000'
 Quinn Hynes: ['0.0000', '0.0000', '0.8636', '0.0000', '0.0455', '0.0909']
 Arda Kurama: ['0.0000', '0.9412', '0.0000', '0.0000', '0.0000', '0.0588']
 Kaiwen Shi: ['0.0000', '0.2000', '0.0000', '0.0000', '0.8000', '0.0000']
-</code></pre>
-<h3 id="Task-04-4:-Short-Answer-Questions-(0.5-pts.)">Task 04-4: Short Answer Questions (0.5 pts.)<a class="anchor-link" href="#Task-04-4:-Short-Answer-Questions-(0.5-pts.)">¶</a></h3><ol>
-<li><p>Why are we using criterion='entropy'? Explain what "entropy" means in this context and what the tree is maximizing at each split.</p>
-<ul>
-<li><code>[ANSWER]</code></li>
-</ul>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-00">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-04-4:-Description-(0-pts.)">Task 04-4: Description (0 pts.)<a class="anchor-link" href="#Task-04-4:-Description-(0-pts.)">¶</a></h3><h4 id="Decision-Tree-Short-Answer-Questions">Decision Tree Short Answer Questions<a class="anchor-link" href="#Decision-Tree-Short-Answer-Questions">¶</a></h4><p>Answer both questions in the written-response section below.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-01">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-04-4:-Written-Response-(0.5-pts.)">Task 04-4: Written Response (0.5 pts.)<a class="anchor-link" href="#Task-04-4:-Written-Response-(0.5-pts.)">¶</a></h3><ol>
+<li><p>Why are we using <code>criterion='entropy'</code>? Explain what "entropy" means in this context and what the tree is maximizing at each split.</p>
+<p><strong>Answer:</strong> <code>[ANSWER]</code></p>
 </li>
 <li><p>Do we need to scale or normalize our features for a decision tree? Why or why not?</p>
-<ul>
-<li><code>[ANSWER]</code></li>
-</ul>
+<p><strong>Answer:</strong> <code>[ANSWER]</code></p>
 </li>
 </ol>
 </div>
@@ -9273,11 +9453,23 @@ Kaiwen Shi: ['0.0000', '0.2000', '0.0000', '0.0000', '0.8000', '0.0000']
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<blockquote>
-<p>The activity evidence gives you a leading match: the Decision Tree assigns <strong>Quinn Hynes</strong> to <strong>Mr. Green</strong> with substantially greater confidence than any other alias. Combined with the earlier deduction that Mr. Green was in the pantry with the gas, Quinn is now the investigation's leading suspect.</p>
+<h3 id="Story-Progression"><em>Story Progression</em><a class="anchor-link" href="#Story-Progression">¶</a></h3><p>The activity evidence gives you a leading match: the Decision Tree assigns <strong>Quinn Hynes</strong> to <strong>Mr. Green</strong> with substantially greater confidence than any other alias. Combined with the earlier deduction that Mr. Green was in the pantry with the gas, Quinn is now the investigation's leading suspect.</p>
 <p>You call Detective Caulfield and explain what the models found. He is less impressed than you hoped. A polygraph-based nearest-neighbor classification and a decision-tree probability may justify further investigation, but they are not enough to charge anyone or obtain a warrant on their own. You submit the new report with Quinn's name at the top and begin looking for a more direct piece of evidence that can turn a statistical lead into a case.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-format-10">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Task-05:-Export-the-Completed-Notebook">Task 05: Export the Completed Notebook<a class="anchor-link" href="#Task-05:-Export-the-Completed-Notebook">¶</a></h2><h3 id="Task-05-1:-Description-(0-pts.)">Task 05-1: Description (0 pts.)<a class="anchor-link" href="#Task-05-1:-Description-(0-pts.)">¶</a></h3><h4 id="Export-the-Completed-Notebook">Export the Completed Notebook<a class="anchor-link" href="#Export-the-Completed-Notebook">¶</a></h4><p>Set <code>GENERATE = True</code> in the following cell and run it after completing the assignment. Colab will export the notebook as an HTML file for submission.</p>
+<blockquote>
+<p><strong>Important:</strong> Run all earlier cells in order before exporting so that your submitted HTML includes your answers and outputs.</p>
 </blockquote>
-<h2 id="Task-05:-Export-the-Completed-Notebook-(0-pts.)">Task 05: Export the Completed Notebook (0 pts.)<a class="anchor-link" href="#Task-05:-Export-the-Completed-Notebook-(0-pts.)">¶</a></h2><p>After completing the assignment, set <code>GENERATE = True</code> in the following cell and run it to export the notebook as HTML for submission.</p>
+<h3 id="Task-05-1:-Code-(0-pts.)">Task 05-1: Code (0 pts.)<a class="anchor-link" href="#Task-05-1:-Code-(0-pts.)">¶</a></h3>
 </div>
 </div>
 </div>
@@ -9315,6 +9507,17 @@ Kaiwen Shi: ['0.0000', '0.2000', '0.0000', '0.0000', '0.8000', '0.0000']
         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">"jupyter"</span><span class="p">,</span> <span class="s2">"nbconvert"</span><span class="p">,</span> <span class="s2">"--to"</span><span class="p">,</span> <span class="s2">"html"</span><span class="p">,</span> <span class="n">nb_fp</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=hw01-strict-06">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Task-05-1:-Reference-Output-(0-pts.)">Task 05-1: Reference Output (0 pts.)<a class="anchor-link" href="#Task-05-1:-Reference-Output-(0-pts.)">¶</a></h3><p>When <code>GENERATE = True</code>, Colab converts the completed notebook to HTML and begins downloading <code>homework01.html</code>.</p>
 </div>
 </div>
 </div>
