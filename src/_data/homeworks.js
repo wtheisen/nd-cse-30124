@@ -20,9 +20,10 @@ module.exports = async function() {
       assignmentName: `homework${numberStr}`,
       assignmentDisplay: a.name,
       link: a.link || '',
-      previewBase: num === 1
-        ? 'static/homeworks/homework01/homework01'
-        : ''
+      previewBase: {
+        1: 'static/homeworks/homework01/homework01',
+        2: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework02/homework02'
+      }[num] || ''
     });
   }
 
