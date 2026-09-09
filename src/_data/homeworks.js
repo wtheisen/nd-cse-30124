@@ -21,7 +21,7 @@ module.exports = async function() {
       assignmentDisplay: a.name,
       link: a.link || '',
       previewBase: {
-        1: 'static/homeworks/homework01/homework01',
+        1: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework01/homework01',
         2: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework02/homework02'
       }[num] || ''
     });
