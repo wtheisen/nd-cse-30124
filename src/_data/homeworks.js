@@ -19,10 +19,14 @@ module.exports = async function() {
       numberStr,
       assignmentName: `homework${numberStr}`,
       assignmentDisplay: a.name,
-      link: a.link || '',
+      // HW03's released student notebook supersedes the legacy Drive link.
+      link: num === 3
+        ? 'https://colab.research.google.com/github/wtheisen/nd-cse-30124-homeworks/blob/main/homeworks/homework03/homework03.ipynb#copy=true'
+        : a.link || '',
       previewBase: {
         1: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework01/homework01',
-        2: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework02/homework02'
+        2: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework02/homework02',
+        3: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework03/homework03'
       }[num] || ''
     });
   }
