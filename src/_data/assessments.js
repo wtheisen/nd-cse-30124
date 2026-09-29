@@ -16,10 +16,18 @@ module.exports = async function() {
         const title = `${isPractice ? 'Practice Packet' : 'Exam'} ${number}`;
         const slug = `${isPractice ? 'practice_packet' : 'exam'}_${number}`;
         if (pages.has(slug)) continue;
+        const link = byName.get(title.toLowerCase())?.link || '';
+        const document = link.match(/^https:\/\/docs\.google\.com\/document\/d\/([A-Za-z0-9_-]+)/);
+        const driveFile = link.match(/^https:\/\/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/);
         pages.set(slug, {
           title, slug, number, isPractice,
           date: day.date,
-          link: byName.get(title.toLowerCase())?.link || '',
+          link,
+          copyLink: isPractice && document
+            ? `https://docs.google.com/document/d/${document[1]}/copy` : '',
+          previewLink: document
+            ? `https://docs.google.com/document/d/${document[1]}/preview`
+            : driveFile ? `https://drive.google.com/file/d/${driveFile[1]}/preview` : '',
           solutionsLink: byName.get(`${title.toLowerCase()} solutions`)?.link || '',
           relatedSlug: `${isPractice ? 'exam' : 'practice_packet'}_${number}`,
           submissionLink: isPractice && number === '01'

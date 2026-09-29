@@ -25,7 +25,7 @@ navigation:
 
 {% if document_link %}
 <div class="alert alert-success">
-<a href="{{ document_link }}">OPEN NOTEBOOK IN GOOGLE COLAB</a>
+<a href="{{ document_link }}">{% if hw.opensCopy %}OPEN A COPY IN GOOGLE COLAB{% else %}OPEN NOTEBOOK{% endif %}</a>
 </div>
 {% endif %}
 

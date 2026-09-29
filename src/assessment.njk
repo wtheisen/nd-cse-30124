@@ -19,10 +19,22 @@ navigation:
 <h2>{% if assessment.isPractice %}Practice packet{% else %}Exam{% endif %}</h2>
 {% if assessment.link %}
 <div class="alert alert-success">
+  {% if assessment.copyLink %}
+  <a href="{{ assessment.copyLink }}">Make a copy of {{ assessment.title }}</a>
+  {% else %}
   <a href="{{ assessment.link }}">Open {{ assessment.title }}</a>
+  {% endif %}
 </div>
 {% else %}
 <p class="text-muted">{% if assessment.isPractice %}The practice packet{% else %}The exam document{% endif %} has not been posted yet.</p>
+{% endif %}
+
+{% if assessment.previewLink %}
+<h2>Document preview</h2>
+<p>Read the document below, or <a href="{{ assessment.link }}" target="_blank" rel="noopener">open the original in a new tab</a>.{% if assessment.copyLink %} Use the copy button above to work in your own document.{% endif %}</p>
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item course-embed" width="100%" height="800" src="{{ assessment.previewLink }}" title="{{ assessment.title }} preview" loading="lazy"></iframe>
+</div>
 {% endif %}
 
 {% if assessment.isPractice %}

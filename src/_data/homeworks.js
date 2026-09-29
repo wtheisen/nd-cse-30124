@@ -14,15 +14,25 @@ module.exports = async function() {
     const num = parseInt(match[1], 10);
     const numberStr = String(num).padStart(2, '0');
 
+    let link = num === 3
+      ? 'https://colab.research.google.com/github/wtheisen/nd-cse-30124-homeworks/blob/main/homeworks/homework03/homework03.ipynb'
+      : a.link || '';
+    const opensCopy = link.startsWith('https://colab.research.google.com/');
+    if (opensCopy) {
+      const url = new URL(link);
+      const fragment = new URLSearchParams(url.hash.slice(1));
+      fragment.set('copy', 'true');
+      url.hash = fragment.toString();
+      link = url.href;
+    }
+
     homeworks.push({
       number: num,
       numberStr,
       assignmentName: `homework${numberStr}`,
       assignmentDisplay: a.name,
-      // HW03's released student notebook supersedes the legacy Drive link.
-      link: num === 3
-        ? 'https://colab.research.google.com/github/wtheisen/nd-cse-30124-homeworks/blob/main/homeworks/homework03/homework03.ipynb#copy=true'
-        : a.link || '',
+      link,
+      opensCopy,
       previewBase: {
         1: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework01/homework01',
         2: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework02/homework02',
