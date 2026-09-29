@@ -17,6 +17,8 @@ module.exports = async function() {
     let link = num === 3
       ? 'https://colab.research.google.com/github/wtheisen/nd-cse-30124-homeworks/blob/main/homeworks/homework03/homework03.ipynb'
       : a.link || '';
+    const driveNotebook = link.match(/^https:\/\/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/);
+    if (driveNotebook) link = `https://colab.research.google.com/drive/${driveNotebook[1]}`;
     const opensCopy = link.startsWith('https://colab.research.google.com/');
     if (opensCopy) {
       const url = new URL(link);
