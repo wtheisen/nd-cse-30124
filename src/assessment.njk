@@ -1,0 +1,48 @@
+---
+pagination:
+  data: assessments
+  size: 1
+  alias: assessment
+permalink: "{{ assessment.slug }}.html"
+layout: base.njk
+eleventyComputed:
+  title: "{{ assessment.title }}"
+icon: fa-file-text-o
+navigation:
+  - name: "Home"
+    link: "index.html#schedule"
+    icon: "fa-calendar"
+---
+<p class="lead">{% if assessment.isPractice %}Prepare for Exam {{ assessment.number }} with the practice packet below.{% else %}Exam materials and solutions will be available here after the exam.{% endif %}</p>
+<p><strong>Scheduled date:</strong> {{ assessment.date }}. See Canvas for submission deadlines.</p>
+
+<h2>{% if assessment.isPractice %}Practice packet{% else %}Exam{% endif %}</h2>
+{% if assessment.link %}
+<div class="alert alert-success">
+  <a href="{{ assessment.link }}">Open {{ assessment.title }}</a>
+</div>
+{% else %}
+<p class="text-muted">{% if assessment.isPractice %}The practice packet{% else %}The exam document{% endif %} has not been posted yet.</p>
+{% endif %}
+
+{% if assessment.isPractice %}
+<h2>Submission</h2>
+{% if assessment.submissionLink %}
+<p>Upload your completed practice packet to Canvas. The submission page has the deadline and upload details.</p>
+<p><a class="btn btn-primary" href="{{ assessment.submissionLink }}">Submit {{ assessment.title }} on Canvas</a></p>
+{% else %}
+<p class="text-muted">The Canvas submission link will be added when available.</p>
+{% endif %}
+{% endif %}
+
+<h2 id="solutions">Solutions</h2>
+{% if assessment.solutionsLink %}
+<p>{% if assessment.isPractice %}Try the questions yourself before checking the solutions.{% else %}Use the solutions to review your work after the exam.{% endif %}</p>
+<div class="alert alert-info">
+  <a href="{{ assessment.solutionsLink }}">Open {{ assessment.title }} Solutions</a>
+</div>
+{% else %}
+<p class="text-muted">Solutions have not been posted yet.</p>
+{% endif %}
+
+<p><a href="{{ assessment.relatedSlug }}.html">{% if assessment.isPractice %}Exam{% else %}Practice Packet{% endif %} {{ assessment.number }}</a> &middot; <a href="index.html#schedule">Back to the course schedule</a></p>

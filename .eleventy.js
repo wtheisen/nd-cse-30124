@@ -586,6 +586,15 @@ module.exports = function(eleventyConfig) {
     return name.toLowerCase().split(' ').join('_');
   });
 
+  // Packets and released exam materials share a landing page with their solutions.
+  eleventyConfig.addFilter("assessmentPage", function(name) {
+    const match = String(name || '').trim().match(/^(Practice Packet|Exam)\s+(\d+)(\s+Solutions)?$/i);
+    if (!match) return '';
+    const kind = match[1].toLowerCase().replace(/ /g, '_');
+    const number = match[2].padStart(2, '0');
+    return `${kind}_${number}.html${match[3] ? '#solutions' : ''}`;
+  });
+
   // Get assignment label class based on type
   eleventyConfig.addFilter("assignmentLabel", function(assignmentId) {
     if (!assignmentId) return 'caution';

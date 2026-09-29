@@ -126,7 +126,10 @@
                                 {% set assignment_resource = assignments | findAssignmentByName(assignment) %}
                                 {% set is_lab_or_homework_or_reading = assignment_id | startswith('lab_') or assignment_id | startswith('homework_') or assignment_id | startswith('reading_') %}
 
-                                {% if assignment_resource and assignment_resource.link and not is_lab_or_homework_or_reading %}
+                                {% set assessment_page = assignment | assessmentPage %}
+                                {% if assessment_page %}
+                                    <a href="{{ assessment_page }}" class="label label-{{ assignment_label }}">{{ assignment }}</a>
+                                {% elif assignment_resource and assignment_resource.link and not is_lab_or_homework_or_reading %}
                                     {% set assignment_type = (assignment_resource.type if assignment_resource.type else '') | lower %}
                                     {% if assignment_label == 'caution' %}
                                         {% if 'exam' in assignment_type %}
