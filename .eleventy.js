@@ -588,7 +588,7 @@ module.exports = function(eleventyConfig) {
 
   // Packets and released exam materials share a landing page with their solutions.
   eleventyConfig.addFilter("assessmentPage", function(name) {
-    const match = String(name || '').trim().match(/^(Practice Packet|Exam)\s+(\d+)(\s+Solutions)?$/i);
+    const match = String(name || '').trim().match(/^(Practice Packet|Exam|Workbook)\s+(\d+)(\s+Solutions)?$/i);
     if (!match) return '';
     const kind = match[1].toLowerCase().replace(/ /g, '_');
     const number = match[2].padStart(2, '0');
@@ -602,6 +602,7 @@ module.exports = function(eleventyConfig) {
     if (id.includes('solutions')) return 'success';
     if (id.startsWith('reading')) return 'primary';
     if (id.includes('practice')) return 'success';
+    if (id.startsWith('workbook')) return 'success';
     if (id.includes('exam')) return 'danger';
     if (id.includes('primer')) return 'success';
     return 'caution';
