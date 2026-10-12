@@ -602,7 +602,7 @@ module.exports = function(eleventyConfig) {
     if (id.includes('solutions')) return 'success';
     if (id.startsWith('reading')) return 'primary';
     if (id.includes('practice')) return 'success';
-    if (id.startsWith('workbook')) return 'success';
+    if (id.startsWith('workbook')) return 'workbook';
     if (id.includes('exam')) return 'danger';
     if (id.includes('primer')) return 'success';
     return 'caution';

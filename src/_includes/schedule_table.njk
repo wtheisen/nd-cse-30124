@@ -26,6 +26,18 @@
 
         /* Row striping is handled by JS-applied classes in theme CSS */
 
+        html[data-theme] table.schedule a.label-workbook {
+            background-color: #674EA7;
+            color: #fff !important;
+        }
+
+        html[data-theme] table.schedule a.label-workbook:hover,
+        html[data-theme] table.schedule a.label-workbook:focus {
+            background-color: #674EA7;
+            text-decoration: underline;
+            filter: none;
+        }
+
         tr.resource-row ul {
             list-style-position: inside;
             padding-left: 0;
