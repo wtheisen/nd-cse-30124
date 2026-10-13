@@ -28,6 +28,10 @@ navigation:
 <p class="text-muted">The workbook has not been posted yet.</p>
 {% endif %}
 
+{% if assessment.number == '01' %}
+<p><a href="https://drive.google.com/file/d/1XsYSeFwkTfdY_QwsLwp1xJI67nDnRWl0/view?usp=drivesdk">Unit 01 Acronym Sheet (PDF)</a></p>
+{% endif %}
+
 {% if assessment.previewLink %}
 <h2>Preview</h2>
 <p>Browse the workbook below, or <a href="{{ assessment.link }}" target="_blank" rel="noopener">open the original in a new tab</a>.</p>
