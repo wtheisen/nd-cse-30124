@@ -116,6 +116,23 @@ function loadResourcesFromCSV(text) {
   return out;
 }
 
+// Extra resources kept in this repo (static/csv/resources-extra.csv, same columns as the sheet), listed first for their
+// lecture: links that come from elsewhere, like the Workbook PDFs the AI2AI book exports.
+function withExtras(out) {
+  const extraPath = path.join(process.cwd(), 'static', 'csv', 'resources-extra.csv');
+  try {
+    if (!fs.existsSync(extraPath)) return out;
+    const extra = loadResourcesFromCSV(fs.readFileSync(extraPath, 'utf8'));
+    for (const [k, items] of Object.entries(extra)) {
+      const have = out[k] || [];
+      out[k] = items.concat(have.filter(h => !items.some(i => i.link === h.link)));
+    }
+  } catch (err) {
+    console.error('Warning: Could not read resources-extra.csv:', err.message);
+  }
+  return out;
+}
+
 module.exports = async function() {
   // Read config.json for CSV URL
   const configPath = path.join(process.cwd(), 'config.json');
@@ -135,7 +152,7 @@ module.exports = async function() {
   try {
     if (fs.existsSync(localCsvPath)) {
       const csvText = fs.readFileSync(localCsvPath, 'utf8');
-      return loadResourcesFromCSV(csvText);
+      return withExtras(loadResourcesFromCSV(csvText));
     }
   } catch (err) {
     console.error('Warning: Could not read local resources.csv:', err.message);
@@ -145,12 +162,12 @@ module.exports = async function() {
   if (resourcesUrl) {
     try {
       const csvText = await fetchCSV(resourcesUrl);
-      return loadResourcesFromCSV(csvText);
+      return withExtras(loadResourcesFromCSV(csvText));
     } catch (err) {
       console.error('Warning: Could not fetch resources CSV:', err.message);
     }
   }
 
   console.warn('Warning: No resources data available');
-  return {};
+  return withExtras({});
 };
