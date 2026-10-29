@@ -37,7 +37,7 @@ module.exports = async function() {
       opensCopy,
       canvasLink: {
         4: 'https://canvas.nd.edu/courses/143676/assignments/478057',
-        6: ''  // Add the verified Canvas assignment URL when it exists.
+        6: 'https://canvas.nd.edu/courses/143676/assignments/508377'
       }[num] || '',
       previewBase: {
         1: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework01/homework01',
