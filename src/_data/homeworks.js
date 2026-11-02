@@ -14,7 +14,7 @@ module.exports = async function() {
     const num = parseInt(match[1], 10);
     const numberStr = String(num).padStart(2, '0');
 
-    let link = [3, 4, 6].includes(num)
+    let link = [3, 4, 6, 7].includes(num)
       ? `https://colab.research.google.com/github/wtheisen/nd-cse-30124-homeworks/blob/main/homeworks/homework${numberStr}/homework${numberStr}.ipynb`
       : a.link || '';
     const driveNotebook = link.match(/^https:\/\/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/);
@@ -37,14 +37,16 @@ module.exports = async function() {
       opensCopy,
       canvasLink: {
         4: 'https://canvas.nd.edu/courses/143676/assignments/478057',
-        6: 'https://canvas.nd.edu/courses/143676/assignments/508377'
+        6: 'https://canvas.nd.edu/courses/143676/assignments/508377',
+        7: 'https://canvas.nd.edu/courses/143676/assignments/508897'
       }[num] || '',
       previewBase: {
         1: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework01/homework01',
         2: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework02/homework02',
         3: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework03/homework03',
         4: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework04/homework04',
-        6: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework06/homework06'
+        6: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework06/homework06',
+        7: 'https://williamtheisen.com/nd-cse-30124-homeworks/homeworks/homework07/homework07'
       }[num] || ''
     });
   }
