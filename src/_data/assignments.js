@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const { parse } = require('csv-parse/sync');
+const fetchCsv = require('../../lib/fetchCsv.js');
+
+let cachedAssignments = null;
+let inFlightAssignments = null;
 
 /**
  * Load assignments from the Assignments tab CSV.
@@ -24,20 +28,6 @@ function toBool(s) {
   if (!s) return false;
   s = s.trim().toLowerCase();
   return ['1', 'true', 'yes', 'y', 'required'].includes(s);
-}
-
-async function fetchCSV(url) {
-  const response = await fetch(url, {
-    headers: { 'User-Agent': 'nd-cse-site-bot/1.0' }
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch CSV: ${response.status}`);
-  }
-  let text = await response.text();
-  if (text.charCodeAt(0) === 0xFEFF) {
-    text = text.slice(1);
-  }
-  return text;
 }
 
 function stripLeadingBlankLines(text) {
@@ -76,7 +66,7 @@ function loadAssignmentsFromCSV(text) {
   return out;
 }
 
-module.exports = async function() {
+async function loadAssignments() {
   const configPath = path.join(process.cwd(), 'config.json');
   let assignmentsUrl = '';
 
@@ -99,14 +89,32 @@ module.exports = async function() {
   }
 
   if (assignmentsUrl) {
-    try {
-      const csvText = await fetchCSV(assignmentsUrl);
-      return loadAssignmentsFromCSV(csvText);
-    } catch (err) {
-      console.error('Warning: Could not fetch assignments CSV:', err.message);
-    }
+    const csvText = await fetchCsv(assignmentsUrl);
+    return loadAssignmentsFromCSV(csvText);
   }
 
   console.warn('Warning: No assignments data available');
   return [];
+}
+
+// Homeworks, labs, readings and assessments all load this; fetch the sheet once per build.
+// A failed or empty fetch fails the build rather than publishing pages with no assignments.
+module.exports = async function() {
+  if (cachedAssignments) return cachedAssignments;
+
+  if (!inFlightAssignments) {
+    inFlightAssignments = loadAssignments()
+      .then(assignments => {
+        if (!assignments.length) {
+          throw new Error('Assignments data source returned no rows');
+        }
+        cachedAssignments = assignments;
+        return assignments;
+      })
+      .finally(() => {
+        inFlightAssignments = null;
+      });
+  }
+
+  return inFlightAssignments;
 };
