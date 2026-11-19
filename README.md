@@ -22,3 +22,5 @@ The shared templates apply these defaults to future assignments. Do not replace 
 Run `npm ci` and `npm run build`. Network access is needed to load the published course spreadsheets; check build output for fetch warnings. Generated files are written to `docs/`.
 
 Changes pushed to `main` build and deploy through `.github/workflows/build.yaml`. Verify the deployment succeeds and inspect the live result.
+
+Sheet downloads go through `lib/fetchCsv.js` (four attempts with timeouts). If a sheet still can't be loaded, or the schedule or Assignments tab comes back empty, the build fails and the live site stays as it was, rather than deploying a site with no schedule. Before deploying, `scripts/verify_build.sh` checks that the core pages and office hours rendered, that every page the home page links to was built, and that each released homework has its notebook link and a reachable preview. It needs no edits per release.

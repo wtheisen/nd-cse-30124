@@ -1,6 +1,7 @@
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItFootnote = require("markdown-it-footnote");
+const { lectureIdFor } = require("./lib/lectureId.js");
 
 module.exports = function(eleventyConfig) {
   // ===== MARKDOWN CONFIGURATION =====
@@ -469,17 +470,6 @@ module.exports = function(eleventyConfig) {
     return html;
   });
 
-  // Known aliases for topic-to-lecture-id mapping
-  const LECTURE_ALIASES = {
-    'syllabus, history of ai': 'introduction',
-    'intro to ai': 'introduction',
-    'logistic regression and gradient descent': 'logistic-regression',
-    'svms': 'support-vector-machines',
-    'feed-forward networks': 'feedforward-neural-networks',
-    'convolutional neural networks (cnns)': 'convolutional-neural-networks',
-    'llms and agentic llms': 'llms-and-agents',
-  };
-
   // Slugify function - convert string to URL-safe slug
   eleventyConfig.addFilter("slugify", function(s) {
     if (!s) return '';
@@ -502,14 +492,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // lecture_id_for - convert topic name to lecture ID
-  eleventyConfig.addFilter("lectureIdFor", function(topic) {
-    if (!topic) return '';
-    const key = topic.trim().toLowerCase();
-    const slug = LECTURE_ALIASES[key] || key
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
-    return slug ? `lec-${slug}` : '';
-  });
+  eleventyConfig.addFilter("lectureIdFor", lectureIdFor);
 
   // resources_for - get resources for a topic/lecture_id
   eleventyConfig.addFilter("resourcesFor", function(resourcesMap, topicOrId) {
@@ -522,11 +505,7 @@ module.exports = function(eleventyConfig) {
     }
 
     // Otherwise compute from topic text
-    const keyLower = key.toLowerCase();
-    const slug = LECTURE_ALIASES[keyLower] || keyLower
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
-    const lid = slug ? `lec-${slug}` : '';
+    const lid = lectureIdFor(key);
     return resourcesMap[lid] || [];
   });
 

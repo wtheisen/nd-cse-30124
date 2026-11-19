@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const { parse } = require('csv-parse/sync');
+const fetchCsv = require('../../lib/fetchCsv.js');
+const { lectureIdFor } = require('../../lib/lectureId.js');
 
 /**
  * Load resources from CSV URL or local file
@@ -25,21 +27,6 @@ function toBool(s) {
   if (!s) return false;
   s = s.trim().toLowerCase();
   return ['1', 'true', 'yes', 'y', 'required'].includes(s);
-}
-
-async function fetchCSV(url) {
-  const response = await fetch(url, {
-    headers: { 'User-Agent': 'nd-cse-site-bot/1.0' }
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch CSV: ${response.status}`);
-  }
-  let text = await response.text();
-  // Handle UTF-8 BOM
-  if (text.charCodeAt(0) === 0xFEFF) {
-    text = text.slice(1);
-  }
-  return text;
 }
 
 function loadResourcesFromCSV(text) {
@@ -133,6 +120,55 @@ function withExtras(out) {
   return out;
 }
 
+function dateKey(dateText) {
+  const match = String(dateText || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{2})$/);
+  if (!match) return null;
+  const [, month, day, shortYear] = match;
+  return Number(`20${shortYear}${month.padStart(2, '0')}${day.padStart(2, '0')}`);
+}
+
+function todayKey() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Indiana/Indianapolis',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return Number(`${values.year}${values.month}${values.day}`);
+}
+
+async function warnMissingCurrentLectureResources(resources) {
+  const schedule = await require('./schedule.js')();
+  const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'config.json'), 'utf8'));
+  const cancelledTopics = new Set(config.cancelled_days || []);
+  const missing = [];
+  const today = todayKey();
+
+  for (const section of schedule) {
+    for (const day of section.days || []) {
+      // Same rule the schedule table uses to find a lecture's resources (lib/lectureId.js),
+      // not the Schedules sheet's id column.
+      const lectureId = lectureIdFor(day.topics);
+      const scheduledDate = dateKey(day.source_date);
+      const isCoursework = /^(?:homework|lab)\b/i.test(day.topics || '');
+      const isCancelled = cancelledTopics.has(day.topics);
+
+      if (!lectureId || !scheduledDate || scheduledDate > today || isCoursework || isCancelled) continue;
+      if (!resources[lectureId]?.length) {
+        missing.push(`${day.source_date} ${day.topics} (${lectureId})`);
+      }
+    }
+  }
+
+  if (missing.length) {
+    console.warn(
+      `[11ty] Warning: Scheduled class resources are missing from the published export: ${missing.join('; ')}. ` +
+      'Continuing without resources for these topics. If resources are expected, check that each Lecture Topic List entry matches its sheet tab.'
+    );
+  }
+}
+
 module.exports = async function() {
   // Read config.json for CSV URL
   const configPath = path.join(process.cwd(), 'config.json');
@@ -152,20 +188,21 @@ module.exports = async function() {
   try {
     if (fs.existsSync(localCsvPath)) {
       const csvText = fs.readFileSync(localCsvPath, 'utf8');
-      return withExtras(loadResourcesFromCSV(csvText));
+      const resources = withExtras(loadResourcesFromCSV(csvText));
+      await warnMissingCurrentLectureResources(resources);
+      return resources;
     }
   } catch (err) {
     console.error('Warning: Could not read local resources.csv:', err.message);
   }
 
-  // Fetch from URL if available
+  // Fetch from URL if available. A failed fetch fails the build rather than
+  // publishing a site with every resource missing.
   if (resourcesUrl) {
-    try {
-      const csvText = await fetchCSV(resourcesUrl);
-      return withExtras(loadResourcesFromCSV(csvText));
-    } catch (err) {
-      console.error('Warning: Could not fetch resources CSV:', err.message);
-    }
+    const csvText = await fetchCsv(resourcesUrl);
+    const resources = withExtras(loadResourcesFromCSV(csvText));
+    await warnMissingCurrentLectureResources(resources);
+    return resources;
   }
 
   console.warn('Warning: No resources data available');
