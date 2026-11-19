@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { parse } = require('csv-parse/sync');
 const fetchCsv = require('../../lib/fetchCsv.js');
+const { lectureIdFor } = require('../../lib/lectureId.js');
 
 /**
  * Load resources from CSV URL or local file
@@ -146,14 +147,16 @@ async function warnMissingCurrentLectureResources(resources) {
 
   for (const section of schedule) {
     for (const day of section.days || []) {
-      const slug = day.topic_slug || '';
+      // Same rule the schedule table uses to find a lecture's resources (lib/lectureId.js),
+      // not the Schedules sheet's id column.
+      const lectureId = lectureIdFor(day.topics);
       const scheduledDate = dateKey(day.source_date);
-      const isCoursework = /^(?:homework|lab)-/i.test(slug);
+      const isCoursework = /^(?:homework|lab)\b/i.test(day.topics || '');
       const isCancelled = cancelledTopics.has(day.topics);
 
-      if (!slug || !scheduledDate || scheduledDate > today || isCoursework || isCancelled) continue;
-      if (!resources[`lec-${slug}`]?.length) {
-        missing.push(`${day.source_date} ${day.topics} (${slug})`);
+      if (!lectureId || !scheduledDate || scheduledDate > today || isCoursework || isCancelled) continue;
+      if (!resources[lectureId]?.length) {
+        missing.push(`${day.source_date} ${day.topics} (${lectureId})`);
       }
     }
   }
