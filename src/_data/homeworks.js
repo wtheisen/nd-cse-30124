@@ -6,8 +6,25 @@ module.exports = async function() {
   const assignmentsData = require('./assignments.js');
   const assignments = await assignmentsData();
 
+  // Every homework the schedule names gets a page (as in 10124), so a schedule link is never a 404.
+  // One without an Assignments row yet shows "Notebook link not yet available".
+  const schedule = await require('./schedule.js')();
+  const rows = [...assignments];
+  const hwNumber = s => { const m = (s || '').trim().match(/^Homework\s+(\d+)$/i); return m ? parseInt(m[1], 10) : null; };
+  const named = new Set(assignments.map(a => hwNumber(a.name)).filter(n => n !== null));
+  for (const section of schedule) {
+    for (const day of section.days || []) {
+      for (const item of [day.topics, ...(day.assignments || [])]) {
+        const num = hwNumber(item);
+        if (num === null || named.has(num)) continue;
+        named.add(num);
+        rows.push({ name: `Homework ${String(num).padStart(2, '0')}`, link: '' });
+      }
+    }
+  }
+
   const homeworks = [];
-  for (const a of assignments) {
+  for (const a of rows) {
     const match = (a.name || '').match(/^Homework\s+(\d+)$/i);
     if (!match) continue;
 
